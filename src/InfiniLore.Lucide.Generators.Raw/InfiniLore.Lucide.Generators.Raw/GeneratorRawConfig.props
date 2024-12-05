@@ -1,5 +1,0 @@
-<Project>
-    <PropertyGroup>
-        <MyCustomVariable>MyValue</MyCustomVariable>
-    </PropertyGroup>
-</Project>
