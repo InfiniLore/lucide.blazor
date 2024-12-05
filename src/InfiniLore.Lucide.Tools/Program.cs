@@ -22,10 +22,10 @@ internal static class Program {
                 })
                 .AddFromType<UpdateLucideStaticCommands>()
         );
-        
+
         ServiceProvider provider = serviceCollection.BuildServiceProvider();
-        
-        var argsParser =  provider.GetRequiredService<IArgsParser>();
+
+        var argsParser = provider.GetRequiredService<IArgsParser>();
         await argsParser.ParseAsyncLinear(args);
     }
 }

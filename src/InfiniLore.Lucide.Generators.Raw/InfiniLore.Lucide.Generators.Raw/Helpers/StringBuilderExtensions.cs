@@ -40,6 +40,5 @@ public static class StringBuilderExtensions {
         .AppendLine("// ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF")
         .AppendLine("// OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.")
         .AppendLine("//")
-        .AppendLine("// ---")
-    ;
+        .AppendLine("// ---");
 }

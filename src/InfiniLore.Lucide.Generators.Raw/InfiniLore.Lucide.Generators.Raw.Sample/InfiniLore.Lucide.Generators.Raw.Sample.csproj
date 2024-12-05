@@ -12,10 +12,14 @@
                           ReferenceOutputAssembly="false"/>
     </ItemGroup>
 
-
-    <ItemGroup>
+    <ItemGroup Label="Lucide Files">
         <AdditionalFiles Include="..\..\..\node_modules/lucide-static/icons/**/*.svg"
                          Link="Icons\%(RecursiveDir)%(FileName)%(Extension)"/>
+    </ItemGroup>
+
+    <ItemGroup Label="Packing">
+        <!-- Exclude additional files from NuGet package -->
+        <None Include="..\..\..\node_modules/lucide-static/icons/**/*.svg" Pack="false"/>
     </ItemGroup>
 
 </Project>

@@ -14,23 +14,23 @@ namespace InfiniLore.Lucide.Generators.Raw;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 [Generator(LanguageNames.CSharp)]
-public class LucideUnpackerGenerator : IIncrementalGenerator{
+public class LucideUnpackerGenerator : IIncrementalGenerator {
     private const string RegexIconSvgPath = @"lucide-static\\icons\\.*\.svg$";
 
     public void Initialize(IncrementalGeneratorInitializationContext context) {
         IncrementalValuesProvider<AdditionalText> files = context.AdditionalTextsProvider
             .Where(file => Regex.IsMatch(file.Path, RegexIconSvgPath));
-        
+
         IncrementalValueProvider<ImmutableArray<(string Name, string Svg)>> iconsProvider = files
             .Select((file, cancellationToken) => (
-                Name: Path.GetFileNameWithoutExtension(file.Path),
-                Svg: file.GetText(cancellationToken)?.ToString() ?? string.Empty
-            ))
+                    Name: Path.GetFileNameWithoutExtension(file.Path),
+                    Svg: file.GetText(cancellationToken)?.ToString() ?? string.Empty
+                ))
             .Collect();
-        
+
         context.RegisterSourceOutput(iconsProvider, CreateIconFiles);
     }
-    
+
     private static void CreateIconFiles(SourceProductionContext context, ImmutableArray<(string Name, string Svg)> data) {
         var builder = new StringBuilder();
         foreach ((string name, string svg) in data) {
@@ -46,7 +46,7 @@ public class LucideUnpackerGenerator : IIncrementalGenerator{
                 .Trim();
             string svgContentFlat = Regex.Replace(svgContent, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);
             string pascalName = name.ToPascalCase();
-            
+
             builder.WriteLucideLicense()
                 .AppendLine()
                 .AppendLine("// auto-generated")
@@ -58,29 +58,29 @@ public class LucideUnpackerGenerator : IIncrementalGenerator{
                 .AppendLine(normalSvg)
                 .AppendLine("\"\"\";")
                 .AppendLine();
-            
+
             builder.IndentLine(1, "public static string DirectImportNoComments => \"\"\"")
                 .AppendLine(noCommentSvg)
                 .AppendLine("\"\"\";")
                 .AppendLine();
-            
+
             builder.IndentLine(1, "public static string SvgContent => \"\"\"")
                 .AppendLine(svgContent)
                 .AppendLine("\"\"\";")
                 .AppendLine();
-            
+
             builder.IndentLine(1, $"public static string Flat => \"\"\"{noWhitespaceSvg}\"\"\";")
                 .AppendLine();
-            
+
             builder.IndentLine(1, $"public static string FlatNoComments => \"\"\"{noWhitespaceAndNoCommentSvg}\"\"\";")
                 .AppendLine();
-            
+
             builder.IndentLine(1, $"public static string FlatSvgContent => \"\"\"{svgContentFlat}\"\"\";")
                 .AppendLine();
-                
+
             builder.AppendLine("}")
                 .AppendLine();
-            
+
             context.AddSource($"{pascalName}.g.cs", builder.ToString());
             builder.Clear();
         }
