@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <RootNamespace>InfiniLore.Lucide.Generators.Raw.Sample</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators.Raw.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+    </ItemGroup>
+
+    
+    <ItemGroup>
+        <Content Include="..\..\..\node_modules/lucide-static/icons/**/*.svg">
+            <Link>Icons\%(RecursiveDir)%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+</Project>
