@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 using CliArgsParser;
+using InfiniLore.Lucide.Tools.Commands;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InfiniLore.Lucide.Tools;
@@ -19,12 +20,12 @@ internal static class Program {
                     Overridable = true,
                     GenerateShortNames = true
                 })
-                .AddFromType<HelloAtlas>()
+                .AddFromType<UpdateLucideStaticCommands>()
         );
         
         ServiceProvider provider = serviceCollection.BuildServiceProvider();
         
-        var cliParser =  provider.GetRequiredService<ICliParser>();
-        await cliParser.StartParsingAsync();
+        var argsParser =  provider.GetRequiredService<IArgsParser>();
+        await argsParser.ParseAsyncLinear(args);
     }
 }

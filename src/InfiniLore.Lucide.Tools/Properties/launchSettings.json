@@ -1,0 +1,8 @@
+﻿{
+  "profiles": {
+    "Update Lucide Static": {
+      "commandName": "Project",
+      "commandLineArgs": "update-lucide-static"
+    }
+  }
+}
