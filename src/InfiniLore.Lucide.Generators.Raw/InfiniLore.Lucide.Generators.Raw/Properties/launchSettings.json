@@ -3,7 +3,7 @@
   "profiles": {
     "DebugRoslynSourceGenerator": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "../InfiniLore.Lucide.Generators.Raw.Sample/InfiniLore.Lucide.Generators.Raw.Sample.csproj"
+      "targetProject": "../InfiniLore.Lucide.Generators/InfiniLore.Lucide.Generators.csproj"
     }
   }
 }

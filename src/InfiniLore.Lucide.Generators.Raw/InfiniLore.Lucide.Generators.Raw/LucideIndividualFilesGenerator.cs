@@ -4,7 +4,6 @@
 using InfiniLore.Lucide.Generators.Raw.Helpers;
 using Microsoft.CodeAnalysis;
 using System.Collections.Immutable;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -14,27 +13,16 @@ namespace InfiniLore.Lucide.Generators.Raw;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 [Generator(LanguageNames.CSharp)]
-public class LucideUnpackerGenerator : IIncrementalGenerator {
-    private const string RegexIconSvgPath = @"lucide-static\\icons\\.*\.svg$";
+public class LucideIndividualFilesGenerator : IIncrementalGenerator {
 
     public void Initialize(IncrementalGeneratorInitializationContext context) {
-        IncrementalValuesProvider<AdditionalText> files = context.AdditionalTextsProvider
-            .Where(file => Regex.IsMatch(file.Path, RegexIconSvgPath));
-
-        IncrementalValueProvider<ImmutableArray<(string Name, string Svg)>> iconsProvider = files
-            .Select((file, cancellationToken) => (
-                    Name: Path.GetFileNameWithoutExtension(file.Path),
-                    Svg: file.GetText(cancellationToken)?.ToString() ?? string.Empty
-                ))
-            .Collect();
-
-        context.RegisterSourceOutput(iconsProvider, CreateIconFiles);
+        context.RegisterSourceOutput(context.CollectLucideSvgFiles(), CreateIconFiles);
     }
 
-    private static void CreateIconFiles(SourceProductionContext context, ImmutableArray<(string Name, string Svg)> data) {
+    private static void CreateIconFiles(SourceProductionContext context, ImmutableArray<LucideSvgFile> data) {
         var builder = new StringBuilder();
-        foreach ((string name, string svg) in data) {
-            string normalSvg = svg.TrimEnd();
+        foreach ( LucideSvgFile lucideSvgFile in data) {
+            string normalSvg = lucideSvgFile.Svg.TrimEnd();
             string noCommentSvg = Regex.Replace(normalSvg, "<!--.*?-->(\r\n|\r|\n)?", string.Empty, RegexOptions.Compiled | RegexOptions.Multiline);
             string noWhitespaceSvg = Regex.Replace(normalSvg, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);
             string noWhitespaceAndNoCommentSvg = Regex.Replace(noCommentSvg, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);
@@ -45,43 +33,54 @@ public class LucideUnpackerGenerator : IIncrementalGenerator {
                 .Aggregate((a, b) => a + "\n" + b)
                 .Trim();
             string svgContentFlat = Regex.Replace(svgContent, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);
-            string pascalName = name.ToPascalCase();
 
             builder.WriteLucideLicense()
                 .AppendLine()
                 .AppendLine("// auto-generated")
                 .AppendLine()
-                .AppendLine("namespace InfiniLore.Lucide.Raw;")
-                .AppendLine($"public class {pascalName} {{");
+                .AppendLine("namespace InfiniLore.Lucide.Generators;")
+                .AppendLine($"public class {lucideSvgFile.PascalCaseName} : ILucideIconData {{");
 
-            builder.IndentLine(1, "public static string DirectImport => \"\"\"")
+            builder
+                .IndentLine(1, "public string DirectImport => _directImport;")
+                .IndentLine(1, "private static readonly string _directImport = \"\"\"")
                 .AppendLine(normalSvg)
                 .AppendLine("\"\"\";")
                 .AppendLine();
 
-            builder.IndentLine(1, "public static string DirectImportNoComments => \"\"\"")
+            builder
+                .IndentLine(1, "public string DirectImportNoComments => _directImportNoComments;")
+                .IndentLine(1, "private static readonly string _directImportNoComments = \"\"\"")
                 .AppendLine(noCommentSvg)
                 .AppendLine("\"\"\";")
                 .AppendLine();
 
-            builder.IndentLine(1, "public static string SvgContent => \"\"\"")
+            builder
+                .IndentLine(1, "public string SvgContent => _svgContent;")
+                .IndentLine(1, "private static readonly string _svgContent = \"\"\"")
                 .AppendLine(svgContent)
                 .AppendLine("\"\"\";")
                 .AppendLine();
 
-            builder.IndentLine(1, $"public static string Flat => \"\"\"{noWhitespaceSvg}\"\"\";")
+            builder
+                .IndentLine(1, "public string Flat => _flat;")
+                .IndentLine(1, $"private static readonly string _flat = \"\"\"{noWhitespaceSvg}\"\"\";")
                 .AppendLine();
 
-            builder.IndentLine(1, $"public static string FlatNoComments => \"\"\"{noWhitespaceAndNoCommentSvg}\"\"\";")
+            builder
+                .IndentLine(1, "public string FlatNoComments => _flatNoComments;")
+                .IndentLine(1, $"private static readonly string _flatNoComments = \"\"\"{noWhitespaceAndNoCommentSvg}\"\"\";")
                 .AppendLine();
 
-            builder.IndentLine(1, $"public static string FlatSvgContent => \"\"\"{svgContentFlat}\"\"\";")
+            builder
+                .IndentLine(1, "public string FlatSvgContent => _flatSvgContent;")
+                .IndentLine(1, $"public static string _flatSvgContent => \"\"\"{svgContentFlat}\"\"\";")
                 .AppendLine();
 
             builder.AppendLine("}")
                 .AppendLine();
 
-            context.AddSource($"{pascalName}.g.cs", builder.ToString());
+            context.AddSource($"{lucideSvgFile.PascalCaseName}.g.cs", builder.ToString());
             builder.Clear();
         }
     }

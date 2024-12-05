@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Generators.Raw", "src\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators.Raw.csproj", "{CE629BED-BFFB-4C72-B5B0-62882E90CD0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Generators.Raw.Sample", "src\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators.Raw.Sample\InfiniLore.Lucide.Generators.Raw.Sample.csproj", "{890440A6-BC1B-4AF3-B420-F4C1E900FD3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Generators", "src\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators\InfiniLore.Lucide.Generators.csproj", "{890440A6-BC1B-4AF3-B420-F4C1E900FD3C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Generators.Raw.Tests", "src\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators.Raw.Tests\InfiniLore.Lucide.Generators.Raw.Tests.csproj", "{251C874E-BF57-4F40-BEF8-400DC4EC13E6}"
 EndProject
@@ -1594,9 +1594,9 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CE629BED-BFFB-4C72-B5B0-62882E90CD0B} = {6D9930C4-8D0C-4F21-98E4-C62FF787941E}
-		{890440A6-BC1B-4AF3-B420-F4C1E900FD3C} = {C263AF12-5F3C-4AF6-9B2B-65BCE154F3A8}
 		{251C874E-BF57-4F40-BEF8-400DC4EC13E6} = {1ED22B93-228B-465A-ACCC-CB61199AA88E}
 		{6BCC66C4-2CBB-4BAB-83C9-F89937EE9A69} = {1AF99BA9-93C9-44AF-A10E-A8D6293C38F9}
 		{949D13CC-CB71-418F-B240-C371FA1B5281} = {B71EEA73-1F73-42D4-A341-EA13D8F95BF0}
+		{890440A6-BC1B-4AF3-B420-F4C1E900FD3C} = {6D9930C4-8D0C-4F21-98E4-C62FF787941E}
 	EndGlobalSection
 EndGlobal
