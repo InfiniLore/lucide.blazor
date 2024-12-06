@@ -1,7 +1,9 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-namespace InfiniLore.Lucide.Generators.Raw.Helpers;
+using InfiniLore.Lucide.Generators.Raw.Helpers;
+
+namespace InfiniLore.Lucide.Generators.Raw;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
@@ -9,7 +11,7 @@ namespace InfiniLore.Lucide.Generators.Raw.Helpers;
 public readonly struct LucideSvgFile(string name, string svg) {
     public string Name => name;
     public string PascalCaseName => name.ToPascalCase();
-    public string CamelCaseName => name.ToPascalCase();
+    public string CamelCaseName => name.ToCamelCase();
     
     public string Svg => svg;
 }
