@@ -1,0 +1,47 @@
+﻿name: Publish Packages
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # Match version tags like v1.0.0
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Setup Node.js for lucide-static
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*' # Use the latest LTS version of Node.js
+
+      # Step 3: Install npm dependencies
+      - name: Install npm dependencies
+        run: npm install
+
+      # Step 4: Setup .NET for building .NET projects
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.x'
+
+      # Step 5: Restore .NET project dependencies
+      - name: Restore .NET dependencies
+        run: dotnet restore InfiniLore.Lucide.sln
+
+      # Step 6: Build the .NET projects
+      - name: Build .NET projects
+        run: dotnet build InfiniLore.Lucide.sln --configuration Release --no-restore
+
+      # Step 7: Publish to NuGet
+      - name: Publish to NuGet
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          dotnet nuget push src/server/InfiniLore.Lucide/bin/Release/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json --skip-duplicate
+          dotnet nuget push src/server/InfiniLore.Lucide.Data/bin/Release/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json --skip-duplicate
+          dotnet nuget push src/server/InfiniLore.Lucide.Generators.Raw/bin/Release/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json --skip-duplicate
