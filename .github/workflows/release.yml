@@ -1,6 +1,7 @@
 ﻿name: Publish Packages
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - 'v*.*.*' # Match version tags like v1.0.0
@@ -25,22 +26,22 @@ jobs:
         
       - name: Debug node_modules location
         run: ls -lh ${{ github.workspace }}/node_modules/lucide-static/icons || echo "Icons directory not found!"
-
-      # Step 4: Setup .NET for building .NET projects
+        
+        # Step 4: Setup .NET for building .NET projects
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.x'
 
-      # Step 5: Restore .NET project dependencies
+      # Step 5: Restore NuGet packages
+      - name: Restore NuGet packages
+        run: dotnet restore InfiniLore.Lucide.sln
+
+      # Step 6: Build .NET projects
       - name: Build .NET projects (with NODE_PATH)
         run: |
           export NODE_PATH=${{ github.workspace }}/node_modules
           dotnet build InfiniLore.Lucide.sln --configuration Release --no-restore
-
-      # Step 6: Build the .NET projects
-      - name: Build .NET projects
-        run: dotnet build InfiniLore.Lucide.sln --configuration Release --no-restore
 
       # Step 7: Link node_modules to tests (ensures node_modules is available for test runtime)
       - name: Ensure node_modules path for tests
