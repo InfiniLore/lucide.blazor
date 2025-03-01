@@ -7,7 +7,7 @@
 
         <!-- Package metadata -->
         <PackageId>InfiniLore.Lucide.Data</PackageId>
-        <Version>0.2.477</Version>
+        <Version>0.3.477</Version>
         <Authors>Anna Sas</Authors>
         <Description>Use Lucide in your Blazor apps</Description>
         <PackageProjectUrl>https://github.com/InfiniLore/lucide.blazor</PackageProjectUrl>
@@ -47,7 +47,6 @@
     <ItemGroup Label="Packing">
         <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
         <None Include="$(PkgCodeOfChaos_GeneratorTools)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
-        <PackageReference Include="CodeOfChaos.GeneratorTools" Version="1.4.0" GeneratePathProperty="true" PrivateAssets="all" />
 
         <!-- Exclude additional files from NuGet package -->
         <None Include="..\..\..\node_modules/lucide-static/icons/**/*.svg" Pack="false" />

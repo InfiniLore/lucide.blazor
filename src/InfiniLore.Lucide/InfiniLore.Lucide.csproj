@@ -7,7 +7,7 @@
         
         <!-- Package metadata -->
         <PackageId>InfiniLore.Lucide.Generators.Raw</PackageId>
-        <Version>0.2.477</Version>
+        <Version>0.3.477</Version>
         <Authors>Anna Sas</Authors>
         <Description>Use Lucide in your Blazor apps</Description>
         <PackageProjectUrl>https://github.com/InfiniLore/lucide.blazor</PackageProjectUrl>
