@@ -22,7 +22,7 @@ public class LucideLookupDictionaryGenerator : IIncrementalGenerator {
 
         builder
             .AppendLine("using System.Collections.Generic;")
-            .AppendLine("namespace InfiniLore.Lucide.Generators;")
+            .AppendLine("namespace InfiniLore.Lucide.Data;")
             .AppendLine("public partial class LucideLookupDictionary {");
 
         builder.Indent(b => {
@@ -53,5 +53,4 @@ public class LucideLookupDictionaryGenerator : IIncrementalGenerator {
 
         context.AddSource("LucideLookupDictionary.g.cs", builder.ToString());
     }
-
 }

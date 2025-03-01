@@ -21,6 +21,7 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
             Console.WriteLine(failureString);
             return;
         }
+
         Console.WriteLine($"Lucide Latest version is {resultVersionNumber.AsSuccess.Value}");
 
         SuccessOrFailure<string, string> resultPackageJson = await TryUpdatePackageJson(resultVersionNumber.AsSuccess.Value, args);
@@ -28,6 +29,7 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
             Console.WriteLine(failureString2);
             // return; // We don't want to stop the update if the package.json update fails.
         }
+
         Console.WriteLine(resultPackageJson.AsSuccess.Value);
 
         SuccessOrFailure<string, string> resultNpmInstall = await RunNpmInstall(args);
@@ -35,6 +37,7 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
             Console.WriteLine(failureString3);
             return;
         }
+
         Console.WriteLine(resultNpmInstall.AsSuccess.Value);
     }
 
@@ -61,6 +64,7 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
             if (latestVersion == null) {
                 return new Failure<string>($"Could not find latest version of {packageName}");
             }
+
             return new Success<string>(latestVersion);
         }
         catch (Exception ex) {
@@ -74,6 +78,7 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
         if (!File.Exists(packageJsonPath)) {
             return new Failure<string>("package.json file not found.");
         }
+
         try {
             // Read the existing package.json file
             string packageJsonContent = await File.ReadAllTextAsync(packageJsonPath);

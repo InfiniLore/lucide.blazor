@@ -2,7 +2,6 @@
 @* Imports
 @* ------------------------------------------------------------------------------------------------------------------ *@
 @inherits ComponentBase
-@inject ILucideService LucideService
 
 @* ------------------------------------------------------------------------------------------------------------------ *@
 @* Html
@@ -15,13 +14,14 @@
      stroke="@Stroke"
      stroke-width="@StrokeWidth"
      stroke-linecap="@StrokeLineCap"
-     stroke-linejoin="@StrokeLineJoin" >
+     stroke-linejoin="@StrokeLineJoin">
     @_svgContent
 </svg>
 
 @* ------------------------------------------------------------------------------------------------------------------ *@
 @* Code
 @* ------------------------------------------------------------------------------------------------------------------ *@
+
 @code {
     [Parameter] public int Width { get; set; } = 24;
     [Parameter] public int Height { get; set; } = 24;
@@ -30,7 +30,7 @@
     [Parameter] public int StrokeWidth { get; set; } = 2;
     [Parameter] public string StrokeLineCap { get; set; } = "round";
     [Parameter] public string StrokeLineJoin { get; set; } = "round";
-    
-    [Parameter] public required string IconName {get;set;}
+
+    [Parameter] public required string IconName { get; set; }
     private MarkupString _svgContent => LucideService.GetIconContent(IconName);
 }

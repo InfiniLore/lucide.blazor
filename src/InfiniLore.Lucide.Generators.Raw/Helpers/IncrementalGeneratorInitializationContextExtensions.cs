@@ -7,7 +7,6 @@ using System.IO;
 using System.Text.RegularExpressions;
 
 namespace InfiniLore.Lucide.Generators.Raw.Helpers;
-
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
@@ -21,12 +20,10 @@ public static class IncrementalGeneratorInitializationContextExtensions {
 
         return files
             .Select((file, cancellationToken) => new LucideSvgFile(
-                Name: Path.GetFileNameWithoutExtension(file.Path),
-                Svg: file.GetText(cancellationToken)?.ToString() ?? string.Empty
+                Path.GetFileNameWithoutExtension(file.Path),
+                file.GetText(cancellationToken)?.ToString() ?? string.Empty
             ));
     }
-    
-    public static IncrementalValueProvider<ImmutableArray<LucideSvgFile>> CollectLucideSvgFiles(this IncrementalGeneratorInitializationContext context) {
-        return context.SelectLucideSvgFiles().Collect();
-    }
+
+    public static IncrementalValueProvider<ImmutableArray<LucideSvgFile>> CollectLucideSvgFiles(this IncrementalGeneratorInitializationContext context) => context.SelectLucideSvgFiles().Collect();
 }

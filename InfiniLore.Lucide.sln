@@ -2,9 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Generators.Raw", "src\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators.Raw.csproj", "{CE629BED-BFFB-4C72-B5B0-62882E90CD0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Generators", "src\InfiniLore.Lucide.Generators\InfiniLore.Lucide.Generators.csproj", "{890440A6-BC1B-4AF3-B420-F4C1E900FD3C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Generators.Raw.Tests", "src\InfiniLore.Lucide.Generators.Raw.Tests\InfiniLore.Lucide.Generators.Raw.Tests.csproj", "{251C874E-BF57-4F40-BEF8-400DC4EC13E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Data", "src\InfiniLore.Lucide.Data\InfiniLore.Lucide.Data.csproj", "{890440A6-BC1B-4AF3-B420-F4C1E900FD3C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6D9930C4-8D0C-4F21-98E4-C62FF787941E}"
 EndProject
@@ -1571,6 +1569,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{B71EEA73
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide", "src\InfiniLore.Lucide\InfiniLore.Lucide.csproj", "{D29827FC-F0A3-4D7F-88BA-57281A77A066}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LucideExample", "examples\LucideExample\LucideExample.csproj", "{12C0FAC8-BD5D-4464-BB93-4014D25999F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1585,10 +1585,6 @@ Global
 		{890440A6-BC1B-4AF3-B420-F4C1E900FD3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{890440A6-BC1B-4AF3-B420-F4C1E900FD3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{890440A6-BC1B-4AF3-B420-F4C1E900FD3C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{251C874E-BF57-4F40-BEF8-400DC4EC13E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{251C874E-BF57-4F40-BEF8-400DC4EC13E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{251C874E-BF57-4F40-BEF8-400DC4EC13E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{251C874E-BF57-4F40-BEF8-400DC4EC13E6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{949D13CC-CB71-418F-B240-C371FA1B5281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{949D13CC-CB71-418F-B240-C371FA1B5281}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{949D13CC-CB71-418F-B240-C371FA1B5281}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -1597,13 +1593,17 @@ Global
 		{D29827FC-F0A3-4D7F-88BA-57281A77A066}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D29827FC-F0A3-4D7F-88BA-57281A77A066}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D29827FC-F0A3-4D7F-88BA-57281A77A066}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12C0FAC8-BD5D-4464-BB93-4014D25999F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12C0FAC8-BD5D-4464-BB93-4014D25999F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12C0FAC8-BD5D-4464-BB93-4014D25999F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12C0FAC8-BD5D-4464-BB93-4014D25999F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CE629BED-BFFB-4C72-B5B0-62882E90CD0B} = {6D9930C4-8D0C-4F21-98E4-C62FF787941E}
-		{251C874E-BF57-4F40-BEF8-400DC4EC13E6} = {1ED22B93-228B-465A-ACCC-CB61199AA88E}
 		{6BCC66C4-2CBB-4BAB-83C9-F89937EE9A69} = {1AF99BA9-93C9-44AF-A10E-A8D6293C38F9}
 		{949D13CC-CB71-418F-B240-C371FA1B5281} = {B71EEA73-1F73-42D4-A341-EA13D8F95BF0}
 		{890440A6-BC1B-4AF3-B420-F4C1E900FD3C} = {6D9930C4-8D0C-4F21-98E4-C62FF787941E}
 		{D29827FC-F0A3-4D7F-88BA-57281A77A066} = {6D9930C4-8D0C-4F21-98E4-C62FF787941E}
+		{12C0FAC8-BD5D-4464-BB93-4014D25999F4} = {C263AF12-5F3C-4AF6-9B2B-65BCE154F3A8}
 	EndGlobalSection
 EndGlobal

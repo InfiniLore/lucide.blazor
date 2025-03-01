@@ -23,7 +23,7 @@ internal static class Program {
         //      Code is the true saviour
         string projects = string.Join(";",
             "InfiniLore.Lucide",
-            "InfiniLore.Lucide.Generators",
+            "InfiniLore.Lucide.Data",
             "InfiniLore.Lucide.Generators.Raw"
         );
 

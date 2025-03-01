@@ -21,7 +21,7 @@ public class LucideIndividualFilesGenerator : IIncrementalGenerator {
 
     private static void CreateIconFiles(SourceProductionContext context, ImmutableArray<LucideSvgFile> data) {
         var builder = new GeneratorStringBuilder();
-        foreach ( LucideSvgFile lucideSvgFile in data) {
+        foreach (LucideSvgFile lucideSvgFile in data) {
             string normalSvg = lucideSvgFile.Svg.TrimEnd();
             string noCommentSvg = Regex.Replace(normalSvg, "<!--.*?-->(\r\n|\r|\n)?", string.Empty, RegexOptions.Compiled | RegexOptions.Multiline);
             string noWhitespaceSvg = Regex.Replace(normalSvg, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);
@@ -38,7 +38,7 @@ public class LucideIndividualFilesGenerator : IIncrementalGenerator {
                 .AppendLine()
                 .AppendLine("// auto-generated")
                 .AppendLine()
-                .AppendLine("namespace InfiniLore.Lucide.Generators;")
+                .AppendLine("namespace InfiniLore.Lucide.Data;")
                 .AppendLine($"public class {lucideSvgFile.PascalCaseName} : ILucideIconData {{");
 
             builder.AppendLineIndented("public string DirectImport => _directImport;")
@@ -47,7 +47,7 @@ public class LucideIndividualFilesGenerator : IIncrementalGenerator {
                 .AppendLine("\"\"\";")
                 .AppendLine();
 
-            
+
             builder
                 .AppendLineIndented("public string DirectImportNoComments => _directImportNoComments;")
                 .AppendLineIndented("private static readonly string _directImportNoComments = \"\"\"")
