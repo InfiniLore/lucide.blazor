@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
@@ -29,22 +29,19 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.2"/>
-        <PackageReference Include="CodeOfChaos.GeneratorTools" Version="1.4.1" Pack="false" GeneratePathProperty="true" PrivateAssets="all"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.2" />
+        <PackageReference Include="CodeOfChaos.GeneratorTools" Version="1.4.1" Pack="false" GeneratePathProperty="true" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\InfiniLore.Lucide.Data\InfiniLore.Lucide.Data.csproj"/>
-        <ProjectReference Include="..\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators.Raw\.csproj"
-                          OutputItemType="Analyzer"
-                          ReferenceOutputAssembly="false"
-        />
+        <ProjectReference Include="..\InfiniLore.Lucide.Data\InfiniLore.Lucide.Data.csproj" />
+        <ProjectReference Include="..\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators.Raw\.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     </ItemGroup>
 
     <ItemGroup Label="Packing">
         <!-- Exclude additional files from NuGet package -->
-        <None Include="..\..\..\node_modules/lucide-static/icons/**/*.svg" Pack="false"/>
-        <Analyzer Include="$(PkgCodeOfChaos_GeneratorTools)\lib\netstandard2.0\*.dll" Pack="false"/>
+        <None Include="..\..\..\node_modules/lucide-static/icons/**/*.svg" Pack="false" />
+        <Analyzer Include="$(PkgCodeOfChaos_GeneratorTools)\lib\netstandard2.0\*.dll" Pack="false" />
     </ItemGroup>
 
 </Project>
