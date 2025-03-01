@@ -8,7 +8,7 @@
 
         <!-- Package metadata -->
         <PackageId>InfiniLore.Lucide.Data</PackageId>
-        <Version>0.7.477</Version>
+        <Version>0.8.477</Version>
         <Authors>Anna Sas</Authors>
         <Description>Use Lucide in your Blazor apps</Description>
         <PackageProjectUrl>https://github.com/InfiniLore/lucide.blazor</PackageProjectUrl>
@@ -34,9 +34,9 @@
     </ItemGroup>
 
     <ItemGroup Label="Lucide Files">
-        <AdditionalFiles Include="..\..\node_modules/lucide-static/icons/**/*.svg" Link="Icons\%(RecursiveDir)%(FileName)%(Extension)" />
+        <!-- Adjusted to ensure paths resolve dynamically -->
+        <AdditionalFiles Include="$(SolutionDir)node_modules/lucide-static/icons/**/*.svg" Link="Icons\%(RecursiveDir)%(FileName)%(Extension)" Condition="Exists('$(SolutionDir)node_modules/lucide-static/icons')" />
     </ItemGroup>
-
     <!-- Package dependencies -->
     <ItemGroup>
         <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" PrivateAssets="all" />
