@@ -41,20 +41,25 @@ jobs:
       - name: Build .NET projects (with NODE_PATH)
         run: |
           export NODE_PATH=${{ github.workspace }}/node_modules
+          echo "NODE_PATH=${{ github.workspace }}/node_modules" >> $GITHUB_ENV
           dotnet build InfiniLore.Lucide.sln --configuration Release --no-restore
-
-      # Step 7: Link node_modules to tests (ensures node_modules is available for test runtime)
+      
+      
+        # Step 7: Link node_modules to tests (ensures node_modules is available for test runtime)
       - name: Ensure node_modules path for tests
         run: echo "NODE_PATH=${{ github.workspace }}/node_modules" >> $GITHUB_ENV
 
       # Step 8: Run tests
       ## NOTE: Ensure tests can access node_modules safely and verify SVG path exists
+      # Step 8: Run tests
       - name: Run tests - Tests.InfiniLore.Lucide
         run: |
           ls -lh node_modules/lucide-static/icons || echo "Icons directory not found!"
+          export NODE_PATH=${{ github.workspace }}/node_modules
           dotnet run -c Release --no-restore --no-build --framework net9.0
         working-directory: "tests/Tests.InfiniLore.Lucide"
-
+      
+      
       # Step 9: Publish to NuGet
       - name: Publish to NuGet
         env:
