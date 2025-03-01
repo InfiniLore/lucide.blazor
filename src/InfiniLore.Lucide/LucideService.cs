@@ -20,6 +20,7 @@ public static class LucideService {
     // ----------------------------------------------------------------------------------------------------------------
     public static MarkupString GetIconContent(string iconName) {
         if (string.IsNullOrWhiteSpace(iconName)) return new MarkupString(string.Empty);
+        if (LucideLookupDictionary.IconsByLucideName.TryGetValue(iconName, out ILucideIconData? lucideIcon)) return new MarkupString(lucideIcon.SvgContent);
 
         // ReSharper disable once ForCanBeConvertedToForeach
         for (int index = 0; index < LookupSources.Length; index++) {
