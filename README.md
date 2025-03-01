@@ -50,16 +50,16 @@ To include an icon in your Blazor application, use the `LucideSvg` component:
 #### Parameters
 Below are the parameters you can configure for the `LucideSvg` component:
 
-| Parameter          | Type    | Default       | Description                                    |
-|--------------------|---------|---------------|------------------------------------------------|
-| `IconName`         | string  | **Required**  | Name of the icon (case sensitive).             |
-| `Width`            | int     | `24`          | Width of the icon.                             |
-| `Height`           | int     | `24`          | Height of the icon.                            |
-| `Fill`             | string  | `"none"`      | Fill color of the icon.                        |
-| `Stroke`           | string  | `"currentColor"` | Stroke color of the icon.                   |
-| `StrokeWidth`      | int     | `2`           | Stroke width of the icon.                      |
-| `StrokeLineCap`    | string  | `"round"`     | Shape of the ends of lines (`butt`, `round`).  |
-| `StrokeLineJoin`   | string  | `"round"`     | Style of corners (`miter`, `round`, `bevel`).  |
+| Parameter        | Type   | Default          | Description                                   |
+|------------------|--------|------------------|-----------------------------------------------|
+| `IconName`       | string | **Required**     | Name of the icon (case sensitive).            |
+| `Width`          | int    | `24`             | Width of the icon.                            |
+| `Height`         | int    | `24`             | Height of the icon.                           |
+| `Fill`           | string | `"none"`         | Fill color of the icon.                       |
+| `Stroke`         | string | `"currentColor"` | Stroke color of the icon.                     |
+| `StrokeWidth`    | int    | `2`              | Stroke width of the icon.                     |
+| `StrokeLineCap`  | string | `"round"`        | Shape of the ends of lines (`butt`, `round`). |
+| `StrokeLineJoin` | string | `"round"`        | Style of corners (`miter`, `round`, `bevel`). |
 
 ---
 
