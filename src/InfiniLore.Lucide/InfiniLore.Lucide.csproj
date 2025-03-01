@@ -7,7 +7,7 @@
         
         <!-- Package metadata -->
         <PackageId>InfiniLore.Lucide.Generators.Raw</PackageId>
-        <Version>0.1.477</Version>
+        <Version>0.2.477</Version>
         <Authors>Anna Sas</Authors>
         <Description>Use Lucide in your Blazor apps</Description>
         <PackageProjectUrl>https://github.com/InfiniLore/lucide.blazor</PackageProjectUrl>
@@ -35,13 +35,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\InfiniLore.Lucide.Data\InfiniLore.Lucide.Data.csproj" />
-        <ProjectReference Include="..\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators.Raw\.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    </ItemGroup>
-
-    <ItemGroup Label="Packing">
-        <!-- Exclude additional files from NuGet package -->
-        <None Include="..\..\..\node_modules/lucide-static/icons/**/*.svg" Pack="false" />
-        <Analyzer Include="$(PkgCodeOfChaos_GeneratorTools)\lib\netstandard2.0\*.dll" Pack="false" />
     </ItemGroup>
 
 </Project>
