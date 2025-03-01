@@ -1,4 +1,11 @@
-﻿jobs:
+﻿name: Publish Packages
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # Match version tags like v1.0.0
+
+jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
