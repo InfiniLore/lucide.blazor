@@ -7,7 +7,6 @@
 @* Html
 @* ------------------------------------------------------------------------------------------------------------------ *@
 <svg xmlns="http://www.w3.org/2000/svg"
-     class="@Class"
      width="@Width"
      height="@Height"
      viewBox="0 0 24 24"
@@ -15,7 +14,8 @@
      stroke="@Stroke"
      stroke-width="@StrokeWidth"
      stroke-linecap="@StrokeLineCap"
-     stroke-linejoin="@StrokeLineJoin">
+     stroke-linejoin="@StrokeLineJoin"
+     @attributes="AdditionalAttributes">
     @SvgContent
 </svg>
 
@@ -30,8 +30,11 @@
     [Parameter] public int StrokeWidth { get; set; } = 2;
     [Parameter] public string StrokeLineCap { get; set; } = "round";
     [Parameter] public string StrokeLineJoin { get; set; } = "round";
-    [Parameter] public string Class { get; set; } = string.Empty;
     [Parameter] public required string Name { get; set; }
     
+    
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; } = null!;
+
     private MarkupString SvgContent => LucideService.GetIconContent(Name);
 }
