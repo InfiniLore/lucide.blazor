@@ -1,0 +1,37 @@
+﻿@* ------------------------------------------------------------------------------------------------------------------ *@
+@* Imports
+@* ------------------------------------------------------------------------------------------------------------------ *@
+@inherits ComponentBase
+
+@* ------------------------------------------------------------------------------------------------------------------ *@
+@* Html
+@* ------------------------------------------------------------------------------------------------------------------ *@
+<svg xmlns="http://www.w3.org/2000/svg"
+     class="@Class"
+     width="@Width"
+     height="@Height"
+     viewBox="0 0 24 24"
+     fill="@Fill"
+     stroke="@Stroke"
+     stroke-width="@StrokeWidth"
+     stroke-linecap="@StrokeLineCap"
+     stroke-linejoin="@StrokeLineJoin">
+    @SvgContent
+</svg>
+
+@* ------------------------------------------------------------------------------------------------------------------ *@
+@* Code
+@* ------------------------------------------------------------------------------------------------------------------ *@
+@code {
+    [Parameter] public int Width { get; set; } = 24;
+    [Parameter] public int Height { get; set; } = 24;
+    [Parameter] public string Fill { get; set; } = "none";
+    [Parameter] public string Stroke { get; set; } = "currentColor";
+    [Parameter] public int StrokeWidth { get; set; } = 2;
+    [Parameter] public string StrokeLineCap { get; set; } = "round";
+    [Parameter] public string StrokeLineJoin { get; set; } = "round";
+    [Parameter] public string Class { get; set; } = string.Empty;
+    [Parameter] public required string Name { get; set; }
+    
+    private MarkupString SvgContent => LucideService.GetIconContent(Name);
+}
