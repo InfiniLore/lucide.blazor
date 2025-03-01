@@ -36,6 +36,12 @@ jobs:
       # Step 6: Build the .NET projects
       - name: Build .NET projects
         run: dotnet build InfiniLore.Lucide.sln --configuration Release --no-restore
+          
+      # Ensure that the tests must pass 
+      # The job will fail automatically if any test fails because `dotnet test` exits with a non-zero code
+      - name: Run tests - Tests.InfiniLore.Lucide
+        run: dotnet run -c Release --no-restore --no-build --framework net9.0
+        working-directory: "tests/Tests.InfiniLore.Lucide"
 
       # Step 7: Publish to NuGet
       - name: Publish to NuGet
