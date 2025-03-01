@@ -7,8 +7,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
         
         <!-- Package metadata -->
-        <PackageId>InfiniLore.Lucide.Generators.Raw</PackageId>
-        <Version>0.4.477</Version>
+        <PackageId>InfiniLore.Lucide</PackageId>
+        <Version>0.5.477</Version>
         <Authors>Anna Sas</Authors>
         <Description>Use Lucide in your Blazor apps</Description>
         <PackageProjectUrl>https://github.com/InfiniLore/lucide.blazor</PackageProjectUrl>
