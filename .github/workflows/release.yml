@@ -1,11 +1,4 @@
-﻿name: Publish Packages
-
-on:
-  push:
-    tags:
-      - 'v*.*.*' # Match version tags like v1.0.0
-
-jobs:
+﻿jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
@@ -36,14 +29,20 @@ jobs:
       # Step 6: Build the .NET projects
       - name: Build .NET projects
         run: dotnet build InfiniLore.Lucide.sln --configuration Release --no-restore
-          
-      # Ensure that the tests must pass 
-      # The job will fail automatically if any test fails because `dotnet test` exits with a non-zero code
+
+      # Step 7: Link node_modules to tests (ensures node_modules is available for test runtime)
+      - name: Ensure node_modules path for tests
+        run: echo "NODE_PATH=${{ github.workspace }}/node_modules" >> $GITHUB_ENV
+
+      # Step 8: Run tests
+      ## NOTE: Ensure tests can access node_modules safely and verify SVG path exists
       - name: Run tests - Tests.InfiniLore.Lucide
-        run: dotnet run -c Release --no-restore --no-build --framework net9.0
+        run: |
+          ls -lh node_modules/lucide-static/icons || echo "Icons directory not found!"
+          dotnet run -c Release --no-restore --no-build --framework net9.0
         working-directory: "tests/Tests.InfiniLore.Lucide"
 
-      # Step 7: Publish to NuGet
+      # Step 9: Publish to NuGet
       - name: Publish to NuGet
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
