@@ -7,7 +7,7 @@ namespace InfiniLore.Lucide.Generators.Raw.Helpers;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public static class StringExtensions {
+public static class LucideStringExtensions {
     public static string ToPascalCase(this string input) {
         if (string.IsNullOrEmpty(input))
             return input;

@@ -2,7 +2,8 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using AterraEngine.Unions;
-using CliArgsParser;
+using CodeOfChaos.CliArgsParser;
+using JetBrains.Annotations;
 using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -11,23 +12,10 @@ namespace InfiniLore.Lucide.Tools.Commands;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-/// <summary>
-///     The <c>UpdateLucideStaticCommands</c> class provides a command to update the Lucide library to its latest version.
-/// </summary>
-/// <remarks>
-///     This class implements the <see cref="ICommandAtlas" /> interface and defines the command "update-lucide-static".
-///     It facilitates fetching the latest version number of Lucide, updating the package.json file, and running npm
-///     install
-///     in the specified project directory.
-/// </remarks>
-public class UpdateLucideStaticCommands : ICommandAtlas {
-    /// <summary>
-    ///     Executes the update command for Lucide to the latest version.
-    /// </summary>
-    /// <param name="args">Parameters required to perform the update, including the root directory and npm location.</param>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    [Command<UpdateLucideStaticParameters>("update-lucide-static")] [Description("Update lucide to the latest version")]
-    public async Task CommandHello(UpdateLucideStaticParameters args) {
+[UsedImplicitly]
+[CliArgsCommand("update-lucide-static")]
+public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticParameters> {
+    public async Task ExecuteAsync(UpdateLucideStaticParameters args) {
         SuccessOrFailure<string, string> resultVersionNumber = await TryGetLatestVersionNumber();
         if (resultVersionNumber is { IsFailure: true, AsFailure.Value: var failureString }) {
             Console.WriteLine(failureString);
@@ -50,13 +38,6 @@ public class UpdateLucideStaticCommands : ICommandAtlas {
         Console.WriteLine(resultNpmInstall.AsSuccess.Value);
     }
 
-    /// <summary>
-    ///     Attempts to retrieve the latest version number of the "lucide-static" package from the npm registry.
-    /// </summary>
-    /// <returns>
-    ///     A <see cref="SuccessOrFailure{TSuccess, TFailure}" /> object containing the latest version number as a success,
-    ///     or an error message as a failure if the operation was unsuccessful.
-    /// </returns>
     private async static Task<SuccessOrFailure<string, string>> TryGetLatestVersionNumber() {
         const string packageName = "lucide-static";
         const string npmRegistryUrl = $"https://registry.npmjs.org/{packageName}";
@@ -87,16 +68,6 @@ public class UpdateLucideStaticCommands : ICommandAtlas {
         }
     }
 
-    /// Attempts to update the version of "lucide-static" in the package.json file to the specified latest version.
-    /// <param name="latestVersion">The latest version number to update the "lucide-static" dependency to.</param>
-    /// <param name="args">
-    ///     An instance of UpdateLucideStaticParameters containing configuration parameters for the update
-    ///     process.
-    /// </param>
-    /// <returns>
-    ///     A SuccessOrFailure object containing a success message if the update was successful, or an error message if the
-    ///     operation failed.
-    /// </returns>
     private async static Task<SuccessOrFailure<string, string>> TryUpdatePackageJson(string latestVersion, UpdateLucideStaticParameters args) {
         string packageJsonPath = args.AppendRoot("package.json");
 
@@ -129,14 +100,6 @@ public class UpdateLucideStaticCommands : ICommandAtlas {
         }
     }
 
-    /// <summary>
-    ///     Executes the npm install command in the specified working directory.
-    /// </summary>
-    /// <param name="args">The parameters containing the root directory and npm location.</param>
-    /// <returns>
-    ///     A Success result with a message if npm install completes successfully;
-    ///     otherwise, a Failure result with an error message.
-    /// </returns>
     private async static Task<SuccessOrFailure<string, string>> RunNpmInstall(UpdateLucideStaticParameters args) {
         if (!Directory.Exists(args.Root)) {
             return new Failure<string>("Working directory doesn't exist: " + args.Root);

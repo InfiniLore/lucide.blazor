@@ -1,11 +1,11 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using CodeOfChaos.GeneratorTools;
 using InfiniLore.Lucide.Generators.Raw.Helpers;
 using Microsoft.CodeAnalysis;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace InfiniLore.Lucide.Generators.Raw;
@@ -20,7 +20,7 @@ public class LucideIndividualFilesGenerator : IIncrementalGenerator {
     }
 
     private static void CreateIconFiles(SourceProductionContext context, ImmutableArray<LucideSvgFile> data) {
-        var builder = new StringBuilder();
+        var builder = new GeneratorStringBuilder();
         foreach ( LucideSvgFile lucideSvgFile in data) {
             string normalSvg = lucideSvgFile.Svg.TrimEnd();
             string noCommentSvg = Regex.Replace(normalSvg, "<!--.*?-->(\r\n|\r|\n)?", string.Empty, RegexOptions.Compiled | RegexOptions.Multiline);
@@ -41,40 +41,40 @@ public class LucideIndividualFilesGenerator : IIncrementalGenerator {
                 .AppendLine("namespace InfiniLore.Lucide.Generators;")
                 .AppendLine($"public class {lucideSvgFile.PascalCaseName} : ILucideIconData {{");
 
-            builder
-                .IndentLine(1, "public string DirectImport => _directImport;")
-                .IndentLine(1, "private static readonly string _directImport = \"\"\"")
+            builder.AppendLineIndented("public string DirectImport => _directImport;")
+                .AppendLineIndented("private static readonly string _directImport = \"\"\"")
                 .AppendLine(normalSvg)
                 .AppendLine("\"\"\";")
                 .AppendLine();
 
+            
             builder
-                .IndentLine(1, "public string DirectImportNoComments => _directImportNoComments;")
-                .IndentLine(1, "private static readonly string _directImportNoComments = \"\"\"")
+                .AppendLineIndented("public string DirectImportNoComments => _directImportNoComments;")
+                .AppendLineIndented("private static readonly string _directImportNoComments = \"\"\"")
                 .AppendLine(noCommentSvg)
                 .AppendLine("\"\"\";")
                 .AppendLine();
 
             builder
-                .IndentLine(1, "public string SvgContent => _svgContent;")
-                .IndentLine(1, "private static readonly string _svgContent = \"\"\"")
+                .AppendLineIndented("public string SvgContent => _svgContent;")
+                .AppendLineIndented("private static readonly string _svgContent = \"\"\"")
                 .AppendLine(svgContent)
                 .AppendLine("\"\"\";")
                 .AppendLine();
 
             builder
-                .IndentLine(1, "public string Flat => _flat;")
-                .IndentLine(1, $"private static readonly string _flat = \"\"\"{noWhitespaceSvg}\"\"\";")
+                .AppendLineIndented("public string Flat => _flat;")
+                .AppendLineIndented($"private static readonly string _flat = \"\"\"{noWhitespaceSvg}\"\"\";")
                 .AppendLine();
 
             builder
-                .IndentLine(1, "public string FlatNoComments => _flatNoComments;")
-                .IndentLine(1, $"private static readonly string _flatNoComments = \"\"\"{noWhitespaceAndNoCommentSvg}\"\"\";")
+                .AppendLineIndented("public string FlatNoComments => _flatNoComments;")
+                .AppendLineIndented($"private static readonly string _flatNoComments = \"\"\"{noWhitespaceAndNoCommentSvg}\"\"\";")
                 .AppendLine();
 
             builder
-                .IndentLine(1, "public string FlatSvgContent => _flatSvgContent;")
-                .IndentLine(1, $"public static string _flatSvgContent => \"\"\"{svgContentFlat}\"\"\";")
+                .AppendLineIndented("public string FlatSvgContent => _flatSvgContent;")
+                .AppendLineIndented($"public static string _flatSvgContent => \"\"\"{svgContentFlat}\"\"\";")
                 .AppendLine();
 
             builder.AppendLine("}")

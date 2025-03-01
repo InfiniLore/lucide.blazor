@@ -8,10 +8,7 @@ namespace InfiniLore.Lucide.Generators.Raw;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public readonly struct LucideSvgFile(string name, string svg) {
-    public string Name => name;
-    public string PascalCaseName => name.ToPascalCase();
-    public string CamelCaseName => name.ToCamelCase();
-    
-    public string Svg => svg;
+public record LucideSvgFile(string Name, string Svg) {
+    public string PascalCaseName => Name.ToPascalCase();
+    public string CamelCaseName => Name.ToCamelCase();
 }
