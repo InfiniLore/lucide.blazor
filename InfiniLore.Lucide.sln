@@ -1,10 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Generators.Raw", "src\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators.Raw.csproj", "{CE629BED-BFFB-4C72-B5B0-62882E90CD0B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Generators.Raw", "src\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators.Raw.csproj", "{CE629BED-BFFB-4C72-B5B0-62882E90CD0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Generators", "src\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators\InfiniLore.Lucide.Generators.csproj", "{890440A6-BC1B-4AF3-B420-F4C1E900FD3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Generators", "src\InfiniLore.Lucide.Generators\InfiniLore.Lucide.Generators.csproj", "{890440A6-BC1B-4AF3-B420-F4C1E900FD3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Generators.Raw.Tests", "src\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators.Raw.Tests\InfiniLore.Lucide.Generators.Raw.Tests.csproj", "{251C874E-BF57-4F40-BEF8-400DC4EC13E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Generators.Raw.Tests", "src\InfiniLore.Lucide.Generators.Raw.Tests\InfiniLore.Lucide.Generators.Raw.Tests.csproj", "{251C874E-BF57-4F40-BEF8-400DC4EC13E6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6D9930C4-8D0C-4F21-98E4-C62FF787941E}"
 EndProject
