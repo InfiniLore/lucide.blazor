@@ -34,10 +34,10 @@ To include an icon in your Blazor application, use the `LucideSvg` component:
 
 ```html
 <!-- Minimal requirement -->
-<LucideSvg IconName="signature"/>
+<LucideIcon Name="signature"/>
 
 <!-- Full options -->
-<LucideSvg IconName="arrow-right"
+<LucideIcon Name="arrow-right"
            Width="48"
            Height="48"
            Fill="none"
