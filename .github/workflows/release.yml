@@ -25,10 +25,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
         working-directory: ${{ github.workspace }}
-        
-      - name: Check if lucide-static is installed
-        run: ls -lh node_modules/lucide-static/icons || echo "Lucide icons not found!"
-        working-directory: ${{ github.workspace }}
 
       # Step 4: Setup .NET
       - name: Setup .NET
@@ -41,14 +37,7 @@ jobs:
         run: |
           echo "NODE_PATH=${{ github.workspace }}/node_modules" >> $GITHUB_ENV
           export NODE_PATH=${{ github.workspace }}/node_modules
-          echo "NODE_PATH: $NODE_PATH"
-          
-      - name: Debug NODE_PATH
-        run: echo "NODE_PATH=${{ env.NODE_PATH }}"
-        
-      - name: Debug Lucide Icons Path
-        run: ls -lh /home/runner/work/lucide.blazor/lucide.blazor/node_modules/lucide-static/icons || echo "Icons directory not found!"      
-      
+  
       # Step 6: Restore NuGet packages
       - name: Restore NuGet packages
         run: dotnet restore InfiniLore.Lucide.sln
