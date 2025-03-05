@@ -23,8 +23,13 @@ jobs:
       # Step 3: Install dependencies
       - name: Install npm dependencies
         run: |
-          npm install
-          ls -lh node_modules/lucide-static/icons || echo "Icons directory missing!"
+          npm ci
+          if [ ! -d "${{ github.workspace }}/node_modules/lucide-static/icons" ]; then
+            echo "Icons directory is missing. Aborting."
+            exit 1
+          fi
+          ls -lh ${{ github.workspace }}/node_modules/lucide-static/icons
+
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -35,7 +40,8 @@ jobs:
       - name: Export node_modules path
         run: |
           echo "NODE_PATH=${{ github.workspace }}/node_modules" >> $GITHUB_ENV
-          echo "NODE_PATH=$NODE_PATH"
+          echo "NODE_PATH=${{ github.workspace }}/node_modules"
+          export NODE_PATH=${{ github.workspace }}/node_modules
 
       # Step 5: Restore NuGet packages
       - name: Restore NuGet packages
@@ -47,7 +53,10 @@ jobs:
 
       # Step 7: Run tests
       - name: Run tests
-        run: dotnet run -c Release --no-restore --no-build --framework net9.0
+        run: |
+          ls -lh $NODE_PATH/lucide-static/icons || echo "Icons directory not found!"
+          export NODE_PATH=${{ github.workspace }}/node_modules
+          dotnet run -c Release --no-restore --no-build --framework net9.0
         working-directory: "tests/Tests.InfiniLore.Lucide"
             
       # Step 8: Publish to NuGet
