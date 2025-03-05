@@ -18,7 +18,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
+          node-version: 20
+          cache: 'npm'
       
       # Step 3: Install dependencies
       - name: Install npm dependencies
@@ -48,30 +49,8 @@ jobs:
         run: dotnet restore InfiniLore.Lucide.sln
 
       # Step 7: Build .NET projects
-      # Step 7.1: Build InfiniLore.Lucide.Generators.Raw
       - name: Build InfiniLore.Lucide.Generators.Raw
-        run: |
-          dotnet build src/InfiniLore.Lucide.Generators.Raw/InfiniLore.Lucide.Generators.Raw.csproj \
-            --configuration Release
-
-      # Step 7.2: Build InfiniLore.Lucide.Data
-      - name: Build InfiniLore.Lucide.Data
-        run: |
-          dotnet build src/InfiniLore.Lucide.Data/InfiniLore.Lucide.Data.csproj \
-            --configuration Release
-
-      # Step 7.3: Build InfiniLore.Lucide
-      - name: Build InfiniLore.Lucide
-        run: |
-          dotnet build src/InfiniLore.Lucide/InfiniLore.Lucide.csproj \
-            --configuration Release
-          
-      # Step 7.4: Build InfiniLore.Lucide
-      - name: Build Tests.InfiniLore.Lucide
-        run: |
-          dotnet build tests/Tests.InfiniLore.Lucide/Tests.InfiniLore.Lucide.csproj \
-            --configuration Release
-
+        run: dotnet build --configuration Release --no-restore
 
       # Step 8: Run tests
       - name: Run tests
