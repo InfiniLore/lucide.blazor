@@ -43,8 +43,11 @@ jobs:
           echo "NODE_PATH=${{ github.workspace }}/node_modules" >> $GITHUB_ENV
           export NODE_PATH=${{ github.workspace }}/node_modules
           echo "NODE_PATH: $NODE_PATH"
-
-      # Step 6: Restore NuGet packages
+          
+      - name: Debug NODE_PATH
+        run: echo "NODE_PATH=${{ env.NODE_PATH }}"
+    
+    # Step 6: Restore NuGet packages
       - name: Restore NuGet packages
         run: dotnet restore InfiniLore.Lucide.sln
 

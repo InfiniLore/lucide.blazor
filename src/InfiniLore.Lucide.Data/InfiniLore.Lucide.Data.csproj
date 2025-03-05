@@ -40,7 +40,7 @@
 
     <ItemGroup Label="Lucide Files">
         <!-- Adjusted to ensure paths resolve dynamically -->
-        <AdditionalFiles Include="$(LucideIconsPath)"
+        <AdditionalFiles Include="$(MSBuildProjectDirectory)/../../node_modules/lucide-static/icons/**/*.svg"
                          Link="Icons\%(RecursiveDir)%(FileName)%(Extension)"/>
     </ItemGroup>
 
