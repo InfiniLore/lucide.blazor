@@ -8,7 +8,7 @@
 
         <!-- Package metadata -->
         <PackageId>InfiniLore.Lucide.Data</PackageId>
-        <Version>0.12.477</Version>
+        <Version>0.13.477-preview.1</Version>
         <Authors>Anna Sas</Authors>
         <Description>Use Lucide in your Blazor apps</Description>
         <PackageProjectUrl>https://github.com/InfiniLore/lucide.blazor</PackageProjectUrl>
@@ -40,8 +40,7 @@
 
     <ItemGroup Label="Lucide Files">
 <!--         Adjusted to ensure paths resolve dynamically -->
-        <AdditionalFiles Include="$(LucideIconsPath)"
-                         Link="Icons\%(RecursiveDir)%(FileName)%(Extension)"/>
+        <AdditionalFiles Include="$(LucideIconsPath)" Link="Icons\%(RecursiveDir)%(FileName)%(Extension)" />
     </ItemGroup>
     
     <!-- Package dependencies -->
