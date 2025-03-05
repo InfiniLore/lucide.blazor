@@ -30,34 +30,49 @@ jobs:
           fi
           ls -lh ${{ github.workspace }}/node_modules/lucide-static/icons
 
-
+      # Step 4: Setup .NET
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.x'
 
-      # Step 4: Export environment path for .NET projects
+      # Step 5: Export environment path for .NET projects
       - name: Export node_modules path
         run: |
           echo "NODE_PATH=${{ github.workspace }}/node_modules" >> $GITHUB_ENV
           export NODE_PATH=${{ github.workspace }}/node_modules
           echo "NODE_PATH: $NODE_PATH"
 
-
-      # Step 5: Restore NuGet packages
+      # Step 6: Restore NuGet packages
       - name: Restore NuGet packages
         run: dotnet restore InfiniLore.Lucide.sln
 
-      # Step 6: Build .NET projects
-      - name: Build .NET Projects
-        run: dotnet build InfiniLore.Lucide.sln --configuration Release --no-restore
+      # Step 7: Build .NET projects
+      # Step 7.1: Build InfiniLore.Lucide.Generators.Raw
+      - name: Build InfiniLore.Lucide.Generators.Raw
+        run: |
+          dotnet build src/InfiniLore.Lucide.Generators.Raw/InfiniLore.Lucide.Generators.Raw.csproj \
+            --configuration Release
 
-      # Step 7: Run tests
+      # Step 7.2: Build InfiniLore.Lucide.Data
+      - name: Build InfiniLore.Lucide.Data
+        run: |
+          dotnet build src/InfiniLore.Lucide.Data/InfiniLore.Lucide.Data.csproj \
+            --configuration Release
+
+      # Step 7.3: Build InfiniLore.Lucide
+      - name: Build InfiniLore.Lucide
+        run: |
+          dotnet build src/InfiniLore.Lucide/InfiniLore.Lucide.csproj \
+            --configuration Release
+
+
+      # Step 8: Run tests
       - name: Run tests
         run: dotnet run -c Release --no-restore --no-build --framework net9.0
         working-directory: "tests/Tests.InfiniLore.Lucide"
             
-      # Step 8: Publish to NuGet
+      # Step 9: Publish to NuGet
       - name: Publish to NuGet
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
