@@ -39,10 +39,20 @@
     </ItemGroup>
 
     <ItemGroup Label="Lucide Files">
-        <!-- Adjusted to ensure paths resolve dynamically -->
+<!--         Adjusted to ensure paths resolve dynamically -->
         <AdditionalFiles Include="$(LucideIconsPath)"
                          Link="Icons\%(RecursiveDir)%(FileName)%(Extension)"/>
+
+        <LucideIcons Include="$(LucideIconsPath)" />
     </ItemGroup>
+    
+    <Target Name="CopyIcons" BeforeTargets="Build">
+        <Copy SourceFiles="@(LucideIcons)"
+              DestinationFiles="Icons\%(RecursiveDir)%(FileName)%(Extension)"
+              ContinueOnError="false"
+        />
+    </Target>
+
 
     <!-- Package dependencies -->
     <ItemGroup>

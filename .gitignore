@@ -1026,3 +1026,5 @@ dist
 
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp,dotnetcore,rider,jetbrains,jetbrains+all,jetbrains+iml,obsidian,node,web,webstorm+all,webstorm+iml,webstorm
+
+src/InfiniLore.Lucide.Data/Icons

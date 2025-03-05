@@ -12,7 +12,7 @@ namespace InfiniLore.Lucide.Generators.Raw.Helpers;
 // ---------------------------------------------------------------------------------------------------------------------
 public static class IncrementalGeneratorInitializationContextExtensions {
 
-    private const string RegexIconSvgPath = @"lucide-static\\icons\\.*\.svg$";
+    private const string RegexIconSvgPath = @"icons\\.*\.svg$";
 
     private static IncrementalValuesProvider<LucideSvgFile> SelectLucideSvgFiles(this IncrementalGeneratorInitializationContext context) {
         IncrementalValuesProvider<AdditionalText> files = context.AdditionalTextsProvider
