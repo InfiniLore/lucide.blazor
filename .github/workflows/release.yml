@@ -50,7 +50,7 @@ jobs:
 
       # Step 6: Build .NET projects
       - name: Build .NET Projects
-        run: dotnet build InfiniLore.Lucide.sln --configuration Release --no-restore
+        run: dotnet build InfiniLore.Lucide.sln --configuration Release --no-restore -verbosity:diagnostic
 
       # Step 7: Run tests
       - name: Run tests

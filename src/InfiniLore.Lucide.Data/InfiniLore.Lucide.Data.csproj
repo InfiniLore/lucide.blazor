@@ -45,14 +45,18 @@
     </ItemGroup>
 
     <!-- Validation to ensure files exist -->
-    <Target Name="ValidateLucideIcons">
-        <!-- If NODE_PATH is set but files are not found, display an error -->
-        <Message Importance="High" Text="Validating that Lucide icons exist in $(LucideIconsPath)..." />
-        <Error Condition=" '$(NODE_PATH)' != '' AND !Exists('$(NODE_PATH)/lucide-static/icons') "
-               Text="NODE_PATH is set to $(NODE_PATH), but no icons were found at $(NODE_PATH)/lucide-static/icons. Please ensure the path is correct!" />
-    </Target>
     <Target Name="BeforeBuild" BeforeTargets="Build">
-        <CallTarget Targets="ValidateLucideIcons" />
+        <Message Importance="High" Text="NODE_PATH: $(NODE_PATH)" />
+        <Message Importance="High" Text="LucideIconsPath: $(LucideIconsPath)" />
+        <Message Importance="High" Text="Validating that Lucide icons exist in $(LucideIconsPath)..." />
+
+        <!-- Validation: If NODE_PATH is set but icons are not found, throw an error -->
+        <Error Condition=" '$(NODE_PATH)' != '' AND !Exists('$(NODE_PATH)/lucide-static/icons') "
+               Text="Error: NODE_PATH is set to $(NODE_PATH), but no icons were found in $(NODE_PATH)/lucide-static/icons. Please ensure the path is correct." />
+
+        <!-- Validation: If fallback path is used but icons are not found, throw an error -->
+        <Error Condition=" '$(NODE_PATH)' == '' AND !Exists('$(SolutionDir)node_modules/lucide-static/icons') "
+               Text="Error: Using fallback path $(SolutionDir)node_modules/lucide-static/icons, but no icons were found. Please ensure the path is correct." />
     </Target>
 
     <!-- Package dependencies -->
