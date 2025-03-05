@@ -42,8 +42,19 @@
         <!-- Adjusted to ensure paths resolve dynamically -->
         <AdditionalFiles Include="$(LucideIconsPath)"
                          Link="Icons\%(RecursiveDir)%(FileName)%(Extension)"/>
-
     </ItemGroup>
+
+    <!-- Validation to ensure files exist -->
+    <Target Name="ValidateLucideIcons">
+        <!-- If NODE_PATH is set but files are not found, display an error -->
+        <Message Importance="High" Text="Validating that Lucide icons exist in $(LucideIconsPath)..." />
+        <Error Condition=" '$(NODE_PATH)' != '' AND !Exists('$(NODE_PATH)/lucide-static/icons') "
+               Text="NODE_PATH is set to $(NODE_PATH), but no icons were found at $(NODE_PATH)/lucide-static/icons. Please ensure the path is correct!" />
+    </Target>
+    <Target Name="BeforeBuild" BeforeTargets="Build">
+        <CallTarget Targets="ValidateLucideIcons" />
+    </Target>
+
     <!-- Package dependencies -->
     <ItemGroup>
         <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" PrivateAssets="all" />

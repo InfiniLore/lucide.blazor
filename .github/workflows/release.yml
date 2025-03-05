@@ -40,8 +40,9 @@ jobs:
       - name: Export node_modules path
         run: |
           echo "NODE_PATH=${{ github.workspace }}/node_modules" >> $GITHUB_ENV
-          echo "NODE_PATH=${{ github.workspace }}/node_modules"
           export NODE_PATH=${{ github.workspace }}/node_modules
+          echo "NODE_PATH: $NODE_PATH"
+
 
       # Step 5: Restore NuGet packages
       - name: Restore NuGet packages
