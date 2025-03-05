@@ -20,6 +20,11 @@
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>icon.png</PackageIcon>
+        
+        <!-- Define a fallback if NODE_PATH isn't set -->
+        <LucideIconsPath Condition=" '$(NODE_PATH)' != '' ">$(NODE_PATH)/lucide-static/icons/**/*.svg</LucideIconsPath>
+        <LucideIconsPath Condition=" '$(NODE_PATH)' == '' ">$(SolutionDir)node_modules/lucide-static/icons/**/*.svg</LucideIconsPath>
+
     </PropertyGroup>
 
     <!-- Include external files -->
@@ -35,7 +40,9 @@
 
     <ItemGroup Label="Lucide Files">
         <!-- Adjusted to ensure paths resolve dynamically -->
-        <AdditionalFiles Include="$(SolutionDir)node_modules/lucide-static/icons/**/*.svg" Link="Icons\%(RecursiveDir)%(FileName)%(Extension)" Condition="Exists('$(SolutionDir)node_modules/lucide-static/icons')" />
+        <AdditionalFiles Include="$(LucideIconsPath)"
+                         Link="Icons\%(RecursiveDir)%(FileName)%(Extension)"/>
+
     </ItemGroup>
     <!-- Package dependencies -->
     <ItemGroup>
