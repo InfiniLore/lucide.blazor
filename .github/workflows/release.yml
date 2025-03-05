@@ -65,6 +65,12 @@ jobs:
         run: |
           dotnet build src/InfiniLore.Lucide/InfiniLore.Lucide.csproj \
             --configuration Release
+          
+      # Step 7.4: Build InfiniLore.Lucide
+      - name: Build Tests.InfiniLore.Lucide
+        run: |
+          dotnet build tests/Tests.InfiniLore.Lucide/Tests.InfiniLore.Lucide \
+            --configuration Release
 
 
       # Step 8: Run tests
