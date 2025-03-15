@@ -14,10 +14,10 @@ public class LucideLookupDictionaryTests {
         // Arrange
         
         // Act
-        var count = LucideLookupDictionary.Count;
+        int count = LucideLookupDictionary.Count;
 
         // Assert
         await Assert.That(count).IsNotZero()
-            .And.IsGreaterThan(1500); // Yes Lucide has more than 1500 icons, but we don't want to test them all at the moment
+            .And.IsGreaterThan(1560); // Yes Lucide has more than 1500 icons, but we don't want to test them all at the moment
     }
 }
