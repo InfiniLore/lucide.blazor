@@ -70,13 +70,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          body: ${{steps.build_changelog.outputs.changelog}}
+          draft: true
+          body_path: ${{steps.build_changelog.outputs.changelog}}
           files: |
-            src/InfiniLore.Lucide/bin/Release/*.nupkg
-            !src/InfiniLore.Lucide/bin/Release/*.symbols.nupkg
-            src/InfiniLore.Lucide.Data/bin/Release/*.nupkg
-            !src/InfiniLore.Lucide.Data/bin/Release/*.symbols.nupkg
-            src/InfiniLore.Lucide.Generators.Raw/bin/Release/*.nupkg
-            !src/InfiniLore.Lucide.Generators.Raw/bin/Release/*.symbols.nupkg
+            $(find src/ -type f -name '*.nupkg' ! -name '*.symbols.nupkg')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
