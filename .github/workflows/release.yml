@@ -60,19 +60,3 @@ jobs:
           dotnet nuget push src/InfiniLore.Lucide/bin/Release/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json --skip-duplicate
           dotnet nuget push src/InfiniLore.Lucide.Data/bin/Release/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json --skip-duplicate
           dotnet nuget push src/InfiniLore.Lucide.Generators.Raw/bin/Release/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json --skip-duplicate
-      
-      # Step 10: Create a GitHub Release
-      - name: Create Release Data
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: mikepenz/release-changelog-builder-action@v5      
-        
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          draft: true
-          body_path: ${{steps.build_changelog.outputs.changelog}}
-          files: |
-            $(find src/ -type f -name '*.nupkg' ! -name '*.symbols.nupkg')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
