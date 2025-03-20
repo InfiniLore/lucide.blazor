@@ -1,8 +1,11 @@
 ﻿@page "/"
 @using InfiniLore.Lucide
+@using InfiniLore.Lucide.Data
 
 <PageTitle>Home</PageTitle>
 
 <p> Lucide Icons: </p>
-<LucideIcon Name="audio-lines" class="validation-message"/>
+<LucideIcon Name="@LucideNames.AudioLines" class="validation-message"/>
+
 <LucideIcon Name="signature" />
+@LucideIcon.Signature(@class:"validation-message")

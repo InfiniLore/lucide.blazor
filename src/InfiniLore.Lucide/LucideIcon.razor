@@ -30,11 +30,19 @@
     [Parameter] public int StrokeWidth { get; set; } = 2;
     [Parameter] public string StrokeLineCap { get; set; } = "round";
     [Parameter] public string StrokeLineJoin { get; set; } = "round";
-    [Parameter] public required string Name { get; set; }
-    
-    
+
+    public string NameCache = string.Empty;
+    [Parameter] public string Name {
+        get => NameCache;
+        set {
+            NameCache = value;
+            SvgContent = LucideService.GetIconContent(NameCache);
+        }
+    }
+
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> AdditionalAttributes { get; set; } = null!;
 
-    private MarkupString SvgContent => LucideService.GetIconContent(Name);
+    [Parameter]
+    public MarkupString SvgContent { get; set; }
 }
