@@ -2,6 +2,7 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.GeneratorTools;
+using InfiniLore.Lucide.Generators.Raw.Dtos;
 using InfiniLore.Lucide.Generators.Raw.Helpers;
 using Microsoft.CodeAnalysis;
 using System.Collections.Immutable;
@@ -19,9 +20,9 @@ public class LucideIndividualFilesGenerator : IIncrementalGenerator {
         context.RegisterSourceOutput(context.CollectLucideSvgFiles(), CreateIconFiles);
     }
 
-    private static void CreateIconFiles(SourceProductionContext context, ImmutableArray<LucideSvgFile> data) {
+    private static void CreateIconFiles(SourceProductionContext context, ImmutableArray<LucideSvgFileDto> data) {
         var builder = new GeneratorStringBuilder();
-        foreach (LucideSvgFile lucideSvgFile in data) {
+        foreach (LucideSvgFileDto lucideSvgFile in data) {
             string normalSvg = lucideSvgFile.Svg.TrimEnd();
             string noCommentSvg = Regex.Replace(normalSvg, "<!--.*?-->(\r\n|\r|\n)?", string.Empty, RegexOptions.Compiled | RegexOptions.Multiline);
             string noWhitespaceSvg = Regex.Replace(normalSvg, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);

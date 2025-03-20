@@ -2,6 +2,7 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.GeneratorTools;
+using InfiniLore.Lucide.Generators.Raw.Dtos;
 using InfiniLore.Lucide.Generators.Raw.Helpers;
 using Microsoft.CodeAnalysis;
 using System.Collections.Immutable;
@@ -17,7 +18,7 @@ public class LucideLookupDictionaryGenerator : IIncrementalGenerator {
         context.RegisterSourceOutput(context.CollectLucideSvgFiles(), CreateIconFiles);
     }
 
-    private static void CreateIconFiles(SourceProductionContext context, ImmutableArray<LucideSvgFile> data) {
+    private static void CreateIconFiles(SourceProductionContext context, ImmutableArray<LucideSvgFileDto> data) {
         var builder = new GeneratorStringBuilder();
 
         builder
