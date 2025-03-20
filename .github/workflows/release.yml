@@ -64,13 +64,13 @@ jobs:
       # Step 10: Create a GitHub Release
       - name: Create Release Data
         if: startsWith(github.ref, 'refs/tags/')
-        uses: mikepenz/release-changelog-builder-action@5
+        uses: mikepenz/release-changelog-builder-action@v5      
         
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          data: ${{steps.build_changelog.outputs.changelog}}
+          body: ${{steps.build_changelog.outputs.changelog}}
           files: |
             src/InfiniLore.Lucide/bin/Release/*.nupkg
             !src/InfiniLore.Lucide/bin/Release/*.symbols.nupkg
