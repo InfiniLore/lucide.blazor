@@ -8,7 +8,7 @@ namespace Tools.InfiniLore.Lucide.Setup;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class GlobalCatcher {
+public static class GlobalCatcher {
     public static async Task ExecuteWithGlobalExceptionHandlingAsync(Func<Task> action) {
         try {
             await action.Invoke();

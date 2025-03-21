@@ -1,9 +1,5 @@
 ﻿{
   "profiles": {
-    "Update Lucide Static": {
-      "commandName": "Project",
-      "commandLineArgs": "update-lucide-static"
-    },
     "Version Bump : Major": {
       "_readme": "will update the 'patch' section of the semantic version (x.0.0)",
       "commandName": "Project",
@@ -34,9 +30,9 @@
       "commandName": "Project",
       "commandLineArgs": "nuget-download-icon --origin=\"https://avatars.githubusercontent.com/u/102103683\" --projects=\"%PROJECTS%\""
     },
-    "Generate Razor": {
+    "Update && Generate Razor": {
       "commandName": "Project",
-      "commandLineArgs": "generate-razor"
+      "commandLineArgs": "update-lucide-static && generate-razor"
     }
   }
 }

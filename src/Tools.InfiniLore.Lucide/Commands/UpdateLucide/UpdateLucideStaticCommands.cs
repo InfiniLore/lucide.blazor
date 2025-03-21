@@ -4,9 +4,13 @@
 using AterraEngine.Unions;
 using CodeOfChaos.CliArgsParser;
 using JetBrains.Annotations;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using Tools.InfiniLore.Lucide.Commands.GenerateRazor;
+using Tools.InfiniLore.Lucide.Setup;
 
 namespace Tools.InfiniLore.Lucide.Commands.UpdateLucide;
 // ---------------------------------------------------------------------------------------------------------------------
@@ -15,33 +19,40 @@ namespace Tools.InfiniLore.Lucide.Commands.UpdateLucide;
 [UsedImplicitly]
 [CliArgsCommand("update-lucide-static")]
 public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticParameters> {
+    private IServiceProvider Provider { get; } = ServiceProviderFactory.CreateProvider();
+    private ILogger<GenerateRazorCommand>? _loggerCache;
+    private ILogger<GenerateRazorCommand> Logger => _loggerCache ??= Provider.GetRequiredService<ILogger<GenerateRazorCommand>>();
+    
+    
     public async Task ExecuteAsync(UpdateLucideStaticParameters args) {
-        SuccessOrFailure<string, string> resultVersionNumber = await TryGetLatestVersionNumber();
-        if (resultVersionNumber is { IsFailure: true, AsFailure.Value: var failureString }) {
-            Console.WriteLine(failureString);
-            return;
-        }
+        await GlobalCatcher.ExecuteWithGlobalExceptionHandlingAsync(async () => {
+            SuccessOrFailure<string, string> resultVersionNumber = await TryGetLatestVersionNumber();
+            if (resultVersionNumber is { IsFailure: true, AsFailure.Value: var failureString }) {
+                Logger.Error(failureString);
+                throw new Exception(failureString);
+            }
 
-        Console.WriteLine($"Lucide Latest version is {resultVersionNumber.AsSuccess.Value}");
+            Logger.Information("Lucide Latest version is {version}", resultVersionNumber.AsSuccess.Value);
 
-        SuccessOrFailure<string, string> resultPackageJson = await TryUpdatePackageJson(resultVersionNumber.AsSuccess.Value, args);
-        if (resultPackageJson is { IsFailure: true, AsFailure.Value: var failureString2 }) {
-            Console.WriteLine(failureString2);
-            // return; // We don't want to stop the update if the package.json update fails.
-        }
+            SuccessOrFailure<string, string> resultPackageJson = await TryUpdatePackageJson(resultVersionNumber.AsSuccess.Value, args);
+            if (resultPackageJson is { IsFailure: true, AsFailure.Value: var failureString2 }) {
+                Logger.Error(failureString2);
+                throw new Exception(failureString2);
+            }
 
-        Console.WriteLine(resultPackageJson.AsSuccess.Value);
+            Logger.Information(resultPackageJson.AsSuccess.Value);
 
-        SuccessOrFailure<string, string> resultNpmInstall = await RunNpmInstall(args);
-        if (resultNpmInstall is { IsFailure: true, AsFailure.Value: var failureString3 }) {
-            Console.WriteLine(failureString3);
-            return;
-        }
+            SuccessOrFailure<string, string> resultNpmInstall = await RunNpmInstall(args);
+            if (resultNpmInstall is { IsFailure: true, AsFailure.Value: var failureString3 }) {
+                Logger.Error(failureString3);
+                throw new Exception(failureString3);
+            }
 
-        Console.WriteLine(resultNpmInstall.AsSuccess.Value);
+            Logger.Information(resultNpmInstall.AsSuccess.Value);
+        });
     }
 
-    private async static Task<SuccessOrFailure<string, string>> TryGetLatestVersionNumber() {
+    private static async Task<SuccessOrFailure<string, string>> TryGetLatestVersionNumber() {
         const string packageName = "lucide-static";
         const string npmRegistryUrl = $"https://registry.npmjs.org/{packageName}";
 
@@ -72,7 +83,7 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
         }
     }
 
-    private async static Task<SuccessOrFailure<string, string>> TryUpdatePackageJson(string latestVersion, UpdateLucideStaticParameters args) {
+    private static async Task<SuccessOrFailure<string, string>> TryUpdatePackageJson(string latestVersion, UpdateLucideStaticParameters args) {
         string packageJsonPath = args.AppendRoot("package.json");
 
         if (!File.Exists(packageJsonPath)) {
@@ -105,7 +116,7 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
         }
     }
 
-    private async static Task<SuccessOrFailure<string, string>> RunNpmInstall(UpdateLucideStaticParameters args) {
+    private static async Task<SuccessOrFailure<string, string>> RunNpmInstall(UpdateLucideStaticParameters args) {
         if (!Directory.Exists(args.Root)) {
             return new Failure<string>("Working directory doesn't exist: " + args.Root);
         }
