@@ -33,13 +33,4 @@ public record LucideSvgFileDto(string Name, string Svg) {
             Path.GetFileNameWithoutExtension(file.Path),
             file.GetText(ct)?.ToString() ?? string.Empty
         );
-
-    #if NET9_0_OR_GREATER
-    #pragma warning disable RS1035
-    public static LucideSvgFileDto FromFile(string path, CancellationToken ct = default) {
-        string svg = File.ReadAllText(path);
-        return new(Path.GetFileNameWithoutExtension(path), svg);
-    }
-    #pragma warning restore RS1035
-    #endif
 }

@@ -39,7 +39,12 @@ public partial class GenerateRazorCommand : ICommand<GenerateRazorParameters>  {
                 return;
             }
             
-            IEnumerable<LucideSvgFileDto> fileDtos = filePaths.Select(path => LucideSvgFileDto.FromFile(path));
+            LucideSvgFileDto[] fileDtos = await GetFileDtosAsync(filePaths);
+            if (fileDtos.Length == 0) {
+                Logger.Critical("No svg files found");
+                return;
+            }
+            Logger.Information("Found {count} svg files", fileDtos.Length);
             await Parallel.ForEachAsync(fileDtos, CreateRazorFileAsync);
         });
     }
@@ -73,6 +78,26 @@ public partial class GenerateRazorCommand : ICommand<GenerateRazorParameters>  {
             Logger.Error(e, "Could not setup output folder: {path}", Path.GetFullPath(parameters.OutputFolder));
             return false;
         }
+    }
+
+    private async Task<LucideSvgFileDto[]> GetFileDtosAsync(string[] paths) {
+        var dtos = new LucideSvgFileDto[paths.Length];
+
+        for (int i = 0; i < paths.Length; i++) {
+            string path = paths[i];
+
+            try {
+                string svg = await File.ReadAllTextAsync(path);
+                LucideSvgFileDto dto = new(Path.GetFileNameWithoutExtension(path), svg);
+                dtos[i] = dto;
+            }
+            catch (Exception e) {
+                Logger.Error(e, "Could not read file: {path}", Path.GetFullPath(path));
+                return [];
+            }
+        }
+        
+        return dtos;
     }
     
     private async ValueTask CreateRazorFileAsync(LucideSvgFileDto dto, CancellationToken ct) {

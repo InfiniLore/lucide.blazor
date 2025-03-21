@@ -33,15 +33,13 @@
 
     [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = null!;
     
-    public string NameCache = string.Empty;
-    [Parameter] public string Name {
-        get => NameCache;
-        set {
-            NameCache = value;
-            SvgContent = LucideService.GetIconContent(NameCache);
-        }
+    [Parameter] public string Name { get; set; } = string.Empty;
+
+    [Parameter] public MarkupString SvgContent { get; set; }
+
+    protected override void OnParametersSet() {
+        base.OnParametersSet();
+        SvgContent = LucideService.GetIconContent(Name); // Update SvgContent when Name changes
     }
 
-    [Parameter]
-    public MarkupString SvgContent { get; set; }
 }
