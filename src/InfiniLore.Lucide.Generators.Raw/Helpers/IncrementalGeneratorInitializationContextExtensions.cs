@@ -1,27 +1,26 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using InfiniLore.Lucide.Generators.Raw.Dtos;
 using Microsoft.CodeAnalysis;
 using System.Collections.Immutable;
-using System.IO;
-using System.Text.RegularExpressions;
 
 namespace InfiniLore.Lucide.Generators.Raw.Helpers;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public static class IncrementalGeneratorInitializationContextExtensions {
-
-    private static IncrementalValuesProvider<LucideSvgFile> SelectLucideSvgFiles(this IncrementalGeneratorInitializationContext context) {
-        IncrementalValuesProvider<AdditionalText> files = context.AdditionalTextsProvider
+    private static IncrementalValuesProvider<AdditionalText> FilterLucideFiles(this IncrementalGeneratorInitializationContext context) 
+        => context.AdditionalTextsProvider
             .Where(file => file.Path.EndsWith(".svg"));
 
-        return files
-            .Select((file, cancellationToken) => new LucideSvgFile(
-                Path.GetFileNameWithoutExtension(file.Path),
-                file.GetText(cancellationToken)?.ToString() ?? string.Empty
-            ));
-    }
-
-    public static IncrementalValueProvider<ImmutableArray<LucideSvgFile>> CollectLucideSvgFiles(this IncrementalGeneratorInitializationContext context) => context.SelectLucideSvgFiles().Collect();
+    public static IncrementalValueProvider<ImmutableArray<LucideSvgFileDto>> CollectLucideSvgFiles(this IncrementalGeneratorInitializationContext context) 
+        => context.FilterLucideFiles()
+            .Select(LucideSvgFileDto.FromAdditionalText)
+            .Collect();
+    
+    public static IncrementalValueProvider<ImmutableArray<LucideNameDto>> CollectLucideNames(this IncrementalGeneratorInitializationContext context)
+        => context.FilterLucideFiles()
+            .Select(LucideNameDto.FromAdditionalText)
+            .Collect();
 }

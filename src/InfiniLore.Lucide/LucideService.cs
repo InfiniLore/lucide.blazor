@@ -8,28 +8,31 @@ namespace InfiniLore.Lucide;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public static class LucideService {
-    private static readonly IDictionary<string, string>[] LookupSources = [
-        LucideLookupDictionary.IconsByCamelCase,
-        LucideLookupDictionary.IconsByPascalCase,
-        LucideLookupDictionary.IconsByPascalLowerInvariant
-    ];
-
+public class LucideService(ILucideLookupDictionary lookupDictionary) : ILucideService {
+    private static readonly MarkupString EmptyMarkupString = new(string.Empty);
     // -----------------------------------------------------------------------------------------------------------------
     // Methods
     // ----------------------------------------------------------------------------------------------------------------
-    public static MarkupString GetIconContent(string iconName) {
+    public MarkupString GetIconContent(string iconName) {
         if (string.IsNullOrWhiteSpace(iconName)) return new MarkupString(string.Empty);
-        if (LucideLookupDictionary.IconsByLucideName.TryGetValue(iconName, out ILucideIconData? lucideIcon)) return new MarkupString(lucideIcon.SvgContent);
+        
+        string normalizedIconName = iconName.Replace("-", "").ToLowerInvariant();
+        if (lookupDictionary.IconsByLucideName.TryGetValue(normalizedIconName, out Lazy<ILucideIconData>? lucideIcon))
+            return new MarkupString(lucideIcon.Value.FlatSvgContent);
+        
+        // Nothing was found
+        return EmptyMarkupString;
+    }
 
-        // ReSharper disable once ForCanBeConvertedToForeach
-        for (int index = 0; index < LookupSources.Length; index++) {
-            if (!LookupSources[index].TryGetValue(iconName, out string? lucideName)) continue;
+    public MarkupString GetIconSvg(string iconName) {
+        if (string.IsNullOrWhiteSpace(iconName)) return new MarkupString(string.Empty);
 
-            return new MarkupString(LucideLookupDictionary.IconsByLucideName[lucideName].SvgContent);
-        }
+        string normalizedIconName = iconName.Replace("-", "").ToLowerInvariant();
+        if (lookupDictionary.IconsByLucideName.TryGetValue(normalizedIconName, out Lazy<ILucideIconData>? lucideIcon))
+            return new MarkupString(lucideIcon.Value.DirectImportNoComments);
 
         // Nothing was found
-        return new MarkupString(string.Empty);
+        return EmptyMarkupString;
     }
+
 }

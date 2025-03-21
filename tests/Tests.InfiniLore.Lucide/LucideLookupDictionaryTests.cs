@@ -12,9 +12,10 @@ public class LucideLookupDictionaryTests {
     [Test]
     public async Task IsNotEmpty() {
         // Arrange
+        var lucideLookupDictionary = new LucideLookupDictionary();
         
         // Act
-        int count = LucideLookupDictionary.Count;
+        int count = lucideLookupDictionary.Count;
 
         // Assert
         await Assert.That(count).IsNotZero()

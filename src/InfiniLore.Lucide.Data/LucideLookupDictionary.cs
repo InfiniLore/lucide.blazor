@@ -5,6 +5,6 @@ namespace InfiniLore.Lucide.Data;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public partial class LucideLookupDictionary {
-    public static int Count => IconsByLucideName.Count;
+public partial class LucideLookupDictionary : ILucideLookupDictionary {
+    public int Count => IconsByLucideName.Count;
 }
