@@ -3,6 +3,8 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.CliArgsParser;
 using CodeOfChaos.CliArgsParser.Library;
+using Tools.InfiniLore.Lucide.Commands.GenerateRazor;
+using Tools.InfiniLore.Lucide.Commands.UpdateLucide;
 
 namespace Tools.InfiniLore.Lucide;
 // ---------------------------------------------------------------------------------------------------------------------
@@ -15,6 +17,8 @@ internal static class Program {
         CliArgsParser parser = CliArgsBuilder.CreateFromConfig(
             config => {
                 config.AddCommandsFromAssemblyEntrypoint<IAssemblyEntry>();
+                config.AddCommand<GenerateRazorCommand>();
+                config.AddCommand<UpdateLucideStaticCommands>();
             }
         ).Build();
 

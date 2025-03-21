@@ -39,7 +39,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Icons\" />
+      <_ContentIncludedByDefault Remove="Properties\launchSettings.json" />
     </ItemGroup>
 
 </Project>

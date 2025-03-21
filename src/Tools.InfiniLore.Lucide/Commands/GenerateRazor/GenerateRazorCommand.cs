@@ -4,6 +4,7 @@
 using CodeOfChaos.CliArgsParser;
 using CodeOfChaos.GeneratorTools;
 using InfiniLore.Lucide.Generators.Raw.Dtos;
+using InfiniLore.Lucide.Generators.Raw.Helpers;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -21,6 +22,7 @@ public partial class GenerateRazorCommand : ICommand<GenerateRazorParameters>  {
     private ILogger<GenerateRazorCommand>? _loggerCache;
     private ILogger<GenerateRazorCommand> Logger => _loggerCache ??= Provider.GetRequiredService<ILogger<GenerateRazorCommand>>();
     private GenerateRazorParameters Parameters { get; set; }
+    private readonly string[] _lucideLicence = GeneratorStringBuilderExtensions.GetLucideLicense();
 
     // -----------------------------------------------------------------------------------------------------------------
     // Methods
@@ -103,6 +105,10 @@ public partial class GenerateRazorCommand : ICommand<GenerateRazorParameters>  {
     private async ValueTask CreateRazorFileAsync(LucideSvgFileDto dto, CancellationToken ct) {
         var builder = new GeneratorStringBuilder();
 
+        foreach (string line in _lucideLicence) {
+            builder.AppendLine($"@* {line} *@");
+        }
+
         builder.AppendLine("@inherits ComponentBase");
         builder.AppendBody("""
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +122,7 @@ public partial class GenerateRazorCommand : ICommand<GenerateRazorParameters>  {
                  stroke-linejoin="@StrokeLineJoin"
                  @attributes="AdditionalAttributes">
             """);
-        builder.AppendBodyIndented(dto.Svg);
+        builder.AppendBodyIndented(dto.SvgContent);
         builder.AppendLine("</svg>");
         builder.AppendLine();
         builder.AppendLine("@code {");
@@ -133,7 +139,7 @@ public partial class GenerateRazorCommand : ICommand<GenerateRazorParameters>  {
         builder.AppendLine("}");
         
         // Output data to the actual file
-        string filePath = Path.Combine(Parameters.OutputFolder, dto.Name + ".razor");
+        string filePath = Path.Combine(Parameters.OutputFolder, $"Li{dto.PascalCaseName}.razor");
         await File.WriteAllTextAsync(filePath, builder.ToString(), ct);
         Logger.Information("Created razor file: {path}", Path.GetFullPath(filePath));
     }
