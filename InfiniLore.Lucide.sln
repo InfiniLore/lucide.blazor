@@ -1563,7 +1563,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "icons", "icons", "{6BCC66C4
 		node_modules\lucide-static\icons\zoom-out.svg = node_modules\lucide-static\icons\zoom-out.svg
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Tools", "src\InfiniLore.Lucide.Tools\InfiniLore.Lucide.Tools.csproj", "{949D13CC-CB71-418F-B240-C371FA1B5281}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.InfiniLore.Lucide", "src\Tools.InfiniLore.Lucide\Tools.InfiniLore.Lucide.csproj", "{949D13CC-CB71-418F-B240-C371FA1B5281}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{B71EEA73-1F73-42D4-A341-EA13D8F95BF0}"
 EndProject
@@ -1572,8 +1572,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LucideExample", "examples\LucideExample\LucideExample.csproj", "{12C0FAC8-BD5D-4464-BB93-4014D25999F4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.InfiniLore.Lucide", "tests\Tests.InfiniLore.Lucide\Tests.InfiniLore.Lucide.csproj", "{6B939B30-2BB1-4F8D-BD0B-417A43931DFF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Generators.RazorFiles", "src\InfiniLore.Lucide.Generators.RazorFiles\InfiniLore.Lucide.Generators.RazorFiles.csproj", "{8960AA9E-10B7-44BD-85EA-F451F8687ED0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1605,10 +1603,6 @@ Global
 		{6B939B30-2BB1-4F8D-BD0B-417A43931DFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B939B30-2BB1-4F8D-BD0B-417A43931DFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B939B30-2BB1-4F8D-BD0B-417A43931DFF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8960AA9E-10B7-44BD-85EA-F451F8687ED0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8960AA9E-10B7-44BD-85EA-F451F8687ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8960AA9E-10B7-44BD-85EA-F451F8687ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8960AA9E-10B7-44BD-85EA-F451F8687ED0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CE629BED-BFFB-4C72-B5B0-62882E90CD0B} = {6D9930C4-8D0C-4F21-98E4-C62FF787941E}
@@ -1618,6 +1612,5 @@ Global
 		{D29827FC-F0A3-4D7F-88BA-57281A77A066} = {6D9930C4-8D0C-4F21-98E4-C62FF787941E}
 		{12C0FAC8-BD5D-4464-BB93-4014D25999F4} = {C263AF12-5F3C-4AF6-9B2B-65BCE154F3A8}
 		{6B939B30-2BB1-4F8D-BD0B-417A43931DFF} = {1ED22B93-228B-465A-ACCC-CB61199AA88E}
-		{8960AA9E-10B7-44BD-85EA-F451F8687ED0} = {6D9930C4-8D0C-4F21-98E4-C62FF787941E}
 	EndGlobalSection
 EndGlobal

@@ -38,4 +38,8 @@
         <ProjectReference Include="..\InfiniLore.Lucide.Data\InfiniLore.Lucide.Data.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Icons\" />
+    </ItemGroup>
+
 </Project>

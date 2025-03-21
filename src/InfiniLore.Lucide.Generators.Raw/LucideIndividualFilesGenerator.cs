@@ -1,4 +1,5 @@
-﻿// ---------------------------------------------------------------------------------------------------------------------
+﻿#if NETSTANDARD2_0
+// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.GeneratorTools;
@@ -6,8 +7,6 @@ using InfiniLore.Lucide.Generators.Raw.Dtos;
 using InfiniLore.Lucide.Generators.Raw.Helpers;
 using Microsoft.CodeAnalysis;
 using System.Collections.Immutable;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace InfiniLore.Lucide.Generators.Raw;
 // ---------------------------------------------------------------------------------------------------------------------
@@ -23,18 +22,6 @@ public class LucideIndividualFilesGenerator : IIncrementalGenerator {
     private static void CreateIconFiles(SourceProductionContext context, ImmutableArray<LucideSvgFileDto> data) {
         var builder = new GeneratorStringBuilder();
         foreach (LucideSvgFileDto lucideSvgFile in data) {
-            string normalSvg = lucideSvgFile.Svg.TrimEnd();
-            string noCommentSvg = Regex.Replace(normalSvg, "<!--.*?-->(\r\n|\r|\n)?", string.Empty, RegexOptions.Compiled | RegexOptions.Multiline);
-            string noWhitespaceSvg = Regex.Replace(normalSvg, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);
-            string noWhitespaceAndNoCommentSvg = Regex.Replace(noCommentSvg, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);
-            string svgContent = Regex.Match(normalSvg, @"<svg[^>]*>(.*?)</svg>", RegexOptions.Singleline | RegexOptions.Compiled)
-                .Groups[1].Value
-                .Split('\n')
-                .Select(line => line.TrimStart())
-                .Aggregate((a, b) => a + "\n" + b)
-                .Trim();
-            string svgContentFlat = Regex.Replace(svgContent, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);
-
             builder.WriteLucideLicense()
                 .AppendLine()
                 .AppendLine("// auto-generated")
@@ -45,7 +32,7 @@ public class LucideIndividualFilesGenerator : IIncrementalGenerator {
 
             builder.AppendLineIndented("public string DirectImport => _directImport;")
                 .AppendLineIndented("private static readonly string _directImport = \"\"\"")
-                .AppendLine(normalSvg)
+                .AppendLine(lucideSvgFile.NormalSvg)
                 .AppendLine("\"\"\";")
                 .AppendLine();
 
@@ -53,34 +40,34 @@ public class LucideIndividualFilesGenerator : IIncrementalGenerator {
             builder
                 .AppendLineIndented("public string DirectImportNoComments => _directImportNoComments;")
                 .AppendLineIndented("private static readonly string _directImportNoComments = \"\"\"")
-                .AppendLine(noCommentSvg)
+                .AppendLine(lucideSvgFile.NoCommentSvg)
                 .AppendLine("\"\"\";")
                 .AppendLine();
 
             builder
                 .AppendLineIndented("public string SvgContent => _svgContent;")
                 .AppendLineIndented("private static readonly string _svgContent = \"\"\"")
-                .AppendLine(svgContent)
+                .AppendLine(lucideSvgFile.SvgContent)
                 .AppendLine("\"\"\";")
                 .AppendLine();
 
             builder
                 .AppendLineIndented("public string Flat => _flat;")
-                .AppendLineIndented($"private static readonly string _flat = \"\"\"{noWhitespaceSvg}\"\"\";")
+                .AppendLineIndented($"private static readonly string _flat = \"\"\"{lucideSvgFile.NoWhitespaceSvg}\"\"\";")
                 .AppendLine();
 
             builder
                 .AppendLineIndented("public string FlatNoComments => _flatNoComments;")
-                .AppendLineIndented($"private static readonly string _flatNoComments = \"\"\"{noWhitespaceAndNoCommentSvg}\"\"\";")
+                .AppendLineIndented($"private static readonly string _flatNoComments = \"\"\"{lucideSvgFile.NoWhitespaceAndNoCommentSvg}\"\"\";")
                 .AppendLine();
 
             builder
                 .AppendLineIndented("public string FlatSvgContent => _flatSvgContent;")
-                .AppendLineIndented($"public static readonly string _flatSvgContent = \"\"\"{svgContentFlat}\"\"\";")
+                .AppendLineIndented($"public static readonly string _flatSvgContent = \"\"\"{lucideSvgFile.SvgContentFlat}\"\"\";")
                 .AppendLine();
 
             builder
-                .AppendLineIndented($"public static readonly MarkupString FlatMarkup = new(\"\"\"{svgContentFlat}\"\"\");")
+                .AppendLineIndented($"public static readonly MarkupString FlatMarkup = new(\"\"\"{lucideSvgFile.SvgContentFlat}\"\"\");")
                 .AppendLine();
 
             builder.AppendLine("}")
@@ -91,3 +78,5 @@ public class LucideIndividualFilesGenerator : IIncrementalGenerator {
         }
     }
 }
+#endif
+    

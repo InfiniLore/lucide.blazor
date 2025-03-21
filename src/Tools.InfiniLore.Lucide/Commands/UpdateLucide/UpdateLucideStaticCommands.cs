@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
-namespace InfiniLore.Lucide.Tools.Commands;
+namespace Tools.InfiniLore.Lucide.Commands.UpdateLucide;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------

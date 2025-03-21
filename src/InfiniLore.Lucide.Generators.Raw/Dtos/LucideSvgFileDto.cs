@@ -4,6 +4,8 @@
 using InfiniLore.Lucide.Generators.Raw.Helpers;
 using Microsoft.CodeAnalysis;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace InfiniLore.Lucide.Generators.Raw.Dtos;
@@ -14,9 +16,30 @@ public record LucideSvgFileDto(string Name, string Svg) {
     public string PascalCaseName => Name.ToPascalCase();
     public string CamelCaseName => Name.ToCamelCase();
     
+    public string NormalSvg => Svg.TrimEnd();
+    public string NoCommentSvg => Regex.Replace(NormalSvg, "<!--.*?-->(\r\n|\r|\n)?", string.Empty, RegexOptions.Compiled | RegexOptions.Multiline);
+    public string NoWhitespaceSvg => Regex.Replace(NormalSvg, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);
+    public string NoWhitespaceAndNoCommentSvg => Regex.Replace(NoCommentSvg, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);
+    public string SvgContent => Regex.Match(NormalSvg, @"<svg[^>]*>(.*?)</svg>", RegexOptions.Singleline | RegexOptions.Compiled)
+        .Groups[1].Value
+        .Split('\n')
+        .Select(line => line.TrimStart())
+        .Aggregate((a, b) => a + "\n" + b)
+        .Trim();
+    public string SvgContentFlat => Regex.Replace(SvgContent, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);
+    
     public static LucideSvgFileDto FromAdditionalText(AdditionalText file, CancellationToken ct = default) 
         => new(
             Path.GetFileNameWithoutExtension(file.Path),
             file.GetText(ct)?.ToString() ?? string.Empty
         );
+
+    #if NET9_0_OR_GREATER
+    #pragma warning disable RS1035
+    public static LucideSvgFileDto FromFile(string path, CancellationToken ct = default) {
+        string svg = File.ReadAllText(path);
+        return new(Path.GetFileNameWithoutExtension(path), svg);
+    }
+    #pragma warning restore RS1035
+    #endif
 }
