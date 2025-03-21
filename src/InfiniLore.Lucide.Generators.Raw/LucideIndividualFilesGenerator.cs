@@ -39,6 +39,7 @@ public class LucideIndividualFilesGenerator : IIncrementalGenerator {
                 .AppendLine()
                 .AppendLine("// auto-generated")
                 .AppendLine()
+                .AppendUsings("Microsoft.AspNetCore.Components")
                 .AppendLine("namespace InfiniLore.Lucide.Data;")
                 .AppendLine($"public class {lucideSvgFile.PascalCaseName} : ILucideIconData {{");
 
@@ -75,7 +76,11 @@ public class LucideIndividualFilesGenerator : IIncrementalGenerator {
 
             builder
                 .AppendLineIndented("public string FlatSvgContent => _flatSvgContent;")
-                .AppendLineIndented($"public static string _flatSvgContent => \"\"\"{svgContentFlat}\"\"\";")
+                .AppendLineIndented($"public static readonly string _flatSvgContent = \"\"\"{svgContentFlat}\"\"\";")
+                .AppendLine();
+
+            builder
+                .AppendLineIndented($"public static readonly MarkupString FlatMarkup = new(\"\"\"{svgContentFlat}\"\"\");")
                 .AppendLine();
 
             builder.AppendLine("}")
