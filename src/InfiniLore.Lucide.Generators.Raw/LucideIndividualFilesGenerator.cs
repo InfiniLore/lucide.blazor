@@ -30,44 +30,34 @@ public class LucideIndividualFilesGenerator : IIncrementalGenerator {
                 .AppendLine("namespace InfiniLore.Lucide.Data;")
                 .AppendLine($"public class {lucideSvgFile.PascalCaseName} : ILucideIconData {{");
 
-            builder.AppendLineIndented("public string DirectImport => _directImport;")
-                .AppendLineIndented("private static readonly string _directImport = \"\"\"")
+            builder.AppendLineIndented("public string DirectImport { get; } = \"\"\"")
                 .AppendLine(lucideSvgFile.NormalSvg)
                 .AppendLine("\"\"\";")
                 .AppendLine();
 
 
             builder
-                .AppendLineIndented("public string DirectImportNoComments => _directImportNoComments;")
-                .AppendLineIndented("private static readonly string _directImportNoComments = \"\"\"")
+                .AppendLineIndented("public string DirectImportNoComments { get; } = \"\"\"")
                 .AppendLine(lucideSvgFile.NoCommentSvg)
                 .AppendLine("\"\"\";")
                 .AppendLine();
 
             builder
-                .AppendLineIndented("public string SvgContent => _svgContent;")
-                .AppendLineIndented("private static readonly string _svgContent = \"\"\"")
+                .AppendLineIndented("public string SvgContent { get; } = \"\"\"")
                 .AppendLine(lucideSvgFile.SvgContent)
                 .AppendLine("\"\"\";")
                 .AppendLine();
 
             builder
-                .AppendLineIndented("public string Flat => _flat;")
-                .AppendLineIndented($"private static readonly string _flat = \"\"\"{lucideSvgFile.NoWhitespaceSvg}\"\"\";")
+                .AppendLineIndented($"public string Flat {{ get; }} = \"\"\"{lucideSvgFile.NoWhitespaceSvg}\"\"\";")
                 .AppendLine();
 
             builder
-                .AppendLineIndented("public string FlatNoComments => _flatNoComments;")
-                .AppendLineIndented($"private static readonly string _flatNoComments = \"\"\"{lucideSvgFile.NoWhitespaceAndNoCommentSvg}\"\"\";")
+                .AppendLineIndented($"public string FlatNoComments {{ get; }} = \"\"\"{lucideSvgFile.NoWhitespaceAndNoCommentSvg}\"\"\";")
                 .AppendLine();
 
             builder
-                .AppendLineIndented("public string FlatSvgContent => _flatSvgContent;")
-                .AppendLineIndented($"public static readonly string _flatSvgContent = \"\"\"{lucideSvgFile.SvgContentFlat}\"\"\";")
-                .AppendLine();
-
-            builder
-                .AppendLineIndented($"public static readonly MarkupString FlatMarkup = new(\"\"\"{lucideSvgFile.SvgContentFlat}\"\"\");")
+                .AppendLineIndented($"public string FlatSvgContent {{ get; }} = \"\"\"{lucideSvgFile.SvgContentFlat}\"\"\";")
                 .AppendLine();
 
             builder.AppendLine("}")

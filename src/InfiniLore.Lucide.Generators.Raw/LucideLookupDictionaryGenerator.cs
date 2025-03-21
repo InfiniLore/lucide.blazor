@@ -23,32 +23,18 @@ public class LucideLookupDictionaryGenerator : IIncrementalGenerator {
         var builder = new GeneratorStringBuilder();
 
         builder
-            .AppendLine("using System.Collections.Generic;")
+            .AppendUsings(
+                "System",
+                "System.Collections.Frozen",
+                "System.Collections.Generic"
+            )
             .AppendLine("namespace InfiniLore.Lucide.Data;")
             .AppendLine("public partial class LucideLookupDictionary {");
 
         builder.Indent(b => {
-            b.AppendLine("public static readonly Dictionary<string, ILucideIconData> IconsByLucideName = new() {");
-            b.ForEachAppendLineIndented(data, itemFormatter: d => $"[\"{d.Name}\"] = new {d.PascalCaseName}(),");
-            b.AppendLine("};");
-        });
-
-        builder.Indent(b => {
-            b.AppendLine("public static readonly Dictionary<string, string> IconsByPascalCase = new() {");
-            b.ForEachAppendLineIndented(data, itemFormatter: d => $"[\"{d.PascalCaseName}\"] = \"{d.Name}\",");
-            b.AppendLine("};");
-        });
-
-        builder.Indent(b => {
-            b.AppendLine("public static readonly Dictionary<string, string> IconsByCamelCase = new() {");
-            b.ForEachAppendLineIndented(data, itemFormatter: d => $"[\"{d.CamelCaseName}\"] = \"{d.Name}\",");
-            b.AppendLine("};");
-        });
-
-        builder.Indent(b => {
-            b.AppendLine("public static readonly Dictionary<string, string> IconsByPascalLowerInvariant = new() {");
-            b.ForEachAppendLineIndented(data, itemFormatter: d => $"[\"{d.PascalCaseName.ToLowerInvariant()}\"] = \"{d.Name}\",");
-            b.AppendLine("};");
+            b.AppendLine("public FrozenDictionary<string, Lazy<ILucideIconData>> IconsByLucideName { get; } = new Dictionary<string, Lazy<ILucideIconData>>() {");
+            b.ForEachAppendLineIndented(data, itemFormatter: d => $"[\"{d.NormalizedName}\"] = new Lazy<ILucideIconData>(static () => new {d.PascalCaseName}()),");
+            b.AppendLine("}.ToFrozenDictionary();");
         });
 
         builder.AppendLine("}");

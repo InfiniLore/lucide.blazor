@@ -1,10 +1,15 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using System;
+using System.Collections.Frozen;
+
 namespace InfiniLore.Lucide.Data;
+
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public partial class LucideLookupDictionary : ILucideLookupDictionary {
-    public int Count => IconsByLucideName.Count;
+public interface ILucideLookupDictionary {
+    FrozenDictionary<string, Lazy<ILucideIconData>>  IconsByLucideName { get; }
+    int Count { get; }
 }

@@ -1,10 +1,14 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-namespace InfiniLore.Lucide.Data;
+using Microsoft.AspNetCore.Components;
+
+namespace InfiniLore.Lucide;
+
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public partial class LucideLookupDictionary : ILucideLookupDictionary {
-    public int Count => IconsByLucideName.Count;
+public interface ILucideService {
+    MarkupString GetIconContent(string iconName);
+    MarkupString GetIconSvg(string iconName);
 }

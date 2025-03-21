@@ -2,6 +2,7 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using InfiniLore.Lucide;
+using InfiniLore.Lucide.Data;
 using Microsoft.AspNetCore.Components;
 
 namespace Tests.InfiniLore.Lucide;
@@ -14,9 +15,11 @@ public class LucideServiceTests {
     [Arguments("signature")]
     public async Task CanFindSvgContent(string iconName) {
         // Arrange
+        var lucideLookupDictionary = new LucideLookupDictionary();
+        var lucideService = new LucideService(lucideLookupDictionary);
 
         // Act
-        MarkupString markup = LucideService.GetIconContent(iconName);
+        MarkupString markup = lucideService.GetIconContent(iconName);
         string data = markup.Value;
         
         // Assert

@@ -108,7 +108,7 @@ public partial class GenerateRazorCommand : ICommand<GenerateRazorParameters>  {
         builder
             .ForEachAppendLine(_lucideLicence, line => $"@* {line} *@")    
             .AppendLine()
-            .AppendLine("@namespace InfiniLore.Lucide.Icons")
+            .AppendLine("@namespace InfiniLore.Lucide")
             .AppendLine("@inherits ComponentBase")
             .AppendLine()
             .AppendBody("""

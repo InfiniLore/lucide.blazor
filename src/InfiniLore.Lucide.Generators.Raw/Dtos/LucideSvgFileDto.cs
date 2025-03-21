@@ -15,6 +15,7 @@ namespace InfiniLore.Lucide.Generators.Raw.Dtos;
 public record LucideSvgFileDto(string Name, string Svg) {
     public string PascalCaseName => Name.ToPascalCase();
     public string CamelCaseName => Name.ToCamelCase();
+    public string NormalizedName => Name.ToPascalCase().ToLowerInvariant();
     
     public string NormalSvg => Svg.TrimEnd();
     public string NoCommentSvg => Regex.Replace(NormalSvg, "<!--.*?-->(\r\n|\r|\n)?", string.Empty, RegexOptions.Compiled | RegexOptions.Multiline);
