@@ -123,7 +123,10 @@ public partial class GenerateRazorCommand : ICommand<GenerateRazorParameters>  {
                  stroke-linejoin="@StrokeLineJoin"
                  @attributes="AdditionalAttributes">
             """)
+            .AppendLine()
+            .AppendLineIndented($"@* lucide name:`{dto.Name}` *@")
             .AppendBodyIndented(dto.SvgContent)
+            .AppendLine()
             .AppendLine("</svg>")
             .AppendLine()
             .AppendLine("@code {")
