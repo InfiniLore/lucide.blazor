@@ -30,9 +30,13 @@
       "commandName": "Project",
       "commandLineArgs": "nuget-download-icon --origin=\"https://avatars.githubusercontent.com/u/102103683\" --projects=\"%PROJECTS%\""
     },
-    "Update && Generate Razor": {
+    "Generate Razor": {
       "commandName": "Project",
-      "commandLineArgs": "update-lucide-static && generate-razor"
+      "commandLineArgs": "generate-razor"
+    },
+    "Update Lucide Static": {
+      "commandName": "Project",
+      "commandLineArgs": "update-lucide-static"
     }
   }
 }
