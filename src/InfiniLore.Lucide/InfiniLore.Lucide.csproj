@@ -38,8 +38,4 @@
         <ProjectReference Include="..\InfiniLore.Lucide.Data\InfiniLore.Lucide.Data.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="Properties\launchSettings.json" />
-    </ItemGroup>
-
 </Project>

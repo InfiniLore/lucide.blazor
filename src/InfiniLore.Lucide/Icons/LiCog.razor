@@ -1,0 +1,57 @@
+@* --- *@
+@* ISC License *@
+@* Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2022 as part of Feather (MIT). All other copyright (c) for Lucide are held by Lucid Contributors 2022. *@
+@*  *@
+@* Permission to use, copy, modify, and/or distribute this software for any *@
+@* purpose with or without fee is hereby granted, provided that the above *@
+@* copyright notice and this permission notice appear in all copies. *@
+@*  *@
+@* THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES *@
+@* WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF *@
+@* MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR *@
+@* ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES *@
+@* WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN *@
+@* ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF *@
+@* OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. *@
+@*  *@
+@* --- *@
+
+@namespace InfiniLore.Lucide.Icons
+@inherits ComponentBase
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="@Width"
+     height="@Height"
+     viewBox="0 0 24 24"
+     fill="@Fill"
+     stroke="@Stroke"
+     stroke-width="@StrokeWidth"
+     stroke-linecap="@StrokeLineCap"
+     stroke-linejoin="@StrokeLineJoin"
+     @attributes="AdditionalAttributes">
+    <path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z" />
+    <path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+    <path d="M12 2v2" />
+    <path d="M12 22v-2" />
+    <path d="m17 20.66-1-1.73" />
+    <path d="M11 10.27 7 3.34" />
+    <path d="m20.66 17-1.73-1" />
+    <path d="m3.34 7 1.73 1" />
+    <path d="M14 12h8" />
+    <path d="M2 12h2" />
+    <path d="m20.66 7-1.73 1" />
+    <path d="m3.34 17 1.73-1" />
+    <path d="m17 3.34-1 1.73" />
+    <path d="m11 13.73-4 6.93" />
+</svg>
+
+@code {
+    [Parameter] public int Width { get; set; } = 24;
+    [Parameter] public int Height { get; set; } = 24;
+    [Parameter] public string Fill { get; set; } = "none";
+    [Parameter] public string Stroke { get; set; } = "currentColor";
+    [Parameter] public int StrokeWidth { get; set; } = 2;
+    [Parameter] public string StrokeLineCap { get; set; } = "round";
+    [Parameter] public string StrokeLineJoin { get; set; } = "round";
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = null!;
+}

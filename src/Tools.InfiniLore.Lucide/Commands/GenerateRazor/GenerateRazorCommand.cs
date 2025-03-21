@@ -105,12 +105,13 @@ public partial class GenerateRazorCommand : ICommand<GenerateRazorParameters>  {
     private async ValueTask CreateRazorFileAsync(LucideSvgFileDto dto, CancellationToken ct) {
         var builder = new GeneratorStringBuilder();
 
-        foreach (string line in _lucideLicence) {
-            builder.AppendLine($"@* {line} *@");
-        }
-
-        builder.AppendLine("@inherits ComponentBase");
-        builder.AppendBody("""
+        builder
+            .ForEachAppendLine(_lucideLicence, line => $"@* {line} *@")    
+            .AppendLine()
+            .AppendLine("@namespace InfiniLore.Lucide.Icons")
+            .AppendLine("@inherits ComponentBase")
+            .AppendLine()
+            .AppendBody("""
             <svg xmlns="http://www.w3.org/2000/svg"
                  width="@Width"
                  height="@Height"
@@ -121,22 +122,22 @@ public partial class GenerateRazorCommand : ICommand<GenerateRazorParameters>  {
                  stroke-linecap="@StrokeLineCap"
                  stroke-linejoin="@StrokeLineJoin"
                  @attributes="AdditionalAttributes">
-            """);
-        builder.AppendBodyIndented(dto.SvgContent);
-        builder.AppendLine("</svg>");
-        builder.AppendLine();
-        builder.AppendLine("@code {");
-        builder.Indent(b => {
-            b.AppendLine("[Parameter] public int Width { get; set; } = 24;");
-            b.AppendLine("[Parameter] public int Height { get; set; } = 24;");
-            b.AppendLine("[Parameter] public string Fill { get; set; } = \"none\";");
-            b.AppendLine("[Parameter] public string Stroke { get; set; } = \"currentColor\";");
-            b.AppendLine("[Parameter] public int StrokeWidth { get; set; } = 2;");
-            b.AppendLine("[Parameter] public string StrokeLineCap { get; set; } = \"round\";");
-            b.AppendLine("[Parameter] public string StrokeLineJoin { get; set; } = \"round\";");
-            b.AppendLine("[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = null!;");
-        });
-        builder.AppendLine("}");
+            """)
+            .AppendBodyIndented(dto.SvgContent)
+            .AppendLine("</svg>")
+            .AppendLine()
+            .AppendLine("@code {")
+            .AppendBodyIndented("""
+                [Parameter] public int Width { get; set; } = 24;
+                [Parameter] public int Height { get; set; } = 24;
+                [Parameter] public string Fill { get; set; } = "none";
+                [Parameter] public string Stroke { get; set; } = "currentColor";
+                [Parameter] public int StrokeWidth { get; set; } = 2;
+                [Parameter] public string StrokeLineCap { get; set; } = "round";
+                [Parameter] public string StrokeLineJoin { get; set; } = "round";
+                [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = null!;
+                """)
+            .AppendLine("}");
         
         // Output data to the actual file
         string filePath = Path.Combine(Parameters.OutputFolder, $"Li{dto.PascalCaseName}.razor");

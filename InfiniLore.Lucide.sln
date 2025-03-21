@@ -1571,7 +1571,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide", "src\In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.InfiniLore.Lucide", "tests\Tests.InfiniLore.Lucide\Tests.InfiniLore.Lucide.csproj", "{6B939B30-2BB1-4F8D-BD0B-417A43931DFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.InfiniLore.Lucide", "Example.InfiniLore.Lucide\Example.InfiniLore.Lucide.csproj", "{D86105EA-FF78-495F-80C8-B0527924F72E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleServer", "ExampleServer\ExampleServer.csproj", "{D86105EA-FF78-495F-80C8-B0527924F72E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
