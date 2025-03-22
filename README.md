@@ -4,6 +4,9 @@
 This library provides an easy-to-use component and tools to render SVG icons dynamically with customizable properties.
 Can both be use on the server, as a WASM client.
 
+**This package is developed as an independent project and is not affiliated, associated, or endorsed by the creators or maintainers of the Lucide library.**
+**It is built to enhance the experience of using Lucide's open-source icon set within Blazor applications.**
+
 ---
 
 ## Features
