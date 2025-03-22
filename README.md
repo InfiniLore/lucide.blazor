@@ -2,16 +2,20 @@
 
 **InfiniLore.Lucide** is a package that allows you to seamlessly integrate [Lucide Icons](https://lucide.dev/) into your Blazor applications. 
 This library provides an easy-to-use component and tools to render SVG icons dynamically with customizable properties.
-Can both be use on the server, as a WASM client.
 
 **This package is developed as an independent project and is not affiliated, associated, or endorsed by the creators or maintainers of the Lucide library.**
 **It is built to enhance the experience of using Lucide's open-source icon set within Blazor applications.**
+
+This package uses the Patch section of semantic versions (`0.0.x`) to denote which Lucide version is to build the current package.
 
 ---
 
 ## Features
 - **Reusable Components**: Incorporate Lucide's rich collection of SVG icons using Razor components.
 - **Icon Customization**: Adjust properties like `fill`, `stroke`, `width`, `height`, and more.
+- **Dynamic Icons**: Change the icon name on the fly when using `<LucideIcon name="..."/>`
+- **Static Icons**: Dont need to dynamically change icons? Use  `<Li.../>` components to load their data directly.
+- **WASM Support**: Use the same components and services on the server and client.
 
 ---
 
@@ -30,7 +34,6 @@ dotnet add package InfiniLore.Lucide
 ---
 
 ### 2. **Usage**
-
 
 ### Add `AddLucideIcons()` to services.
 If you want to use the `<LucideIcon name="...">` razor component you will need to add `AddLucideIcons()` to your service provider.
@@ -54,6 +57,9 @@ whilst the `Li...` components have their svg data as static and require the enti
 The naming convention of the `Li...` components is `Li{lucideName.ToPascalCase()}` (pseudo) without the dashes that Lucide has.
 The string value for the `LucideIcon.Name` parameter can be anything closely related to the actual Lucide name.
 For example: `arrow-big-down-dash`, `arrowbigdowndash`, `ArrowBigDownDash` will all point to the same icon.
+
+Usage of the `class` parameter is also supported on both `LucideIcon` and `Li...` components.
+
 ```html
 <!-- Minimal requirement -->
 <LucideIcon Name="signature"/>
@@ -70,10 +76,11 @@ For example: `arrow-big-down-dash`, `arrowbigdowndash`, `ArrowBigDownDash` will 
 
 <!-- Li short handle -->
 <LiSignature/>
+<LiDam class="some-red-class">
 ```
 
 #### Parameters
-Below are the parameters you can configure for the `LucideSvg` component:
+Below are the parameters you can configure for the `LucideIcon` component:
 
 | Parameter        | Type   | Default          | Description                                   |
 |------------------|--------|------------------|-----------------------------------------------|
