@@ -1,15 +1,14 @@
 # InfiniLore.Lucide
 
-**InfiniLore.Lucide** is a package that allows you to seamlessly integrate [Lucide Icons](https://lucide.dev/) into your Blazor applications. This library provides an easy-to-use component and tools to render SVG icons dynamically with customizable properties.
+**InfiniLore.Lucide** is a package that allows you to seamlessly integrate [Lucide Icons](https://lucide.dev/) into your Blazor applications. 
+This library provides an easy-to-use component and tools to render SVG icons dynamically with customizable properties.
+Can both be use on the server, as a WASM client.
 
 ---
 
 ## Features
 - **Reusable Components**: Incorporate Lucide's rich collection of SVG icons using Razor components.
 - **Icon Customization**: Adjust properties like `fill`, `stroke`, `width`, `height`, and more.
-- **Performance-Oriented Rendering**: Icons are served as SVG with minimal overhead.
-- **Fully Typed API**: Seamless integration with C# for type-safe development.
-- **Support for .NET 9.0**: Built with the latest .NET technology for modern application development.
 
 ---
 
@@ -29,9 +28,29 @@ dotnet add package InfiniLore.Lucide
 
 ### 2. **Usage**
 
-#### Add the Lucide Component
-To include an icon in your Blazor application, use the `LucideSvg` component:
 
+### Add `AddLucideIcons()` to services.
+If you want to use the `<LucideIcon name="...">` razor component you will need to add `AddLucideIcons()` to your service provider.
+The razor components starting with `Li` like `<LiSignature/>` do not depend on these services, and have their svg data built in.
+
+`Program.cs`
+```csharp
+builder.Services.AddLucideIcons();
+```
+
+`_Imports.razor`
+```csharp
+@using InfiniLore.Lucide
+```
+
+#### Add the Lucide Component
+To include an icon in your Blazor application, use either the `LucideIcon` or `Li...` components .
+The `LucideIcon` component automatically updates its state when you change the `Name` property,
+whilst the `Li...` components have their svg data as static and require the entire component to be changed if you want a different icon on the fly.
+
+The naming convention of the `Li...` components is `Li{lucideName.ToPascalCase()}` (pseudo) without the dashes that Lucide has.
+The string value for the `LucideIcon.Name` parameter can be anything closely related to the actual Lucide name.
+For example: `arrow-big-down-dash`, `arrowbigdowndash`, `ArrowBigDownDash` will all point to the same icon.
 ```html
 <!-- Minimal requirement -->
 <LucideIcon Name="signature"/>
@@ -45,6 +64,9 @@ To include an icon in your Blazor application, use the `LucideSvg` component:
            StrokeWidth="2"
            StrokeLineCap="round"
            StrokeLineJoin="round" />
+
+<!-- Li short handle -->
+<LiSignature/>
 ```
 
 #### Parameters
@@ -52,7 +74,7 @@ Below are the parameters you can configure for the `LucideSvg` component:
 
 | Parameter        | Type   | Default          | Description                                   |
 |------------------|--------|------------------|-----------------------------------------------|
-| `IconName`       | string | **Required**     | Name of the icon (case sensitive).            |
+| `IconName`       | string | **Required**     | Name of the icon (case insensitive).          |
 | `Width`          | int    | `24`             | Width of the icon.                            |
 | `Height`         | int    | `24`             | Height of the icon.                           |
 | `Fill`           | string | `"none"`         | Fill color of the icon.                       |
@@ -63,18 +85,11 @@ Below are the parameters you can configure for the `LucideSvg` component:
 
 ---
 
-### 3. **Custom SVG Icons**
-
-The library can also accept raw SVG content for advanced use cases. You can programmatically get an SVG's content using the `LucideService.GetIconContent(string iconName)` method.
-
----
-
 ## Integration Details
 
 This library:
-- Internally utilizes the `lucide-static` package for icon definitions.
+- Internally utilizes the `lucide-static` package for icon definitions and is parsed during development of the package, not when a developer uses this package.
 - Includes `ILucideIconData` for icon data encapsulation, providing structured interfaces for SVG manipulation.
-- Supports additional data manipulation for expanding sources via the `AdditionalSourcesCollection` class.
 
 ### Dependencies
 - [Lucide-Static](https://www.npmjs.com/package/lucide-static) for icon SVG content.
@@ -88,9 +103,10 @@ This library:
 ## Development Notes
 
 This project follows a modular structure for maintainability:
-- `InfiniLore.Lucide`: Blazor components and view logic.
-- `InfiniLore.Lucide.Data`: Handles icon definitions and metadata.
-- `InfiniLore.Lucide.Generators`: Implements tooling via Roslyn to read data from lucide.static package.
+- `InfiniLore.Lucide`: Blazor components and service logic.
+- `InfiniLore.Lucide.Data`: Handles icon definitions and metadata, data provided by `InfiniLore.Lucide.Generators.Raw`.
+- `InfiniLore.Lucide.Generators.Raw`: Implements tooling via Roslyn to read data from lucide-static package.
+- `Tools.InfiniLore.Lucide`: A set of development tools, like the razor file generator.
 
 ---
 
