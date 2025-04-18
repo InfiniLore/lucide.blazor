@@ -1,6 +1,9 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using System.Text.Json;
+using TUnit.Core.Interfaces;
+
 namespace Tests.InfiniLore.Lucide;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -14,11 +17,20 @@ public class TestConfigData {
     // Methods
     // -----------------------------------------------------------------------------------------------------------------
     public TestConfigData() {
-        // ReSharper disable once DuplicatedSequentialIfBodies
-        if(!int.TryParse(TestContext.Configuration.Get("IconAmount") ?? "-1", out int totalIcons)) throw new Exception("TotalIcons not found in test configuration");
-        if(totalIcons == -1) throw new Exception("TotalIcons not found in test configuration");
+        IConfiguration config = TestContext.Configuration;
+        if (!int.TryParse(config.Get("IconAmount") ?? "-1", out int totalIcons) || totalIcons == -1) {
+            throw new Exception("IconAmount not found in test configuration");
+        }
 
         TotalIcons = totalIcons;
-        Icons = new Lazy<string[]>(() => TestContext.Configuration.Get("Icons")?.Split(';') ?? Array.Empty<string>());
+        Icons = new Lazy<string[]>(() => {
+            string? iconNamesJson = config.Get("IconNames");
+            if (string.IsNullOrEmpty(iconNamesJson)) {
+                return Array.Empty<string>();
+            }
+            return JsonSerializer.Deserialize<string[]>(iconNamesJson) ?? Array.Empty<string>();
+        });
+
+
     }
 }
