@@ -10,7 +10,7 @@ namespace Tests.InfiniLore.Lucide;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class TestConfigData {
-    public int TotalIcons { get; private init; }
+    public int IconAmount { get; private init; }
     public Lazy<string[]> Icons { get; private init; }
     
     // -----------------------------------------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ public class TestConfigData {
             throw new Exception("IconAmount not found in test configuration");
         }
 
-        TotalIcons = totalIcons;
+        IconAmount = totalIcons;
         Icons = new Lazy<string[]>(() => {
             string? iconNamesJson = config.Get("IconNames");
             if (string.IsNullOrEmpty(iconNamesJson)) {

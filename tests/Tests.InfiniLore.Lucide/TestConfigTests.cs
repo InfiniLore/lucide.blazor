@@ -1,0 +1,22 @@
+﻿// ---------------------------------------------------------------------------------------------------------------------
+// Imports
+// ---------------------------------------------------------------------------------------------------------------------
+namespace Tests.InfiniLore.Lucide;
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Code
+// ---------------------------------------------------------------------------------------------------------------------
+[ClassDataSource<TestConfigData>(Shared = SharedType.PerTestSession)]
+public class TestConfigTests(TestConfigData testConfig) {
+    [Test]
+    public async Task IsNotEmpty() {
+        // Arrange & Act
+        var iconAmount = testConfig.IconAmount;
+        var iconNames = testConfig.Icons.Value;
+
+        // Assert
+        await Assert.That(iconAmount).IsNotZero();
+        await Assert.That(iconNames).IsNotEmpty();
+        await Assert.That(iconNames).IsEqualTo(testConfig.Icons.Value);
+    }
+}

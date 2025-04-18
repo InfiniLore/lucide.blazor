@@ -21,7 +21,7 @@ public class LucideLookupDictionaryTests(TestConfigData testConfig) {
 
         // Assert
         await Assert.That(count).IsNotZero()
-            .And.IsEqualTo(testConfig.TotalIcons)
+            .And.IsEqualTo(testConfig.IconAmount)
             .And.IsEqualTo(testConfig.Icons.Value.Length); 
     }
     
