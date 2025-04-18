@@ -10,12 +10,13 @@ namespace Tests.InfiniLore.Lucide;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class LucideNamesTests {
+[ClassDataSource<TestConfigData>(Shared = SharedType.PerTestSession)]
+public class LucideNamesTests(TestConfigData testConfig) {
     [Test]
     public async Task IsMappedCorrectly() {
         // Arrange
         
-        // Act &  Assert
+        // Act & Assert
         #pragma warning disable TUnitAssertions0005
         await Assert.That(LucideNames.Signature).IsEqualTo("signature");
         #pragma warning restore TUnitAssertions0005
@@ -35,6 +36,6 @@ public class LucideNamesTests {
 
         // Assert
         await Assert.That(count).IsNotZero()
-            .And.IsGreaterThanOrEqualTo(1565); // Yes Lucide has more than 1500 icons, but we don't want to test them all at the moment
+            .And.IsEqualTo(testConfig.TotalIcons);
     }
 }
