@@ -28,6 +28,7 @@ public static class ServiceProviderFactory {
         services.AddSingleton<GatherTestDataLibrary>();
         services.AddSingleton<GenerateRazorLibrary>();
         services.AddSingleton<UpdateLucideStaticLibrary>();
+        services.AddSingleton<GitLibrary>();
         
         return services.BuildServiceProvider();
     }

@@ -1,20 +1,19 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using Microsoft.Extensions.Logging;
 using CodeOfChaos.GeneratorTools;
 using InfiniLore.Lucide.Generators.Raw.Dtos;
 using InfiniLore.Lucide.Generators.Raw.Helpers;
+using Microsoft.Extensions.Logging;
 using Tools.InfiniLore.Lucide.Library.Contracts;
 
 namespace Tools.InfiniLore.Lucide.Library;
-
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<GenerateRazorLibrary> logger) {
     private readonly string[] _lucideLicence = GeneratorStringBuilderExtensions.GetLucideLicense();
-    
+
     // -----------------------------------------------------------------------------------------------------------------
     // Methods
     // -----------------------------------------------------------------------------------------------------------------
@@ -24,7 +23,7 @@ public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<Ge
             logger.Warning("Could not find lucide-static icons folder at the following path: {path}", Path.GetFullPath(expectedIconsFolder));
             return [];
         }
-        
+
         string[] files = Directory.GetFiles(expectedIconsFolder, "*.svg");
         logger.Information("Found {count} files in lucide-static icons folder", files.Length);
         return files;
@@ -37,7 +36,7 @@ public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<Ge
                 logger.Information("Created output folder: {path}", Path.GetFullPath(parameters.RazorOutputFolder));
                 return true;
             }
-        
+
             Directory.Delete(parameters.RazorOutputFolder, true);
             Directory.CreateDirectory(parameters.RazorOutputFolder);
             logger.Information("Deleted and created new output folder: {path}", Path.GetFullPath(parameters.RazorOutputFolder));
@@ -65,31 +64,31 @@ public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<Ge
                 return [];
             }
         }
-        
+
         return dtos;
     }
-    
+
     public async ValueTask CreateRazorFileAsync(LucideSvgFileDto dto, CancellationToken ct) {
         var builder = new GeneratorStringBuilder();
 
         builder
-            .ForEachAppendLine(_lucideLicence, line => $"@* {line} *@")    
+            .ForEachAppendLine(_lucideLicence, itemFormatter: line => $"@* {line} *@")
             .AppendLine()
             .AppendLine("@namespace InfiniLore.Lucide")
             .AppendLine("@inherits ComponentBase")
             .AppendLine()
             .AppendBody("""
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 width="@Width"
-                 height="@Height"
-                 viewBox="0 0 24 24"
-                 fill="@Fill"
-                 stroke="@Stroke"
-                 stroke-width="@StrokeWidth"
-                 stroke-linecap="@StrokeLineCap"
-                 stroke-linejoin="@StrokeLineJoin"
-                 @attributes="AdditionalAttributes">
-            """)
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="@Width"
+                     height="@Height"
+                     viewBox="0 0 24 24"
+                     fill="@Fill"
+                     stroke="@Stroke"
+                     stroke-width="@StrokeWidth"
+                     stroke-linecap="@StrokeLineCap"
+                     stroke-linejoin="@StrokeLineJoin"
+                     @attributes="AdditionalAttributes">
+                """)
             .AppendLine()
             .AppendLineIndented($"@* lucide name:`{dto.Name}` *@")
             .AppendBodyIndented(dto.SvgContent)
@@ -108,7 +107,7 @@ public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<Ge
                 [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = null!;
                 """)
             .AppendLine("}");
-        
+
         // Output data to the actual file
         string filePath = Path.Combine(parameters.RazorOutputFolder, $"Li{dto.PascalCaseName}.razor");
         await File.WriteAllTextAsync(filePath, builder.ToString(), ct);

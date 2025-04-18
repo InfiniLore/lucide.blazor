@@ -26,6 +26,7 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
         var gatherTestData = provider.GetRequiredService<GatherTestDataLibrary>();
         var generateRazor = provider.GetRequiredService<GenerateRazorLibrary>();
         var updateLucideStatic = provider.GetRequiredService<UpdateLucideStaticLibrary>();
+        var git = provider.GetRequiredService<GitLibrary>();
         var logger = provider.GetRequiredService<ILogger<UpdateLucideStaticCommands>>();
         
         await GlobalCatcher.ExecuteWithGlobalExceptionHandlingAsync(async () => {
@@ -85,6 +86,18 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
             await gatherTestData.SaveDataToTestConfigAsync(data);
             logger.Information("Saved testconfig.json to Tests.InfiniLore.Lucide");
             #endregion
+            
+            #region Stage 4 : Commit changes
+            bool resultCommitChanges = await git.CommitChanges(latestVersionNumber);
+            if (!resultCommitChanges) {
+                logger.Critical("Could not commit changes");
+                if (args.Strict) return;
+            }
+            logger.Information("Committed changes to git");
+            #endregion
+            
+            logger.Information("Do not forget to run {scriptName} to version the commit and automagically create a nuget package", "`Version: Manual`");
+            logger.Information("All Done!");
         });
     }
 }
