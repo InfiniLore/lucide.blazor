@@ -81,8 +81,22 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
             }
     
             logger.Information("Found {count} icons on Lucide.Dev website", iconAmount);
+            
+            string[] iconsNames = gatherTestData.GetIconNames();
+            if (iconsNames.Length == 0) {
+                logger.Error("No icons found");
+                if (args.Strict) return;
+            }
+
+            if (iconsNames.Length != iconAmount) {
+                logger.Error("Icon amount does not match icon names");
+                if (args.Strict) return;
+            }
         
-            var data = new TestData { TotalIcons = iconAmount };
+            var data = new TestData {
+                IconAmount = iconAmount,
+                IconNames = iconsNames
+            };
             await gatherTestData.SaveDataToTestConfigAsync(data);
             logger.Information("Saved testconfig.json to Tests.InfiniLore.Lucide");
             #endregion

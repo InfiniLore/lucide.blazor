@@ -79,4 +79,19 @@ public partial class GatherTestDataLibrary(IUpdateLucideParameters parameters, I
 
         return int.Parse(match.Groups[1].Value);
     }
+    
+    public string[] GetIconNames() {
+        string expectedIconsFolder = parameters.AppendRoot("node_modules/lucide-static/icons");
+        if (!Directory.Exists(expectedIconsFolder)) {
+            logger.Warning("Could not find lucide-static icons folder at the following path: {path}", Path.GetFullPath(expectedIconsFolder));
+            return [];
+        }
+
+        string[] files = Directory.GetFiles(expectedIconsFolder, "*.svg")
+            .Select<string, string>(Path.GetFileNameWithoutExtension)
+            .ToArray();
+        
+        logger.Information("Found {count} icon names", files.Length);
+        return files;
+    }
 }

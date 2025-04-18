@@ -7,5 +7,6 @@ namespace Tools.InfiniLore.Lucide.Library.Contracts;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class TestData {
-    public int TotalIcons { get; set; }
+    public int IconAmount { get; set; }
+    public string[] IconNames { get; set; } = Array.Empty<string>();
 }
