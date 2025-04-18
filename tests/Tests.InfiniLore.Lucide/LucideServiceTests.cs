@@ -11,7 +11,8 @@ namespace Tests.InfiniLore.Lucide;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class LucideServiceTests {
+[ClassDataSource<TestConfigData>(Shared = SharedType.PerTestSession)]
+public class LucideServiceTests(TestConfigData testConfig) {
     [Test]
     public async Task AddedServicesToServiceCollection() {
         // Arrange
@@ -41,5 +42,26 @@ public class LucideServiceTests {
         
         // Assert
         await Assert.That(data).IsNotNullOrWhitespace();
+    }
+    
+    [Test]
+    public async Task ContainsAllIcons() {
+        // Arrange
+        var serviceCollection = new ServiceCollection();
+        serviceCollection.AddLucideIcons();
+        ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+        var lucideService = serviceProvider.GetRequiredService<ILucideService>();
+        
+        // Act
+        await Assert.That(testConfig.Icons.Value).IsNotEmpty();
+        await Parallel.ForEachAsync(testConfig.Icons.Value, async (iconName, _) => {
+            // Needed because we use this lookup in a normalized way, so we can have a broader input
+            string iconNameNormalized = iconName.Replace("-", "").ToLowerInvariant();
+            
+            MarkupString markup = lucideService.GetIconContent(iconNameNormalized);
+            string data = markup.Value;
+            
+            await Assert.That(data).IsNotNullOrWhitespace();
+        } );
     }
 }

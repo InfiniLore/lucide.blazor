@@ -32,6 +32,7 @@ public class LucideLookupDictionaryTests(TestConfigData testConfig) {
         FrozenDictionary<string, Lazy<ILucideIconData>> lookup = lucideLookupDictionary.IconsByLucideName;
         
         // Act
+        await Assert.That(testConfig.Icons.Value).IsNotEmpty();
         await Parallel.ForEachAsync(testConfig.Icons.Value, async (iconName, _) => {
             // Needed because we use this lookup in a normalized way, so we can have a broader input
             string iconNameNormalized = iconName.Replace("-", "").ToLowerInvariant();
@@ -39,6 +40,5 @@ public class LucideLookupDictionaryTests(TestConfigData testConfig) {
             await Assert.That(lookup).ContainsKey(iconNameNormalized);
             await Assert.That(lookup[iconNameNormalized].Value.DirectImport).IsNotNullOrWhitespace();
         } );
-
     }
 }
