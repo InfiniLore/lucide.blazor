@@ -2,12 +2,14 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using InfiniLore.Lucide.Data;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Components;
 
 namespace InfiniLore.Lucide;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
+[UsedImplicitly]
 public class LucideService(ILucideLookupDictionary lookupDictionary) : ILucideService {
     private static readonly MarkupString EmptyMarkupString = new(string.Empty);
     // -----------------------------------------------------------------------------------------------------------------

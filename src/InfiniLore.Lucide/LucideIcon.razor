@@ -23,11 +23,13 @@
      @attributes="AdditionalAttributes">
     @SvgContent
 </svg>
-
 @* ------------------------------------------------------------------------------------------------------------------ *@
 @* Code
 @* ------------------------------------------------------------------------------------------------------------------ *@
 @code {
+    [Parameter] public string Name { get; set; } = string.Empty;
+    [Parameter] public MarkupString SvgContent { get; set; }
+    
     [Parameter] public int Width { get; set; } = 24;
     [Parameter] public int Height { get; set; } = 24;
     [Parameter] public string Fill { get; set; } = "none";
@@ -38,10 +40,9 @@
 
     [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = null!;
     
-    [Parameter] public string Name { get; set; } = string.Empty;
-
-    [Parameter] public MarkupString SvgContent { get; set; }
-
+    // -----------------------------------------------------------------------------------------------------------------
+    // Methods
+    // -----------------------------------------------------------------------------------------------------------------
     protected override void OnParametersSet() {
         base.OnParametersSet();
         SvgContent = LucideService.GetIconContent(Name); // Update SvgContent when Name changes
