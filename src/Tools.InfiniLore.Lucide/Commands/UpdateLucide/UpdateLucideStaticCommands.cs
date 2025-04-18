@@ -88,9 +88,14 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
                 if (args.Strict) return;
             }
 
-            if (iconsNames.Length != iconAmount) {
+            if (iconsNames.Length < iconAmount) {
                 logger.Error("Icon amount does not match icon names");
                 if (args.Strict) return;
+            }
+
+            if (iconsNames.Length > iconAmount) {
+                logger.Warning("Icon amount does not match icon names, this is most likely due to the website being outdated");
+                iconAmount = iconsNames.Length;
             }
         
             var data = new TestData {
