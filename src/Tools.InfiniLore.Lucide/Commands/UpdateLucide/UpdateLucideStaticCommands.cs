@@ -79,10 +79,11 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
                 if (args.Strict) return;
             }
     
-            Console.WriteLine($"Found {iconAmount} icons");
+            logger.Information("Found {count} icons on Lucide.Dev website", iconAmount);
         
             var data = new TestData { TotalIcons = iconAmount };
             await gatherTestData.SaveDataToTestConfigAsync(data);
+            logger.Information("Saved testconfig.json to Tests.InfiniLore.Lucide");
             #endregion
         });
     }
