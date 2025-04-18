@@ -34,39 +34,39 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
             #region  Stage 1 : Update lucide in package.json
             string latestVersionNumber = await updateLucideStatic.TryGetLatestVersionNumber();
             if (latestVersionNumber.IsNullOrWhiteSpace()) {
-                logger.Critical("Could not retrieve latest version number");
+                logger.Error("Could not retrieve latest version number");
                 if (args.Strict)return;
             }
             logger.Information("Lucide Latest version is {version}", latestVersionNumber);
 
             bool resultUpdatePackageJson = await updateLucideStatic.TryUpdatePackageJson(latestVersionNumber);
             if (!resultUpdatePackageJson) {
-                logger.Critical("Could not update package.json");
+                logger.Error("Could not update package.json");
                 if (args.Strict) return;
             }
 
             bool resultNpmInstall = await updateLucideStatic.TryRunNpmInstall(args);
             if (!resultNpmInstall) {
-                logger.Critical("Could not run npm install");
+                logger.Error("Could not run npm install");
                 if (args.Strict) return;
             }
             #endregion
             
             #region Stage2 : Generate Razor
             if (!generateRazor.TrySetupOutputFolder()) {
-                logger.Critical("Could not setup output folder");
+                logger.Error("Could not setup output folder");
                 if (args.Strict) return;
             }
             
             string[] filePaths = generateRazor.GetFiles();
             if (filePaths.Length == 0) {
-                logger.Critical("No files found");
+                logger.Error("No files found");
                 if (args.Strict) return;
             }
             
             LucideSvgFileDto[] fileDtos = await generateRazor.GetFileDtosAsync(filePaths);
             if (fileDtos.Length == 0) {
-                logger.Critical("No svg files found");
+                logger.Error("No svg files found");
                 if (args.Strict) return;
             }
             logger.Information("Found {count} svg files", fileDtos.Length);
@@ -76,7 +76,7 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
             #region Stage 3 : Update TestConfig.json
             int iconAmount = await gatherTestData.GatherIconAmountAsync();
             if (iconAmount == -1) {
-                logger.Critical("Could not retrieve icon amount");
+                logger.Error("Could not retrieve icon amount");
                 if (args.Strict) return;
             }
     
@@ -90,7 +90,7 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
             #region Stage 4 : Commit changes
             bool resultCommitChanges = await git.CommitChanges(latestVersionNumber);
             if (!resultCommitChanges) {
-                logger.Critical("Could not commit changes");
+                logger.Error("Could not commit changes");
                 if (args.Strict) return;
             }
             logger.Information("Committed changes to git");
