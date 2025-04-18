@@ -28,4 +28,8 @@
         <ProjectReference Include="..\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators.Raw.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Commands\GatherTestData\" />
+    </ItemGroup>
+
 </Project>
