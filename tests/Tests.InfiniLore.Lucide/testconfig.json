@@ -1,5 +1,5 @@
 {
-  "IconAmount": 1580,
+  "IconAmount": 1583,
   "IconNames": [
     "a-arrow-down",
     "a-arrow-up",
@@ -436,6 +436,7 @@
     "cog",
     "coins",
     "columns-2",
+    "columns-3-cog",
     "columns-3",
     "columns-4",
     "combine",
@@ -1478,6 +1479,7 @@
     "triangle-right",
     "triangle",
     "trophy",
+    "truck-electric",
     "truck",
     "turtle",
     "tv-minimal-play",
@@ -1504,6 +1506,7 @@
     "usb",
     "user-check",
     "user-cog",
+    "user-lock",
     "user-minus",
     "user-pen",
     "user-plus",
