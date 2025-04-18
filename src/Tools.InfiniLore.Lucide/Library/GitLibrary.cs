@@ -93,8 +93,8 @@ public class GitLibrary(ILogger<GitLibrary> logger, IUpdateLucideParameters para
             }
             // When it asks for confirmation, automatically say yes
             else if (line.Contains("Do you want to Git tag & push to origin?")) {
-                await process.StandardInput.WriteLineAsync("n");
-                Console.WriteLine("Automatically confirmed with 'n'");
+                await process.StandardInput.WriteLineAsync("y");
+                Console.WriteLine("Automatically confirmed with 'y'");
             }
         }
 

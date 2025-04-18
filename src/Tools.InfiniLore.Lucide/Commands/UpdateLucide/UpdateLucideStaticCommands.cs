@@ -109,12 +109,12 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
             #endregion
             
             #region Stage 4 : Commit changes
-            // bool resultCommitChanges = await git.CommitChanges(latestVersionNumber);
-            // if (!resultCommitChanges) {
-            //     logger.Error("Could not commit changes");
-            //     if (args.Strict) return;
-            // }
-            // logger.Information("Committed changes to git");
+            bool resultCommitChanges = await git.CommitChanges(latestVersionNumber);
+            if (!resultCommitChanges) {
+                logger.Error("Could not commit changes");
+                if (args.Strict) return;
+            }
+            logger.Information("Committed changes to git");
             #endregion
             
             #region Stage 5 : Update Version
