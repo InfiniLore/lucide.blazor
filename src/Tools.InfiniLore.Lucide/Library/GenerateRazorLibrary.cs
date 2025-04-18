@@ -1,88 +1,55 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using CodeOfChaos.CliArgsParser;
 using CodeOfChaos.GeneratorTools;
 using InfiniLore.Lucide.Generators.Raw.Dtos;
 using InfiniLore.Lucide.Generators.Raw.Helpers;
-using JetBrains.Annotations;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Tools.InfiniLore.Lucide.Setup;
+using Serilog;
+using Tools.InfiniLore.Lucide.Library.Contracts;
 
-namespace Tools.InfiniLore.Lucide.Commands.GenerateRazor;
+namespace Tools.InfiniLore.Lucide.Library;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-[UsedImplicitly]
-[CliArgsCommand("generate-razor")]
-public partial class GenerateRazorCommand : ICommand<GenerateRazorParameters>  {
-    private IServiceProvider Provider { get; } = ServiceProviderFactory.CreateProvider();
-    private ILogger<GenerateRazorCommand>? _loggerCache;
-    private ILogger<GenerateRazorCommand> Logger => _loggerCache ??= Provider.GetRequiredService<ILogger<GenerateRazorCommand>>();
-    private GenerateRazorParameters Parameters { get; set; }
+public class GenerateRazorLibrary(ILogger logger, IUpdateLucideParameters parameters) {
     private readonly string[] _lucideLicence = GeneratorStringBuilderExtensions.GetLucideLicense();
-
+    
     // -----------------------------------------------------------------------------------------------------------------
     // Methods
     // -----------------------------------------------------------------------------------------------------------------
-    public async Task ExecuteAsync(GenerateRazorParameters parameters) {
-        Parameters = parameters;
-        await GlobalCatcher.ExecuteWithGlobalExceptionHandlingAsync(async () => {
-            if (!TrySetupOutputFolder(parameters)) {
-                Logger.Critical("Could not setup output folder");
-                return;
-            }
-            
-            string[] filePaths = GetFiles(parameters);
-            if (filePaths.Length == 0) {
-                Logger.Critical("No files found");
-                return;
-            }
-            
-            LucideSvgFileDto[] fileDtos = await GetFileDtosAsync(filePaths);
-            if (fileDtos.Length == 0) {
-                Logger.Critical("No svg files found");
-                return;
-            }
-            Logger.Information("Found {count} svg files", fileDtos.Length);
-            await Parallel.ForEachAsync(fileDtos, CreateRazorFileAsync);
-        });
-    }
-
-    private string[] GetFiles(GenerateRazorParameters parameters) {
+    public string[] GetFiles() {
         string expectedIconsFolder = parameters.AppendRoot("node_modules/lucide-static/icons");
         if (!Directory.Exists(expectedIconsFolder)) {
-            Logger.Warning("Could not find lucide-static icons folder at the following path: {path}", Path.GetFullPath(expectedIconsFolder));
+            logger.Warning("Could not find lucide-static icons folder at the following path: {path}", Path.GetFullPath(expectedIconsFolder));
             return [];
         }
         
         string[] files = Directory.GetFiles(expectedIconsFolder, "*.svg");
-        Logger.Information("Found {count} files in lucide-static icons folder", files.Length);
+        logger.Information("Found {count} files in lucide-static icons folder", files.Length);
         return files;
     }
 
-    private bool TrySetupOutputFolder(GenerateRazorParameters parameters) {
+    public bool TrySetupOutputFolder() {
         try {
-            if (!Directory.Exists(parameters.OutputFolder)) {
-                Directory.CreateDirectory(parameters.OutputFolder);
-                Logger.Information("Created output folder: {path}", Path.GetFullPath(parameters.OutputFolder));
+            if (!Directory.Exists(parameters.RazorOutputFolder)) {
+                Directory.CreateDirectory(parameters.RazorOutputFolder);
+                logger.Information("Created output folder: {path}", Path.GetFullPath(parameters.RazorOutputFolder));
                 return true;
             }
         
-            Directory.Delete(parameters.OutputFolder, true);
-            Directory.CreateDirectory(parameters.OutputFolder);
-            Logger.Information("Deleted and created new output folder: {path}", Path.GetFullPath(parameters.OutputFolder));
+            Directory.Delete(parameters.RazorOutputFolder, true);
+            Directory.CreateDirectory(parameters.RazorOutputFolder);
+            logger.Information("Deleted and created new output folder: {path}", Path.GetFullPath(parameters.RazorOutputFolder));
             return true;
         }
         catch (Exception e) {
-            Logger.Error(e, "Could not setup output folder: {path}", Path.GetFullPath(parameters.OutputFolder));
+            logger.Error(e, "Could not setup output folder: {path}", Path.GetFullPath(parameters.RazorOutputFolder));
             return false;
         }
     }
 
-    private async Task<LucideSvgFileDto[]> GetFileDtosAsync(string[] paths) {
+    public async Task<LucideSvgFileDto[]> GetFileDtosAsync(string[] paths) {
         var dtos = new LucideSvgFileDto[paths.Length];
 
         for (int i = 0; i < paths.Length; i++) {
@@ -94,7 +61,7 @@ public partial class GenerateRazorCommand : ICommand<GenerateRazorParameters>  {
                 dtos[i] = dto;
             }
             catch (Exception e) {
-                Logger.Error(e, "Could not read file: {path}", Path.GetFullPath(path));
+                logger.Error(e, "Could not read file: {path}", Path.GetFullPath(path));
                 return [];
             }
         }
@@ -102,7 +69,7 @@ public partial class GenerateRazorCommand : ICommand<GenerateRazorParameters>  {
         return dtos;
     }
     
-    private async ValueTask CreateRazorFileAsync(LucideSvgFileDto dto, CancellationToken ct) {
+    public async ValueTask CreateRazorFileAsync(LucideSvgFileDto dto, CancellationToken ct) {
         var builder = new GeneratorStringBuilder();
 
         builder
@@ -143,8 +110,8 @@ public partial class GenerateRazorCommand : ICommand<GenerateRazorParameters>  {
             .AppendLine("}");
         
         // Output data to the actual file
-        string filePath = Path.Combine(Parameters.OutputFolder, $"Li{dto.PascalCaseName}.razor");
+        string filePath = Path.Combine(parameters.RazorOutputFolder, $"Li{dto.PascalCaseName}.razor");
         await File.WriteAllTextAsync(filePath, builder.ToString(), ct);
-        Logger.Information("Created razor file: {path}", Path.GetFullPath(filePath));
+        logger.Information("Created razor file: {path}", Path.GetFullPath(filePath));
     }
 }

@@ -3,13 +3,15 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using Tools.InfiniLore.Lucide.Library;
+using Tools.InfiniLore.Lucide.Library.Contracts;
 
 namespace Tools.InfiniLore.Lucide.Setup;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public static class ServiceProviderFactory {
-    public static IServiceProvider CreateProvider() {
+    public static IServiceProvider CreateProvider(IUpdateLucideParameters parameters) {
         var services = new ServiceCollection();
 
         // Add Serilog to the services
@@ -20,6 +22,12 @@ public static class ServiceProviderFactory {
         
         services.AddLogging(static loggingBuilder =>
             loggingBuilder.AddSerilog(Log.Logger, true));
+
+
+        services.AddSingleton(parameters);
+        services.AddSingleton<GatherTestDataLibrary>();
+        services.AddSingleton<GenerateRazorLibrary>();
+        services.AddSingleton<UpdateLucideStaticLibrary>();
         
         return services.BuildServiceProvider();
     }

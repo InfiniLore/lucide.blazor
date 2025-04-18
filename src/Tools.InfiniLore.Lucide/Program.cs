@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.CliArgsParser;
 using CodeOfChaos.CliArgsParser.Library;
-using Tools.InfiniLore.Lucide.Commands.GenerateRazor;
 using Tools.InfiniLore.Lucide.Commands.UpdateLucide;
 
 namespace Tools.InfiniLore.Lucide;
@@ -17,14 +16,13 @@ internal static class Program {
         CliArgsParser parser = CliArgsBuilder.CreateFromConfig(
             config => {
                 config.AddCommandsFromAssemblyEntrypoint<IAssemblyEntry>();
-                config.AddCommand<GenerateRazorCommand>();
                 config.AddCommand<UpdateLucideStaticCommands>();
             }
         ).Build();
 
         // We are doing this here because else the launchSettings.json file becomes a humongous issue to deal with.
-        //      Sometimes CLI params is not the answer.
-        //      Code is the true saviour
+        //      Sometimes CLI params are not the answer.
+        //      Code is the true savior
         string projects = string.Join(";",
             "InfiniLore.Lucide",
             "InfiniLore.Lucide.Data",
