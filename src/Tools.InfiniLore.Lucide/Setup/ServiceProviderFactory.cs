@@ -25,6 +25,7 @@ public static class ServiceProviderFactory {
 
 
         services.AddSingleton(parameters);
+        services.AddSingleton<AutoVersionUpdateLibrary>();
         services.AddSingleton<GatherTestDataLibrary>();
         services.AddSingleton<GenerateRazorLibrary>();
         services.AddSingleton<UpdateLucideStaticLibrary>();
