@@ -1,7 +1,7 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using Serilog;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -13,7 +13,7 @@ namespace Tools.InfiniLore.Lucide.Library;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class UpdateLucideStaticLibrary(IUpdateLucideParameters parameters, ILogger logger) {
+public class UpdateLucideStaticLibrary(IUpdateLucideParameters parameters, ILogger<UpdateLucideStaticLibrary> logger) {
 
     // -----------------------------------------------------------------------------------------------------------------
     // Methods

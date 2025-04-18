@@ -1,10 +1,10 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using Microsoft.Extensions.Logging;
 using CodeOfChaos.GeneratorTools;
 using InfiniLore.Lucide.Generators.Raw.Dtos;
 using InfiniLore.Lucide.Generators.Raw.Helpers;
-using Serilog;
 using Tools.InfiniLore.Lucide.Library.Contracts;
 
 namespace Tools.InfiniLore.Lucide.Library;
@@ -12,7 +12,7 @@ namespace Tools.InfiniLore.Lucide.Library;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class GenerateRazorLibrary(ILogger logger, IUpdateLucideParameters parameters) {
+public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<GenerateRazorLibrary> logger) {
     private readonly string[] _lucideLicence = GeneratorStringBuilderExtensions.GetLucideLicense();
     
     // -----------------------------------------------------------------------------------------------------------------

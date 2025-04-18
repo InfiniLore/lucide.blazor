@@ -1,8 +1,8 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using Microsoft.Extensions.Logging;
 using Microsoft.Playwright;
-using Serilog;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using Tools.InfiniLore.Lucide.Library.Contracts;
@@ -11,7 +11,7 @@ namespace Tools.InfiniLore.Lucide.Library;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public partial class GatherTestDataLibrary(IUpdateLucideParameters parameters, ILogger logger) {
+public partial class GatherTestDataLibrary(IUpdateLucideParameters parameters, ILogger<GatherTestDataLibrary> logger) {
     [GeneratedRegex(@"Search (\d+) icons")]
     private static partial Regex ExtractRegex { get; }
 
