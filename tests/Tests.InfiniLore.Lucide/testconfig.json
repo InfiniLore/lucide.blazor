@@ -1,5 +1,5 @@
 {
-  "IconAmount": 1583,
+  "IconAmount": 1586,
   "IconNames": [
     "a-arrow-down",
     "a-arrow-up",
@@ -1185,6 +1185,7 @@
     "rows-3",
     "rows-4",
     "rss",
+    "ruler-dimension-line",
     "ruler",
     "russian-ruble",
     "sailboat",
@@ -1568,6 +1569,7 @@
     "wifi-high",
     "wifi-low",
     "wifi-off",
+    "wifi-pen",
     "wifi-zero",
     "wifi",
     "wind-arrow-down",
