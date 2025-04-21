@@ -76,13 +76,13 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
             #endregion
             
             #region Stage 3 : Update TestConfig.json
-            int iconAmount = await gatherTestData.GatherIconAmountAsync();
-            if (iconAmount == -1) {
-                logger.Error("Could not retrieve icon amount");
-                if (args.Strict) return;
-            }
+            // int iconAmount = await gatherTestData.GatherIconAmountAsync();
+            // if (iconAmount == -1) {
+            //     logger.Error("Could not retrieve icon amount");
+            //     if (args.Strict) return;
+            // }
     
-            logger.Information("Found {count} icons on Lucide.Dev website", iconAmount);
+            // logger.Information("Found {count} icons on Lucide.Dev website", iconAmount);
             
             string[] iconsNames = gatherTestData.GetIconNames();
             if (iconsNames.Length == 0) {
@@ -90,18 +90,18 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
                 if (args.Strict) return;
             }
 
-            if (iconsNames.Length < iconAmount) {
-                logger.Error("Icon amount does not match icon names");
-                if (args.Strict) return;
-            }
+            // if (iconsNames.Length < iconAmount) {
+            //     logger.Error("Icon amount does not match icon names");
+            //     if (args.Strict) return;
+            // }
 
-            if (iconsNames.Length > iconAmount) {
-                logger.Warning("Icon amount does not match icon names, this is most likely due to the website being outdated");
-                iconAmount = iconsNames.Length;
-            }
+            // if (iconsNames.Length > iconAmount) {
+            //     logger.Warning("Icon amount does not match icon names, this is most likely due to the website being outdated");
+            //     iconAmount = iconsNames.Length;
+            // }
         
             var data = new TestData {
-                IconAmount = iconAmount,
+                IconAmount = iconsNames.Length,
                 IconNames = iconsNames
             };
             await gatherTestData.SaveDataToTestConfigAsync(data);
