@@ -1,5 +1,5 @@
 {
-  "IconAmount": 1592,
+  "IconAmount": 1594,
   "IconNames": [
     "a-arrow-down",
     "a-arrow-up",
@@ -313,6 +313,7 @@
     "chart-scatter",
     "chart-spline",
     "check-check",
+    "check-line",
     "check",
     "chef-hat",
     "cherry",
@@ -1337,6 +1338,7 @@
     "square-dashed-bottom",
     "square-dashed-kanban",
     "square-dashed-mouse-pointer",
+    "square-dashed-top-solid",
     "square-dashed",
     "square-divide",
     "square-dot",
