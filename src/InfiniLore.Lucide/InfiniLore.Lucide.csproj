@@ -30,11 +30,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CodeOfChaos.Extensions.DependencyInjection" Version="0.59.1" />
+        <PackageReference Include="CodeOfChaos.Extensions.DependencyInjection" Version="0.68.0" />
         <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.4" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.4" />
-        <PackageReference Include="CodeOfChaos.GeneratorTools" Version="1.7.1" Pack="false" GeneratePathProperty="true" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.5" />
+        <PackageReference Include="CodeOfChaos.GeneratorTools" Version="1.11.0" Pack="false" GeneratePathProperty="true" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>
