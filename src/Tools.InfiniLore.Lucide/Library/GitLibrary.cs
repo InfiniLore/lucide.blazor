@@ -72,6 +72,7 @@ public class GitLibrary(ILogger<GitLibrary> logger, IUpdateLucideParameters para
         };
 
         using Process? process = Process.Start(processStartInfo);
+        if (process is null) throw new Exception("Could not start process");
 
         // Create a buffer to read output line by line
         using StreamReader outputReader = process.StandardOutput;
