@@ -1,5 +1,5 @@
 {
-  "IconAmount": 1599,
+  "IconAmount": 1600,
   "IconNames": [
     "a-arrow-down",
     "a-arrow-up",
@@ -185,6 +185,7 @@
     "bomb",
     "bone",
     "book-a",
+    "book-alert",
     "book-audio",
     "book-check",
     "book-copy",
