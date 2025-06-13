@@ -1,5 +1,5 @@
 {
-  "IconAmount": 1600,
+  "IconAmount": 1601,
   "IconNames": [
     "a-arrow-down",
     "a-arrow-up",
@@ -1158,6 +1158,7 @@
     "receipt-swiss-franc",
     "receipt-text",
     "receipt",
+    "rectangle-circle",
     "rectangle-ellipsis",
     "rectangle-goggles",
     "rectangle-horizontal",
