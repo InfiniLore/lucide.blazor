@@ -116,14 +116,14 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
             logger.Information("Committed changes to git");
             #endregion
             
-            // #region Stage 5 : Update Version
-            // string currentVersion = await autoVersionUpdate.GetCurrentVersionAsync();
-            // string newVersionPrefix = string.Join('.', currentVersion.Split('.')[..2]);
-            // string newLucideVersion = latestVersionNumber.Split('.')[1];
-            // string newVersion = $"{newVersionPrefix}.{newLucideVersion}";
-            //
-            // await git.AutomateVersionBumpAsync(newVersion);
-            // #endregion
+            #region Stage 5 : Update Version
+            string currentVersion = await autoVersionUpdate.GetCurrentVersionAsync();
+            string newVersionPrefix = string.Join('.', currentVersion.Split('.')[..2]);
+            string newLucideVersion = latestVersionNumber.Split('.')[1];
+            string newVersion = $"{newVersionPrefix}.{newLucideVersion}";
+            
+            await git.AutomateVersionBumpAsync(newVersion);
+            #endregion
             
             logger.Information("Do not forget to run {scriptName} to version the commit and automagically create a nuget package", "`Version: Manual`");
             logger.Information("All Done!");
