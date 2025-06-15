@@ -8,5 +8,6 @@ namespace InfiniLore.Lucide;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public interface ILucideService {
-    MarkupString GetIconContent(string iconName);
+    MarkupString GetIconAsMarkupString(string iconName);
+    string GetIconAsString(string iconName);
 }

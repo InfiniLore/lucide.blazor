@@ -2,7 +2,6 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using InfiniLore.Lucide;
-using System.Collections.Frozen;
 
 namespace Tests.InfiniLore.Lucide;
 
@@ -29,16 +28,24 @@ public class LucideLookupDictionaryTests(TestConfigData testConfig) {
     public async Task ContainsAllIcons() {
         // Arrange
         var lucideLookupDictionary = new LucideDataProvider();
-        FrozenDictionary<string, Lazy<string>> lookup = lucideLookupDictionary.IconSvgData;
+        string[]? allNames = LucideNames.GetAsArray();
+        List<string> allNamesNormalized = allNames.Select(n => n.Replace("-", "").ToLowerInvariant()).ToList();
+        var allNamesSet = new HashSet<string>(allNamesNormalized);
+        int allNamesCount = allNames.Length;
         
         // Act
+        await Assert.That(lucideLookupDictionary.Count).IsNotZero()
+            .And.IsEqualTo(allNamesCount);
+        
         await Assert.That(testConfig.Icons.Value).IsNotEmpty();
+        
         await Parallel.ForEachAsync(testConfig.Icons.Value, async (iconName, _) => {
             // Needed because we use this lookup in a normalized way, so we can have a broader input
             string iconNameNormalized = iconName.Replace("-", "").ToLowerInvariant();
             
-            await Assert.That(lookup).ContainsKey(iconNameNormalized);
-            await Assert.That(lookup[iconNameNormalized].Value).IsNotNullOrWhitespace();
+            await Assert.That(allNamesSet).Contains(iconNameNormalized);
+            string svgContent = lucideLookupDictionary.GetIconSvgData(iconNameNormalized);
+            await Assert.That(svgContent).IsNotNullOrWhitespace();
         } );
     }
 }

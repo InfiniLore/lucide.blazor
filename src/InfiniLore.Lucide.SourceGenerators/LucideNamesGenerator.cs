@@ -30,6 +30,9 @@ public class LucideNamesGenerator : IIncrementalGenerator {
             .AppendLine("namespace InfiniLore.Lucide;")
             .AppendLine("public static class LucideNames {")
             .ForEachAppendLineIndented(data, dto => $"public const string {dto.PascalCaseName} = {dto.Name.ToQuotedString()};")
+            .AppendLine()
+            .Append("    public static string[] GetAsArray() => [").ForEach(data, (b, dto) => b.Append($"{dto.PascalCaseName},") ).Append("];")
+            .AppendLine()
             .AppendLine("}");
         
         context.AddSource("LucideNames.g.cs", builder.ToString());

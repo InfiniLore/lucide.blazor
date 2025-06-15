@@ -37,7 +37,7 @@
     // -----------------------------------------------------------------------------------------------------------------
     protected override void OnParametersSet() {
         base.OnParametersSet();
-        SvgContent = LucideService.GetIconContent(Name); // Update SvgContent when Name changes
+        SvgContent = LucideService.GetIconAsMarkupString(Name); // Update SvgContent when Name changes
     }
 
 }

@@ -36,7 +36,7 @@ public class LucideServiceTests(TestConfigData testConfig) {
         var lucideService = serviceProvider.GetRequiredService<ILucideService>();
 
         // Act
-        MarkupString markup = lucideService.GetIconContent(iconName);
+        MarkupString markup = lucideService.GetIconAsMarkupString(iconName);
         string data = markup.Value;
         
         // Assert
@@ -57,7 +57,7 @@ public class LucideServiceTests(TestConfigData testConfig) {
             // Needed because we use this lookup in a normalized way, so we can have a broader input
             string iconNameNormalized = iconName.Replace("-", "").ToLowerInvariant();
             
-            MarkupString markup = lucideService.GetIconContent(iconNameNormalized);
+            MarkupString markup = lucideService.GetIconAsMarkupString(iconNameNormalized);
             string data = markup.Value;
             
             await Assert.That(data).IsNotNullOrWhitespace();

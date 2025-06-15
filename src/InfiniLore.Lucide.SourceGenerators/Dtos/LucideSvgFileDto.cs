@@ -17,17 +17,23 @@ public record LucideSvgFileDto(string Name, string Svg) {
     public string CamelCaseName => Name.ToCamelCase();
     public string NormalizedName => Name.ToPascalCase().ToLowerInvariant();
     
-    public string NormalSvg => Svg.TrimEnd();
-    public string NoCommentSvg => Regex.Replace(NormalSvg, "<!--.*?-->(\r\n|\r|\n)?", string.Empty, RegexOptions.Compiled | RegexOptions.Multiline);
-    public string NoWhitespaceSvg => Regex.Replace(NormalSvg, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);
-    public string NoWhitespaceAndNoCommentSvg => Regex.Replace(NoCommentSvg, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);
-    public string SvgContent => Regex.Match(NormalSvg, @"<svg[^>]*>(.*?)</svg>", RegexOptions.Singleline | RegexOptions.Compiled)
+    // public string NormalSvg => Svg.TrimEnd();
+    // public string NoCommentSvg => Regex.Replace(NormalSvg, "<!--.*?-->(\r\n|\r|\n)?", string.Empty, RegexOptions.Compiled | RegexOptions.Multiline);
+    // public string NoWhitespaceSvg => Regex.Replace(NormalSvg, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);
+    // public string NoWhitespaceAndNoCommentSvg => Regex.Replace(NoCommentSvg, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);
+    public string SvgContent => Regex.Match(Svg.TrimEnd(), @"<svg[^>]*>(.*?)</svg>", RegexOptions.Singleline | RegexOptions.Compiled)
         .Groups[1].Value
         .Split('\n')
         .Select(line => line.TrimStart())
         .Aggregate((a, b) => a + "\n" + b)
         .Trim();
-    public string SvgContentFlat => Regex.Replace(SvgContent, @"\s+", " ", RegexOptions.Compiled | RegexOptions.Multiline);
+    
+    public string SvgContentFlat => Regex.Match(Svg.TrimEnd(), @"<svg[^>]*>(.*?)</svg>", RegexOptions.Singleline | RegexOptions.Compiled)
+        .Groups[1].Value
+        .Split('\n')
+        .Select(line => line.TrimStart().TrimEnd())
+        .Aggregate((a, b) => a + b)
+        .Trim();
     
     public static LucideSvgFileDto FromAdditionalText(AdditionalText file, CancellationToken ct = default) 
         => new(

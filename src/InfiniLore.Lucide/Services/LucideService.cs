@@ -10,17 +10,20 @@ namespace InfiniLore.Lucide;
 // ---------------------------------------------------------------------------------------------------------------------
 [UsedImplicitly]
 public class LucideService(ILucideDataProvider lookupDictionary) : ILucideService {
-    private static readonly MarkupString EmptyMarkupString = new(string.Empty);
     // -----------------------------------------------------------------------------------------------------------------
     // Methods
-    // ----------------------------------------------------------------------------------------------------------------
-    public MarkupString GetIconContent(string iconName) {
+    // -----------------------------------------------------------------------------------------------------------------
+    private static string NormalizeIconName(string iconName) => iconName.Replace("-", "").ToLowerInvariant();
+    
+    public MarkupString GetIconAsMarkupString(string iconName) {
         if (string.IsNullOrWhiteSpace(iconName)) return new MarkupString(string.Empty);
         
-        string normalizedIconName = iconName.Replace("-", "").ToLowerInvariant();
+        return new MarkupString( lookupDictionary.GetIconSvgData(NormalizeIconName(iconName)));
+    }
+    
+    public string GetIconAsString(string iconName) {
+        if (string.IsNullOrWhiteSpace(iconName)) return string.Empty;
         
-        return lookupDictionary.IconSvgData.TryGetValue(normalizedIconName, out Lazy<string>? lucideIcon)
-            ? new MarkupString(lucideIcon.Value) 
-            : EmptyMarkupString;
+        return lookupDictionary.GetIconSvgData(NormalizeIconName(iconName));
     }
 }

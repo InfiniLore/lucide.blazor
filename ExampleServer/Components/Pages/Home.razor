@@ -7,8 +7,6 @@
 @* ------------------------------------------------------------------------------------------------------------------ *@
 @page "/"
 @rendermode InteractiveServer
-@inject ILucideDataProvider LucideLookupDictionary
-
 @* ------------------------------------------------------------------------------------------------------------------ *@
 @* Html
 @* ------------------------------------------------------------------------------------------------------------------ *@
@@ -25,11 +23,12 @@
 @* ------------------------------------------------------------------------------------------------------------------ *@
 @code {
     private string IconName { get; set; } = "signature";
+    private string[] AllIcons { get; } = LucideNames.GetAsArray();
+    
     private async Task ChangeIcon() {
-        var keys = new List<string>(LucideLookupDictionary.IconSvgData.Keys);
-        int randomIndex = new Random().Next(keys.Count);
+        int randomIndex = new Random().Next(AllIcons.Length);
 
-        IconName = keys[randomIndex];
+        IconName = AllIcons[randomIndex];
         await InvokeAsync(StateHasChanged);
     }
 }

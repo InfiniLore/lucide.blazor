@@ -25,20 +25,32 @@ public class LucideDataProviderGenerator : IIncrementalGenerator {
         builder
             .AppendUsings(
                 "System",
-                "System.Collections.Frozen",
-                "System.Collections.Generic",
-                "InfiniLore.Lucide.Data"
+                "System.Collections.Concurrent",
+                "System.Collections.Generic"
             )
             .AppendLine("namespace InfiniLore.Lucide;")
             .AppendLine("public partial class LucideDataProvider {")
-            .Indent(b => { b
-                .AppendLine("public FrozenDictionary<string, Lazy<string>> IconSvgData { get; } = new Dictionary<string, Lazy<ILucideIconData>>() {")
-                .ForEachAppendLineIndented(
-                    data,
-                    dto => $"[\"{dto.NormalizedName}\"] = new Lazy<string>(static () => \"\"\"{dto.SvgContentFlat}\"\"\"),"
+            .Indent(b => b
+                .AppendLine("private readonly ConcurrentDictionary<string, string> _cache = new();")
+                
+                .AppendLine("public string GetIconSvgData(string iconName) {")
+                .Indent(b1 => b1
+                    .AppendLine("if (_cache.TryGetValue(iconName, out var svg)) return svg;")
+                    .AppendLine("string data = iconName switch {")
+                    .ForEachAppendLineIndented(
+                        data,
+                        dto => $"\"{dto.NormalizedName}\" => \"\"\"{dto.SvgContentFlat}\"\"\","
+                    )
+                    .AppendLineIndented("_ => string.Empty")
+                    .AppendLine("};")
+                    .AppendLine("if (!string.IsNullOrEmpty(data)) _cache.AddOrUpdate(iconName, data, (_, __) => data);")
+                    .AppendLine("return data;")
                 )
-                .AppendLine("}.ToFrozenDictionary();");
-            })
+                .AppendLine("}")
+            )
+            .Indent(b => b
+                .AppendLine($"public int Count => {data.Length};")
+            )
             .AppendLine("}");
 
         context.AddSource("LucideDataProvider.g.cs", builder.ToString());
