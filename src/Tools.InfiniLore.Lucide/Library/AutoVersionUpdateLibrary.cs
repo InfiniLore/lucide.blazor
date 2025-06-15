@@ -1,7 +1,6 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using CodeOfChaos.CliArgsParser.Library.Shared;
 using Microsoft.Extensions.Logging;
 using System.Xml.Linq;
 using Tools.InfiniLore.Lucide.Library.Contracts;

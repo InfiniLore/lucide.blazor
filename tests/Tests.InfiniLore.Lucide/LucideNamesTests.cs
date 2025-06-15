@@ -2,10 +2,9 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.Extensions;
-using InfiniLore.Lucide.Data;
+using InfiniLore.Lucide;
 using System.Collections.Frozen;
 using System.Reflection;
-using Type=System.Type;
 
 namespace Tests.InfiniLore.Lucide;
 
@@ -55,7 +54,7 @@ public class LucideNamesTests(TestConfigData testConfig) {
         
         // Act
         await Assert.That(data).HasCount().EqualTo(testConfig.IconAmount);
-        await Parallel.ForEachAsync(data, async (tuple, token) => {
+        await Parallel.ForEachAsync(data, async (tuple, _) => {
             await Assert.That(tuple.lucideName).IsNotNullOrWhitespace();
             
             // Needed because we use this lookup in a normalized way, so we can have a broader input

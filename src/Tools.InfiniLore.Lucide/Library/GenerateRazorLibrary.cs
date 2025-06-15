@@ -73,10 +73,8 @@ public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<Ge
 
         builder
             .ForEachAppendLine(_lucideLicence, itemFormatter: line => $"@* {line} *@")
-            .AppendLine()
             .AppendLine("@namespace InfiniLore.Lucide")
             .AppendLine("@inherits LucideComponentBase")
-            .AppendLine()
             .AppendBody("""
                 <svg class="@Class"
                      xmlns="http://www.w3.org/2000/svg"
@@ -89,10 +87,7 @@ public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<Ge
                      stroke-linecap="@StrokeLineCap"
                      stroke-linejoin="@StrokeLineJoin">
                 """)
-            .AppendLine()
-            .AppendLineIndented($"@* lucide name:`{dto.Name}` *@")
             .AppendBodyIndented(dto.SvgContent)
-            .AppendLine()
             .AppendLine("</svg>");
 
         // Output data to the actual file

@@ -8,6 +8,6 @@ namespace InfiniLore.Lucide;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public interface ILucideDataProvider {
-    FrozenDictionary<string, Lazy<ILucideIconData>>  IconsByLucideName { get; }
+    FrozenDictionary<string, Lazy<string>> IconSvgData { get; }
     int Count { get; }
 }

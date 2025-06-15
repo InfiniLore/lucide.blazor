@@ -2,7 +2,6 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using InfiniLore.Lucide;
-using InfiniLore.Lucide.Data;
 using System.Collections.Frozen;
 
 namespace Tests.InfiniLore.Lucide;
@@ -30,7 +29,7 @@ public class LucideLookupDictionaryTests(TestConfigData testConfig) {
     public async Task ContainsAllIcons() {
         // Arrange
         var lucideLookupDictionary = new LucideDataProvider();
-        FrozenDictionary<string, Lazy<ILucideIconData>> lookup = lucideLookupDictionary.IconsByLucideName;
+        FrozenDictionary<string, Lazy<string>> lookup = lucideLookupDictionary.IconSvgData;
         
         // Act
         await Assert.That(testConfig.Icons.Value).IsNotEmpty();
@@ -39,7 +38,7 @@ public class LucideLookupDictionaryTests(TestConfigData testConfig) {
             string iconNameNormalized = iconName.Replace("-", "").ToLowerInvariant();
             
             await Assert.That(lookup).ContainsKey(iconNameNormalized);
-            await Assert.That(lookup[iconNameNormalized].Value.Content).IsNotNullOrWhitespace();
+            await Assert.That(lookup[iconNameNormalized].Value).IsNotNullOrWhitespace();
         } );
     }
 }

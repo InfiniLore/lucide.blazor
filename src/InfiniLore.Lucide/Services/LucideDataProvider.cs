@@ -6,5 +6,5 @@ namespace InfiniLore.Lucide;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public partial class LucideDataProvider : ILucideDataProvider {
-    public int Count => IconsByLucideName.Count;
+    public int Count => IconSvgData.Count;
 }

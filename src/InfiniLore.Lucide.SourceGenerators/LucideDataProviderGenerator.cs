@@ -32,9 +32,10 @@ public class LucideDataProviderGenerator : IIncrementalGenerator {
             .AppendLine("namespace InfiniLore.Lucide;")
             .AppendLine("public partial class LucideDataProvider {")
             .Indent(b => { b
-                .AppendLine("public FrozenDictionary<string, Lazy<ILucideIconData>> IconsByLucideName { get; } = new Dictionary<string, Lazy<ILucideIconData>>() {")
-                .ForEachAppendLineIndented(data, itemFormatter: d =>
-                    $"[\"{d.NormalizedName}\"] = new Lazy<ILucideIconData>(static () => new {d.PascalCaseName}()),"
+                .AppendLine("public FrozenDictionary<string, Lazy<string>> IconSvgData { get; } = new Dictionary<string, Lazy<ILucideIconData>>() {")
+                .ForEachAppendLineIndented(
+                    data,
+                    dto => $"[\"{dto.NormalizedName}\"] = new Lazy<string>(static () => \"\"\"{dto.SvgContentFlat}\"\"\"),"
                 )
                 .AppendLine("}.ToFrozenDictionary();");
             })

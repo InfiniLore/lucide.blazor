@@ -19,8 +19,8 @@ public class LucideService(ILucideDataProvider lookupDictionary) : ILucideServic
         
         string normalizedIconName = iconName.Replace("-", "").ToLowerInvariant();
         
-        return lookupDictionary.IconsByLucideName.TryGetValue(normalizedIconName, out Lazy<ILucideIconData>? lucideIcon)
-            ? new MarkupString(lucideIcon.Value.Content) 
+        return lookupDictionary.IconSvgData.TryGetValue(normalizedIconName, out Lazy<string>? lucideIcon)
+            ? new MarkupString(lucideIcon.Value) 
             : EmptyMarkupString;
     }
 }

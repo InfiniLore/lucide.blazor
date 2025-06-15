@@ -7,6 +7,7 @@ using InfiniLore.Lucide.SourceGenerators.Dtos;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics.CodeAnalysis;
 using Tools.InfiniLore.Lucide.Library;
 using Tools.InfiniLore.Lucide.Library.Contracts;
 using Tools.InfiniLore.Lucide.Setup;
@@ -17,6 +18,7 @@ namespace Tools.InfiniLore.Lucide.Commands.UpdateLucide;
 // ---------------------------------------------------------------------------------------------------------------------
 [UsedImplicitly]
 [CliArgsCommand("update-lucide-static")]
+[SuppressMessage("ReSharper", "UnusedVariable")]
 public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticParameters> {
     // -----------------------------------------------------------------------------------------------------------------
     // Methods
