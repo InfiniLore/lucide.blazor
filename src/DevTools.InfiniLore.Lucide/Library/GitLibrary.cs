@@ -1,11 +1,11 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using DevTools.InfiniLore.Lucide.Library.Contracts;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
-using Tools.InfiniLore.Lucide.Library.Contracts;
 
-namespace Tools.InfiniLore.Lucide.Library;
+namespace DevTools.InfiniLore.Lucide.Library;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ public class GitLibrary(ILogger<GitLibrary> logger, IUpdateLucideParameters para
             FileName = "dotnet",
             WorkingDirectory = parameters.Root,
 
-            Arguments = "run --project \"src/Tools.InfiniLore.Lucide\" git-version-bump --section=\"manual\" --projects=\"%PROJECTS%\" --push --root=\"\"",
+            Arguments = "run --project \"src/DevTools.InfiniLore.Lucide\" git-version-bump --section=\"manual\" --projects=\"%PROJECTS%\" --push --root=\"\"",
             RedirectStandardInput = true,
             RedirectStandardOutput = true,
             RedirectStandardError = true,

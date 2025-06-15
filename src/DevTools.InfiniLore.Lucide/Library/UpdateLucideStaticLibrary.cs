@@ -1,14 +1,14 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using DevTools.InfiniLore.Lucide.Commands.UpdateLucide;
+using DevTools.InfiniLore.Lucide.Library.Contracts;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using Tools.InfiniLore.Lucide.Commands.UpdateLucide;
-using Tools.InfiniLore.Lucide.Library.Contracts;
 
-namespace Tools.InfiniLore.Lucide.Library;
+namespace DevTools.InfiniLore.Lucide.Library;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code

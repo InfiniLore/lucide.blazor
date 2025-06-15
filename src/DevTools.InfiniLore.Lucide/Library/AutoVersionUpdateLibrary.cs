@@ -1,11 +1,11 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using DevTools.InfiniLore.Lucide.Library.Contracts;
 using Microsoft.Extensions.Logging;
 using System.Xml.Linq;
-using Tools.InfiniLore.Lucide.Library.Contracts;
 
-namespace Tools.InfiniLore.Lucide.Library;
+namespace DevTools.InfiniLore.Lucide.Library;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code

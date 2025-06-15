@@ -2,12 +2,12 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.GeneratorTools;
+using DevTools.InfiniLore.Lucide.Library.Contracts;
 using InfiniLore.Lucide.SourceGenerators.Dtos;
 using InfiniLore.Lucide.SourceGenerators.Helpers;
 using Microsoft.Extensions.Logging;
-using Tools.InfiniLore.Lucide.Library.Contracts;
 
-namespace Tools.InfiniLore.Lucide.Library;
+namespace DevTools.InfiniLore.Lucide.Library;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------

@@ -1,12 +1,12 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using DevTools.InfiniLore.Lucide.Library;
+using DevTools.InfiniLore.Lucide.Library.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using Tools.InfiniLore.Lucide.Library;
-using Tools.InfiniLore.Lucide.Library.Contracts;
 
-namespace Tools.InfiniLore.Lucide.Setup;
+namespace DevTools.InfiniLore.Lucide.Setup;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------

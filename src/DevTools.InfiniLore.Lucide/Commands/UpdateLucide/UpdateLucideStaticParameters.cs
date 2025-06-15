@@ -2,9 +2,9 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.CliArgsParser;
-using Tools.InfiniLore.Lucide.Library.Contracts;
+using DevTools.InfiniLore.Lucide.Library.Contracts;
 
-namespace Tools.InfiniLore.Lucide.Commands.UpdateLucide;
+namespace DevTools.InfiniLore.Lucide.Commands.UpdateLucide;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------

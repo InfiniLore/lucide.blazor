@@ -16,7 +16,7 @@
         
         <!-- Package metadata -->
         <PackageId>InfiniLore.Lucide.SourceGenerators</PackageId>
-        <Version>0.28.515</Version>
+        <Version>0.30.515</Version>
         <Authors>Anna Sas</Authors>
         <Description>Use Lucide in your Blazor apps</Description>
         <PackageProjectUrl>https://github.com/InfiniLore/lucide.blazor</PackageProjectUrl>

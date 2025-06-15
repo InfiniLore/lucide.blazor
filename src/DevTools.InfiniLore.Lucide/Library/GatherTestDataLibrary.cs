@@ -1,13 +1,13 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using DevTools.InfiniLore.Lucide.Library.Contracts;
 using Microsoft.Extensions.Logging;
 using Microsoft.Playwright;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using Tools.InfiniLore.Lucide.Library.Contracts;
 
-namespace Tools.InfiniLore.Lucide.Library;
+namespace DevTools.InfiniLore.Lucide.Library;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------

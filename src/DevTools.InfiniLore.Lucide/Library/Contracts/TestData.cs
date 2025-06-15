@@ -1,15 +1,12 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-namespace Tools.InfiniLore.Lucide.Library.Contracts;
+namespace DevTools.InfiniLore.Lucide.Library.Contracts;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface IUpdateLucideParameters {
-    public string Root { get; }
-    public string NpmLocation { get; }
-    public string RazorOutputFolder { get; }
-    
-    public string AppendRoot(string path);
+public class TestData {
+    public int IconAmount { get; set; }
+    public string[] IconNames { get; set; } = Array.Empty<string>();
 }

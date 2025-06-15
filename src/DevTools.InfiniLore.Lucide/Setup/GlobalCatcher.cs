@@ -1,12 +1,20 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-namespace Tools.InfiniLore.Lucide.Library.Contracts;
+using Serilog;
+
+namespace DevTools.InfiniLore.Lucide.Setup;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class TestData {
-    public int IconAmount { get; set; }
-    public string[] IconNames { get; set; } = Array.Empty<string>();
+public static class GlobalCatcher {
+    public static async Task ExecuteWithGlobalExceptionHandlingAsync(Func<Task> action) {
+        try {
+            await action.Invoke();
+        }
+        finally {
+            await Log.CloseAndFlushAsync();
+        }
+    }
 }

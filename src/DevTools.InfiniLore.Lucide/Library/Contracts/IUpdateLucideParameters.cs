@@ -1,20 +1,15 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using Serilog;
-
-namespace Tools.InfiniLore.Lucide.Setup;
+namespace DevTools.InfiniLore.Lucide.Library.Contracts;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public static class GlobalCatcher {
-    public static async Task ExecuteWithGlobalExceptionHandlingAsync(Func<Task> action) {
-        try {
-            await action.Invoke();
-        }
-        finally {
-            await Log.CloseAndFlushAsync();
-        }
-    }
+public interface IUpdateLucideParameters {
+    public string Root { get; }
+    public string NpmLocation { get; }
+    public string RazorOutputFolder { get; }
+    
+    public string AppendRoot(string path);
 }

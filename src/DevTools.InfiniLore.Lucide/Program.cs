@@ -3,9 +3,9 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.CliArgsParser;
 using CodeOfChaos.CliArgsParser.Library;
-using Tools.InfiniLore.Lucide.Commands.UpdateLucide;
+using DevTools.InfiniLore.Lucide.Commands.UpdateLucide;
 
-namespace Tools.InfiniLore.Lucide;
+namespace DevTools.InfiniLore.Lucide;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
@@ -25,7 +25,6 @@ internal static class Program {
         //      Code is the true savior
         string projects = string.Join(";",
             "InfiniLore.Lucide",
-            "InfiniLore.Lucide.Data",
             "InfiniLore.Lucide.SourceGenerators"
         );
 

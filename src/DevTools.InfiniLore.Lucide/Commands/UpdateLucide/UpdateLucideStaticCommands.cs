@@ -3,15 +3,15 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.CliArgsParser;
 using CodeOfChaos.GeneratorTools;
+using DevTools.InfiniLore.Lucide.Library;
+using DevTools.InfiniLore.Lucide.Library.Contracts;
+using DevTools.InfiniLore.Lucide.Setup;
 using InfiniLore.Lucide.SourceGenerators.Dtos;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Tools.InfiniLore.Lucide.Library;
-using Tools.InfiniLore.Lucide.Library.Contracts;
-using Tools.InfiniLore.Lucide.Setup;
 
-namespace Tools.InfiniLore.Lucide.Commands.UpdateLucide;
+namespace DevTools.InfiniLore.Lucide.Commands.UpdateLucide;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
