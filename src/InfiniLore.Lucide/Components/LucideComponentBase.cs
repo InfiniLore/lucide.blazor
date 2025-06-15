@@ -9,8 +9,7 @@ namespace InfiniLore.Lucide;
 // -----------------------------------------------------------------------------------------------------------------
 public class LucideComponentBase  : ComponentBase {
     [Parameter] public string? Class { get; set; }
-    [Parameter] public int Width { get; set; } = 24;
-    [Parameter] public int Height { get; set; } = 24;
+    [Parameter] public int Size { get; set; } = 24;
     [Parameter] public string Fill { get; set; } = "none";
     [Parameter] public string Stroke { get; set; } = "currentColor";
     [Parameter] public int StrokeWidth { get; set; } = 2;
