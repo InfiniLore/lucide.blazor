@@ -1,11 +1,11 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using InfiniLore.Lucide.Generators.Raw.Dtos;
+using InfiniLore.Lucide.SourceGenerators.Dtos;
 using Microsoft.CodeAnalysis;
 using System.Collections.Immutable;
 
-namespace InfiniLore.Lucide.Generators.Raw.Helpers;
+namespace InfiniLore.Lucide.SourceGenerators.Helpers;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------

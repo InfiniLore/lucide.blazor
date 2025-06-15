@@ -1,15 +1,13 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-namespace InfiniLore.Lucide.Data;
+using System.Collections.Frozen;
+
+namespace InfiniLore.Lucide;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface ILucideIconData {
-    public string DirectImport { get; }
-    public string DirectImportNoComments { get; }
-    public string SvgContent { get; }
-    public string Flat { get; }
-    public string FlatNoComments { get; }
-    public string FlatSvgContent { get; }
+public interface ILucideLookupDictionary {
+    FrozenDictionary<string, Lazy<ILucideIconData>>  IconsByLucideName { get; }
+    int Count { get; }
 }

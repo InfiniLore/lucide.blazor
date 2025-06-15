@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.CliArgsParser;
 using CodeOfChaos.GeneratorTools;
-using InfiniLore.Lucide.Generators.Raw.Dtos;
+using InfiniLore.Lucide.SourceGenerators.Dtos;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -107,23 +107,23 @@ public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticPar
             logger.Information("Saved testconfig.json to Tests.InfiniLore.Lucide");
             #endregion
             
-            #region Stage 4 : Commit changes
-            bool resultCommitChanges = await git.CommitChanges(latestVersionNumber);
-            if (!resultCommitChanges) {
-                logger.Error("Could not commit changes");
-                if (args.Strict) return;
-            }
-            logger.Information("Committed changes to git");
-            #endregion
-            
-            #region Stage 5 : Update Version
-            string currentVersion = await autoVersionUpdate.GetCurrentVersionAsync();
-            string newVersionPrefix = string.Join('.', currentVersion.Split('.')[..2]);
-            string newLucideVersion = latestVersionNumber.Split('.')[1];
-            string newVersion = $"{newVersionPrefix}.{newLucideVersion}";
-
-            await git.AutomateVersionBumpAsync(newVersion);
-            #endregion
+            // #region Stage 4 : Commit changes
+            // bool resultCommitChanges = await git.CommitChanges(latestVersionNumber);
+            // if (!resultCommitChanges) {
+            //     logger.Error("Could not commit changes");
+            //     if (args.Strict) return;
+            // }
+            // logger.Information("Committed changes to git");
+            // #endregion
+            //
+            // #region Stage 5 : Update Version
+            // string currentVersion = await autoVersionUpdate.GetCurrentVersionAsync();
+            // string newVersionPrefix = string.Join('.', currentVersion.Split('.')[..2]);
+            // string newLucideVersion = latestVersionNumber.Split('.')[1];
+            // string newVersion = $"{newVersionPrefix}.{newLucideVersion}";
+            //
+            // await git.AutomateVersionBumpAsync(newVersion);
+            // #endregion
             
             logger.Information("Do not forget to run {scriptName} to version the commit and automagically create a nuget package", "`Version: Manual`");
             logger.Information("All Done!");

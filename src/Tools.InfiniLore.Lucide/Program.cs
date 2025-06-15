@@ -26,7 +26,7 @@ internal static class Program {
         string projects = string.Join(";",
             "InfiniLore.Lucide",
             "InfiniLore.Lucide.Data",
-            "InfiniLore.Lucide.Generators.Raw"
+            "InfiniLore.Lucide.SourceGenerators"
         );
 
         string oneLineArgs = InputHelper.ToOneLine(args).Replace("%PROJECTS%", projects);

@@ -15,7 +15,7 @@
         <IsRoslynComponent>true</IsRoslynComponent><!-- Do not include the generator as a lib dependency -->
         
         <!-- Package metadata -->
-        <PackageId>InfiniLore.Lucide.Generators.Raw</PackageId>
+        <PackageId>InfiniLore.Lucide.SourceGenerators</PackageId>
         <Version>0.28.515</Version>
         <Authors>Anna Sas</Authors>
         <Description>Use Lucide in your Blazor apps</Description>

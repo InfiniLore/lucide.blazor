@@ -9,5 +9,4 @@ namespace InfiniLore.Lucide;
 // ---------------------------------------------------------------------------------------------------------------------
 public interface ILucideService {
     MarkupString GetIconContent(string iconName);
-    MarkupString GetIconSvg(string iconName);
 }

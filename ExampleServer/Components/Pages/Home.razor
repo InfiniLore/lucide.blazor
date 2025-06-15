@@ -15,7 +15,7 @@
 @* ------------------------------------------------------------------------------------------------------------------ *@
 <h3>Lucide Icons Example</h3>
 
-<LucideIcon name="@IconName"/>
+<LucideIcon Name="@IconName"/>
 <br>
 <LiSignature/>
 <br>
@@ -24,9 +24,8 @@
 @* ------------------------------------------------------------------------------------------------------------------ *@
 @* Code
 @* ------------------------------------------------------------------------------------------------------------------ *@
-
 @code {
-    public string IconName { get; set; } = "signature";
+    private string IconName { get; set; } = "signature";
     private async Task ChangeIcon() {
         var keys = new List<string>(LucideLookupDictionary.IconsByLucideName.Keys);
         int randomIndex = new Random().Next(keys.Count);

@@ -21,18 +21,7 @@ public class LucideService(ILucideLookupDictionary lookupDictionary) : ILucideSe
         string normalizedIconName = iconName.Replace("-", "").ToLowerInvariant();
         
         return lookupDictionary.IconsByLucideName.TryGetValue(normalizedIconName, out Lazy<ILucideIconData>? lucideIcon)
-            ? new MarkupString(lucideIcon.Value.FlatSvgContent) 
+            ? new MarkupString(lucideIcon.Value.Content) 
             : EmptyMarkupString;
     }
-
-    public MarkupString GetIconSvg(string iconName) {
-        if (string.IsNullOrWhiteSpace(iconName)) return new MarkupString(string.Empty);
-
-        string normalizedIconName = iconName.Replace("-", "").ToLowerInvariant();
-        
-        return lookupDictionary.IconsByLucideName.TryGetValue(normalizedIconName, out Lazy<ILucideIconData>? lucideIcon)
-            ? new MarkupString(lucideIcon.Value.DirectImportNoComments) 
-            : EmptyMarkupString;
-    }
-
 }

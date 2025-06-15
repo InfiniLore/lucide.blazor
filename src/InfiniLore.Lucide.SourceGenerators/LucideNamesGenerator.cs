@@ -3,12 +3,12 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.GeneratorTools;
-using InfiniLore.Lucide.Generators.Raw.Dtos;
-using InfiniLore.Lucide.Generators.Raw.Helpers;
+using InfiniLore.Lucide.SourceGenerators.Helpers;
+using InfiniLore.Lucide.SourceGenerators.Dtos;
 using Microsoft.CodeAnalysis;
 using System.Collections.Immutable;
 
-namespace InfiniLore.Lucide.Generators.Raw;
+namespace InfiniLore.Lucide.SourceGenerators;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
@@ -27,7 +27,7 @@ public class LucideNamesGenerator : IIncrementalGenerator {
             .AppendLine()
             .AppendLine("// auto-generated")
             .AppendLine()
-            .AppendLine("namespace InfiniLore.Lucide.Data;")
+            .AppendLine("namespace InfiniLore.Lucide;")
             .AppendLine("public static class LucideNames {")
             .ForEachAppendLineIndented(data, dto => $"public const string {dto.PascalCaseName} = {dto.Name.ToQuotedString()};")
             .AppendLine("}");

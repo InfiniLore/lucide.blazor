@@ -19,7 +19,7 @@ public readonly partial struct UpdateLucideStaticParameters : IParameters, IUpda
     
     [CliArgsParameter("razor-output-folder", "of")]
     [CliArgsDescription("The root directory of the project to update")]
-    public string RazorOutputFolder { get; init; } = "../../../../../src/InfiniLore.Lucide/Icons/";
+    public string RazorOutputFolder { get; init; } = "../../../../../src/InfiniLore.Lucide/Components/Icons/";
     
     [CliArgsParameter("strict", "s")]
     [CliArgsDescription("Fail on errors")]

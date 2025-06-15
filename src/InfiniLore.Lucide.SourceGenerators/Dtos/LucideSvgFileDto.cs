@@ -1,14 +1,14 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using InfiniLore.Lucide.Generators.Raw.Helpers;
+using InfiniLore.Lucide.SourceGenerators.Helpers;
 using Microsoft.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace InfiniLore.Lucide.Generators.Raw.Dtos;
+namespace InfiniLore.Lucide.SourceGenerators.Dtos;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------

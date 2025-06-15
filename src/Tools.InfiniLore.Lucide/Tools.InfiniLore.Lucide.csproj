@@ -26,7 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators.Raw.csproj" />
+        <ProjectReference Include="..\InfiniLore.Lucide.SourceGenerators\InfiniLore.Lucide.SourceGenerators.csproj" />
     </ItemGroup>
 
 </Project>

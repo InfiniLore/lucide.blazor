@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Generators.Raw", "src\InfiniLore.Lucide.Generators.Raw\InfiniLore.Lucide.Generators.Raw.csproj", "{CE629BED-BFFB-4C72-B5B0-62882E90CD0B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.Data", "src\InfiniLore.Lucide.Data\InfiniLore.Lucide.Data.csproj", "{890440A6-BC1B-4AF3-B420-F4C1E900FD3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfiniLore.Lucide.SourceGenerators", "src\InfiniLore.Lucide.SourceGenerators\InfiniLore.Lucide.SourceGenerators.csproj", "{CE629BED-BFFB-4C72-B5B0-62882E90CD0B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6D9930C4-8D0C-4F21-98E4-C62FF787941E}"
 EndProject
@@ -10,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1ED22B93
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{C263AF12-5F3C-4AF6-9B2B-65BCE154F3A8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".lucide", ".lucide", "{1AF99BA9-93C9-44AF-A10E-A8D6293C38F9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lucide", "lucide", "{1AF99BA9-93C9-44AF-A10E-A8D6293C38F9}"
 	ProjectSection(SolutionItems) = preProject
 		package.json = package.json
 	EndProjectSection
@@ -1573,6 +1571,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.InfiniLore.Lucide", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleServer", "ExampleServer\ExampleServer.csproj", "{D86105EA-FF78-495F-80C8-B0527924F72E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".dev-tools", ".dev-tools", "{14582BF0-981C-4BEA-82D0-5A550BCAA18E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{EADD76D1-878E-4ABE-B400-02F20336951E}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\release.yml = .github\workflows\release.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1583,10 +1588,6 @@ Global
 		{CE629BED-BFFB-4C72-B5B0-62882E90CD0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE629BED-BFFB-4C72-B5B0-62882E90CD0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE629BED-BFFB-4C72-B5B0-62882E90CD0B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{890440A6-BC1B-4AF3-B420-F4C1E900FD3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{890440A6-BC1B-4AF3-B420-F4C1E900FD3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{890440A6-BC1B-4AF3-B420-F4C1E900FD3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{890440A6-BC1B-4AF3-B420-F4C1E900FD3C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{949D13CC-CB71-418F-B240-C371FA1B5281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{949D13CC-CB71-418F-B240-C371FA1B5281}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{949D13CC-CB71-418F-B240-C371FA1B5281}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -1608,9 +1609,10 @@ Global
 		{CE629BED-BFFB-4C72-B5B0-62882E90CD0B} = {6D9930C4-8D0C-4F21-98E4-C62FF787941E}
 		{6BCC66C4-2CBB-4BAB-83C9-F89937EE9A69} = {1AF99BA9-93C9-44AF-A10E-A8D6293C38F9}
 		{949D13CC-CB71-418F-B240-C371FA1B5281} = {B71EEA73-1F73-42D4-A341-EA13D8F95BF0}
-		{890440A6-BC1B-4AF3-B420-F4C1E900FD3C} = {6D9930C4-8D0C-4F21-98E4-C62FF787941E}
 		{D29827FC-F0A3-4D7F-88BA-57281A77A066} = {6D9930C4-8D0C-4F21-98E4-C62FF787941E}
 		{6B939B30-2BB1-4F8D-BD0B-417A43931DFF} = {1ED22B93-228B-465A-ACCC-CB61199AA88E}
 		{D86105EA-FF78-495F-80C8-B0527924F72E} = {C263AF12-5F3C-4AF6-9B2B-65BCE154F3A8}
+		{1AF99BA9-93C9-44AF-A10E-A8D6293C38F9} = {14582BF0-981C-4BEA-82D0-5A550BCAA18E}
+		{EADD76D1-878E-4ABE-B400-02F20336951E} = {14582BF0-981C-4BEA-82D0-5A550BCAA18E}
 	EndGlobalSection
 EndGlobal

@@ -7,7 +7,7 @@ namespace InfiniLore.Lucide;
 // -----------------------------------------------------------------------------------------------------------------
 // Methods
 // -----------------------------------------------------------------------------------------------------------------
-public class LucideComponentBase  : ComponentBase{
+public class LucideComponentBase  : ComponentBase {
     [Parameter] public string? Class { get; set; }
     [Parameter] public int Width { get; set; } = 24;
     [Parameter] public int Height { get; set; } = 24;

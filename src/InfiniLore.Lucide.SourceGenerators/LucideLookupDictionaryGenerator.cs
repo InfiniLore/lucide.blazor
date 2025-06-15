@@ -3,12 +3,12 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.GeneratorTools;
-using InfiniLore.Lucide.Generators.Raw.Dtos;
-using InfiniLore.Lucide.Generators.Raw.Helpers;
+using InfiniLore.Lucide.SourceGenerators.Helpers;
+using InfiniLore.Lucide.SourceGenerators.Dtos;
 using Microsoft.CodeAnalysis;
 using System.Collections.Immutable;
 
-namespace InfiniLore.Lucide.Generators.Raw;
+namespace InfiniLore.Lucide.SourceGenerators;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
@@ -26,18 +26,19 @@ public class LucideLookupDictionaryGenerator : IIncrementalGenerator {
             .AppendUsings(
                 "System",
                 "System.Collections.Frozen",
-                "System.Collections.Generic"
+                "System.Collections.Generic",
+                "InfiniLore.Lucide.Data"
             )
-            .AppendLine("namespace InfiniLore.Lucide.Data;")
-            .AppendLine("public partial class LucideLookupDictionary {");
-
-        builder.Indent(b => {
-            b.AppendLine("public FrozenDictionary<string, Lazy<ILucideIconData>> IconsByLucideName { get; } = new Dictionary<string, Lazy<ILucideIconData>>() {");
-            b.ForEachAppendLineIndented(data, itemFormatter: d => $"[\"{d.NormalizedName}\"] = new Lazy<ILucideIconData>(static () => new {d.PascalCaseName}()),");
-            b.AppendLine("}.ToFrozenDictionary();");
-        });
-
-        builder.AppendLine("}");
+            .AppendLine("namespace InfiniLore.Lucide;")
+            .AppendLine("public partial class LucideLookupDictionary {")
+            .Indent(b => { b
+                .AppendLine("public FrozenDictionary<string, Lazy<ILucideIconData>> IconsByLucideName { get; } = new Dictionary<string, Lazy<ILucideIconData>>() {")
+                .ForEachAppendLineIndented(data, itemFormatter: d =>
+                    $"[\"{d.NormalizedName}\"] = new Lazy<ILucideIconData>(static () => new {d.PascalCaseName}()),"
+                )
+                .AppendLine("}.ToFrozenDictionary();");
+            })
+            .AppendLine("}");
 
         context.AddSource("LucideLookupDictionary.g.cs", builder.ToString());
     }

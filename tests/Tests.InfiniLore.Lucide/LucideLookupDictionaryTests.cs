@@ -1,8 +1,10 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using InfiniLore.Lucide;
 using InfiniLore.Lucide.Data;
 using System.Collections.Frozen;
+using LucideLookupDictionary=InfiniLore.Lucide.LucideLookupDictionary;
 
 namespace Tests.InfiniLore.Lucide;
 
@@ -38,7 +40,7 @@ public class LucideLookupDictionaryTests(TestConfigData testConfig) {
             string iconNameNormalized = iconName.Replace("-", "").ToLowerInvariant();
             
             await Assert.That(lookup).ContainsKey(iconNameNormalized);
-            await Assert.That(lookup[iconNameNormalized].Value.DirectImport).IsNotNullOrWhitespace();
+            await Assert.That(lookup[iconNameNormalized].Value.Content).IsNotNullOrWhitespace();
         } );
     }
 }

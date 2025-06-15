@@ -1,14 +1,19 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using System;
-using System.Collections.Frozen;
+using InfiniLore.Lucide.SourceGenerators.Helpers;
+using Microsoft.CodeAnalysis;
+using System.IO;
+using System.Threading;
 
-namespace InfiniLore.Lucide.Data;
+namespace InfiniLore.Lucide.SourceGenerators.Dtos;
+
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface ILucideLookupDictionary {
-    FrozenDictionary<string, Lazy<ILucideIconData>>  IconsByLucideName { get; }
-    int Count { get; }
+public record LucideNameDto(string Name) {
+    public string PascalCaseName => Name.ToPascalCase();
+    
+    public static LucideNameDto FromAdditionalText(AdditionalText file, CancellationToken _ = default) 
+        => new(Path.GetFileNameWithoutExtension(file.Path));
 }

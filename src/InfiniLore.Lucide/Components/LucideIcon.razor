@@ -27,7 +27,7 @@
 @* Code
 @* ------------------------------------------------------------------------------------------------------------------ *@
 @code {
-    [Parameter] public string Name { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Name { get; set; } = string.Empty;
     private MarkupString SvgContent { get; set; }
     
     [Parameter] public RenderFragment? ChildContent { get; set; }

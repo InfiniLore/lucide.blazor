@@ -10,11 +10,9 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Setup environment
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -22,41 +20,33 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
       
-      # Step 3: Install dependencies
       - name: Install Dependencies
         run: npm install
         working-directory: ${{ github.workspace }}
 
-      # Step 4: Setup .NET
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.x'
 
-      # Step 5: Export environment path for .NET projects
       - name: Export node_modules path
         run: |
           echo "NODE_PATH=${{ github.workspace }}/node_modules" >> $GITHUB_ENV
           export NODE_PATH=${{ github.workspace }}/node_modules
   
-      # Step 6: Restore NuGet packages
       - name: Restore NuGet packages
         run: dotnet restore InfiniLore.Lucide.sln
 
-      # Step 7: Build .NET projects
       - name: Build projects
         run: dotnet build --configuration Release --no-restore
 
-      # Step 8: Run tests
       - name: Run tests
-        run: dotnet run -c Release --no-restore --no-build --framework net9.0
-        working-directory: "tests/Tests.InfiniLore.Lucide"
+        run: dotnet test InfiniLore.Lucide.sln --configuration Release --no-restore --no-build
             
-      # Step 9: Publish to NuGet
       - name: Publish to NuGet
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
         run: |
           dotnet nuget push src/InfiniLore.Lucide/bin/Release/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json --skip-duplicate
           dotnet nuget push src/InfiniLore.Lucide.Data/bin/Release/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json --skip-duplicate
-          dotnet nuget push src/InfiniLore.Lucide.Generators.Raw/bin/Release/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json --skip-duplicate
+          dotnet nuget push src/InfiniLore.Lucide.SourceGenerators/bin/Release/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json --skip-duplicate
