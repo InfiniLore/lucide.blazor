@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class ServiceCollectionExtensions {
     public static IServiceCollection AddLucideIcons(this IServiceCollection services) {
         services.AddSingletonIfNotExists<ILucideService, LucideService>();
-        services.AddSingletonIfNotExists<ILucideLookupDictionary, LucideLookupDictionary>();
+        services.AddSingletonIfNotExists<ILucideDataProvider, LucideDataProvider>();
         return services;
     }
 }

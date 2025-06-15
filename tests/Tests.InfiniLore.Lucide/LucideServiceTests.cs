@@ -23,7 +23,7 @@ public class LucideServiceTests(TestConfigData testConfig) {
         var serviceProvider = serviceCollection.BuildServiceProvider();
         
         // Assert
-        await Assert.That(serviceProvider.GetService<ILucideLookupDictionary>()).IsNotNull();
+        await Assert.That(serviceProvider.GetService<ILucideDataProvider>()).IsNotNull();
         await Assert.That(serviceProvider.GetService<ILucideService>()).IsNotNull();
     }
     

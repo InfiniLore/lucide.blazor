@@ -7,7 +7,7 @@ namespace InfiniLore.Lucide;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface ILucideLookupDictionary {
+public interface ILucideDataProvider {
     FrozenDictionary<string, Lazy<ILucideIconData>>  IconsByLucideName { get; }
     int Count { get; }
 }

@@ -13,7 +13,7 @@ namespace InfiniLore.Lucide.SourceGenerators;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 [Generator(LanguageNames.CSharp)]
-public class LucideLookupDictionaryGenerator : IIncrementalGenerator {
+public class LucideDataProviderGenerator : IIncrementalGenerator {
 
     public void Initialize(IncrementalGeneratorInitializationContext context) {
         context.RegisterSourceOutput(context.CollectLucideSvgFiles(), CreateIconFiles);
@@ -30,7 +30,7 @@ public class LucideLookupDictionaryGenerator : IIncrementalGenerator {
                 "InfiniLore.Lucide.Data"
             )
             .AppendLine("namespace InfiniLore.Lucide;")
-            .AppendLine("public partial class LucideLookupDictionary {")
+            .AppendLine("public partial class LucideDataProvider {")
             .Indent(b => { b
                 .AppendLine("public FrozenDictionary<string, Lazy<ILucideIconData>> IconsByLucideName { get; } = new Dictionary<string, Lazy<ILucideIconData>>() {")
                 .ForEachAppendLineIndented(data, itemFormatter: d =>
@@ -40,7 +40,7 @@ public class LucideLookupDictionaryGenerator : IIncrementalGenerator {
             })
             .AppendLine("}");
 
-        context.AddSource("LucideLookupDictionary.g.cs", builder.ToString());
+        context.AddSource("LucideDataProvider.g.cs", builder.ToString());
     }
 }
 #endif

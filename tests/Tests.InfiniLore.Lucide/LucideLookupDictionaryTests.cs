@@ -4,7 +4,6 @@
 using InfiniLore.Lucide;
 using InfiniLore.Lucide.Data;
 using System.Collections.Frozen;
-using LucideLookupDictionary=InfiniLore.Lucide.LucideLookupDictionary;
 
 namespace Tests.InfiniLore.Lucide;
 
@@ -16,7 +15,7 @@ public class LucideLookupDictionaryTests(TestConfigData testConfig) {
     [Test]
     public async Task IsNotEmpty() {
         // Arrange
-        var lucideLookupDictionary = new LucideLookupDictionary();
+        var lucideLookupDictionary = new LucideDataProvider();
         
         // Act
         int count = lucideLookupDictionary.Count;
@@ -30,7 +29,7 @@ public class LucideLookupDictionaryTests(TestConfigData testConfig) {
     [Test]
     public async Task ContainsAllIcons() {
         // Arrange
-        var lucideLookupDictionary = new LucideLookupDictionary();
+        var lucideLookupDictionary = new LucideDataProvider();
         FrozenDictionary<string, Lazy<ILucideIconData>> lookup = lucideLookupDictionary.IconsByLucideName;
         
         // Act
