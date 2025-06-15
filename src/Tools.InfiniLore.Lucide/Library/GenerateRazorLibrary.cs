@@ -75,10 +75,11 @@ public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<Ge
             .ForEachAppendLine(_lucideLicence, itemFormatter: line => $"@* {line} *@")
             .AppendLine()
             .AppendLine("@namespace InfiniLore.Lucide")
-            .AppendLine("@inherits ComponentBase")
+            .AppendLine("@inherits LucideComponentBase")
             .AppendLine()
             .AppendBody("""
-                <svg xmlns="http://www.w3.org/2000/svg"
+                <svg class="@Class"
+                     xmlns="http://www.w3.org/2000/svg"
                      width="@Width"
                      height="@Height"
                      viewBox="0 0 24 24"
@@ -86,27 +87,13 @@ public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<Ge
                      stroke="@Stroke"
                      stroke-width="@StrokeWidth"
                      stroke-linecap="@StrokeLineCap"
-                     stroke-linejoin="@StrokeLineJoin"
-                     @attributes="AdditionalAttributes">
+                     stroke-linejoin="@StrokeLineJoin">
                 """)
             .AppendLine()
             .AppendLineIndented($"@* lucide name:`{dto.Name}` *@")
             .AppendBodyIndented(dto.SvgContent)
             .AppendLine()
-            .AppendLine("</svg>")
-            .AppendLine()
-            .AppendLine("@code {")
-            .AppendBodyIndented("""
-                [Parameter] public int Width { get; set; } = 24;
-                [Parameter] public int Height { get; set; } = 24;
-                [Parameter] public string Fill { get; set; } = "none";
-                [Parameter] public string Stroke { get; set; } = "currentColor";
-                [Parameter] public int StrokeWidth { get; set; } = 2;
-                [Parameter] public string StrokeLineCap { get; set; } = "round";
-                [Parameter] public string StrokeLineJoin { get; set; } = "round";
-                [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = null!;
-                """)
-            .AppendLine("}");
+            .AppendLine("</svg>");
 
         // Output data to the actual file
         string filePath = Path.Combine(parameters.RazorOutputFolder, $"Li{dto.PascalCaseName}.razor");

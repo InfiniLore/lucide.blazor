@@ -17,9 +17,10 @@
 @* --- *@
 
 @namespace InfiniLore.Lucide
-@inherits ComponentBase
+@inherits LucideComponentBase
 
-<svg xmlns="http://www.w3.org/2000/svg"
+<svg class="@Class"
+     xmlns="http://www.w3.org/2000/svg"
      width="@Width"
      height="@Height"
      viewBox="0 0 24 24"
@@ -27,22 +28,10 @@
      stroke="@Stroke"
      stroke-width="@StrokeWidth"
      stroke-linecap="@StrokeLineCap"
-     stroke-linejoin="@StrokeLineJoin"
-     @attributes="AdditionalAttributes">
+     stroke-linejoin="@StrokeLineJoin">
 
     @* lucide name:`book-heart` *@
     <path d="M16 8.2A2.22 2.22 0 0 0 13.8 6c-.8 0-1.4.3-1.8.9-.4-.6-1-.9-1.8-.9A2.22 2.22 0 0 0 8 8.2c0 .6.3 1.2.7 1.6A226.652 226.652 0 0 0 12 13a404 404 0 0 0 3.3-3.1 2.413 2.413 0 0 0 .7-1.7" />
     <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" />
 
 </svg>
-
-@code {
-    [Parameter] public int Width { get; set; } = 24;
-    [Parameter] public int Height { get; set; } = 24;
-    [Parameter] public string Fill { get; set; } = "none";
-    [Parameter] public string Stroke { get; set; } = "currentColor";
-    [Parameter] public int StrokeWidth { get; set; } = 2;
-    [Parameter] public string StrokeLineCap { get; set; } = "round";
-    [Parameter] public string StrokeLineJoin { get; set; } = "round";
-    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = null!;
-}

@@ -17,9 +17,10 @@
 @* --- *@
 
 @namespace InfiniLore.Lucide
-@inherits ComponentBase
+@inherits LucideComponentBase
 
-<svg xmlns="http://www.w3.org/2000/svg"
+<svg class="@Class"
+     xmlns="http://www.w3.org/2000/svg"
      width="@Width"
      height="@Height"
      viewBox="0 0 24 24"
@@ -27,8 +28,7 @@
      stroke="@Stroke"
      stroke-width="@StrokeWidth"
      stroke-linecap="@StrokeLineCap"
-     stroke-linejoin="@StrokeLineJoin"
-     @attributes="AdditionalAttributes">
+     stroke-linejoin="@StrokeLineJoin">
 
     @* lucide name:`file-audio-2` *@
     <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v2" />
@@ -38,14 +38,3 @@
     <circle cx="9" cy="17" r="1" />
 
 </svg>
-
-@code {
-    [Parameter] public int Width { get; set; } = 24;
-    [Parameter] public int Height { get; set; } = 24;
-    [Parameter] public string Fill { get; set; } = "none";
-    [Parameter] public string Stroke { get; set; } = "currentColor";
-    [Parameter] public int StrokeWidth { get; set; } = 2;
-    [Parameter] public string StrokeLineCap { get; set; } = "round";
-    [Parameter] public string StrokeLineJoin { get; set; } = "round";
-    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = null!;
-}

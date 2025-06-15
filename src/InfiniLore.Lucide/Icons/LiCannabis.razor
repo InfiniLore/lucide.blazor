@@ -17,9 +17,10 @@
 @* --- *@
 
 @namespace InfiniLore.Lucide
-@inherits ComponentBase
+@inherits LucideComponentBase
 
-<svg xmlns="http://www.w3.org/2000/svg"
+<svg class="@Class"
+     xmlns="http://www.w3.org/2000/svg"
      width="@Width"
      height="@Height"
      viewBox="0 0 24 24"
@@ -27,22 +28,10 @@
      stroke="@Stroke"
      stroke-width="@StrokeWidth"
      stroke-linecap="@StrokeLineCap"
-     stroke-linejoin="@StrokeLineJoin"
-     @attributes="AdditionalAttributes">
+     stroke-linejoin="@StrokeLineJoin">
 
     @* lucide name:`cannabis` *@
     <path d="M12 22v-4" />
     <path d="M7 12c-1.5 0-4.5 1.5-5 3 3.5 1.5 6 1 6 1-1.5 1.5-2 3.5-2 5 2.5 0 4.5-1.5 6-3 1.5 1.5 3.5 3 6 3 0-1.5-.5-3.5-2-5 0 0 2.5.5 6-1-.5-1.5-3.5-3-5-3 1.5-1 4-4 4-6-2.5 0-5.5 1.5-7 3 0-2.5-.5-5-2-7-1.5 2-2 4.5-2 7-1.5-1.5-4.5-3-7-3 0 2 2.5 5 4 6" />
 
 </svg>
-
-@code {
-    [Parameter] public int Width { get; set; } = 24;
-    [Parameter] public int Height { get; set; } = 24;
-    [Parameter] public string Fill { get; set; } = "none";
-    [Parameter] public string Stroke { get; set; } = "currentColor";
-    [Parameter] public int StrokeWidth { get; set; } = 2;
-    [Parameter] public string StrokeLineCap { get; set; } = "round";
-    [Parameter] public string StrokeLineJoin { get; set; } = "round";
-    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = null!;
-}
