@@ -1,5 +1,5 @@
 {
-  "IconAmount": 1601,
+  "IconAmount": 1602,
   "IconNames": [
     "a-arrow-down",
     "a-arrow-up",
@@ -1582,6 +1582,7 @@
     "wheat-off",
     "wheat",
     "whole-word",
+    "wifi-cog",
     "wifi-high",
     "wifi-low",
     "wifi-off",
