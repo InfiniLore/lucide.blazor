@@ -22,8 +22,11 @@
         <PackageIcon>icon.png</PackageIcon>
         
         <!-- Define a fallback if NODE_PATH isn't set -->
-        <LucideIconsPath Condition=" '$(NODE_PATH)' != '' ">$(NODE_PATH)/lucide-static/icons/**/*.svg</LucideIconsPath>
-        <LucideIconsPath Condition=" '$(NODE_PATH)' == '' ">$(MSBuildProjectDirectory)/../../node_modules/lucide-static/icons/**/*.svg</LucideIconsPath>
+<!--        <LucideIconsPath Condition=" '$(NODE_PATH)' != '' ">$(NODE_PATH)/lucide-static/icons/**/*.svg</LucideIconsPath>-->
+<!--        <LucideIconsPath Condition=" '$(NODE_PATH)' == '' ">$(MSBuildProjectDirectory)/../../node_modules/lucide-static/icons/**/*.svg</LucideIconsPath>-->
+
+        <LucideIconNodes Condition=" '$(NODE_PATH)' != '' ">$(NODE_PATH)/lucide-static/icon-nodes.json</LucideIconNodes>
+        <LucideIconNodes Condition=" '$(NODE_PATH)' == '' ">$(MSBuildProjectDirectory)/../../node_modules/lucide-static/icon-nodes.json</LucideIconNodes>
     </PropertyGroup>
 
     <!-- Include external files -->
@@ -50,7 +53,8 @@
 
     <ItemGroup Label="Lucide Files">
         <!-- Adjusted to ensure paths resolve dynamically -->
-        <AdditionalFiles Include="$(LucideIconsPath)" Link="Icons\%(RecursiveDir)%(FileName)%(Extension)" Pack="false" />
+<!--        <AdditionalFiles Include="$(LucideIconsPath)" Link="Icons\%(RecursiveDir)%(FileName)%(Extension)" Pack="false" />-->
+        <AdditionalFiles Include="$(LucideIconNodes)" Link="%(FileName)%(Extension)" Pack="false" />
     </ItemGroup>
 
     <ItemGroup Label="Packing">

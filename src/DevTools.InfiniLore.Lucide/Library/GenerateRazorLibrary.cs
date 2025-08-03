@@ -6,6 +6,8 @@ using DevTools.InfiniLore.Lucide.Library.Contracts;
 using InfiniLore.Lucide.SourceGenerators.Dtos;
 using InfiniLore.Lucide.SourceGenerators.Helpers;
 using Microsoft.Extensions.Logging;
+using System.Text;
+using System.Text.Json;
 
 namespace DevTools.InfiniLore.Lucide.Library;
 // ---------------------------------------------------------------------------------------------------------------------
@@ -17,18 +19,6 @@ public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<Ge
     // -----------------------------------------------------------------------------------------------------------------
     // Methods
     // -----------------------------------------------------------------------------------------------------------------
-    public string[] GetFiles() {
-        string expectedIconsFolder = parameters.AppendRoot("node_modules/lucide-static/icons");
-        if (!Directory.Exists(expectedIconsFolder)) {
-            logger.Warning("Could not find lucide-static icons folder at the following path: {path}", Path.GetFullPath(expectedIconsFolder));
-            return [];
-        }
-
-        string[] files = Directory.GetFiles(expectedIconsFolder, "*.svg");
-        logger.Information("Found {count} files in lucide-static icons folder", files.Length);
-        return files;
-    }
-
     public bool TrySetupOutputFolder() {
         try {
             if (!Directory.Exists(parameters.RazorOutputFolder)) {
@@ -48,24 +38,53 @@ public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<Ge
         }
     }
 
-    public async Task<LucideSvgFileDto[]> GetFileDtosAsync(string[] paths) {
-        var dtos = new LucideSvgFileDto[paths.Length];
-
-        for (int i = 0; i < paths.Length; i++) {
-            string path = paths[i];
-
-            try {
-                string svg = await File.ReadAllTextAsync(path);
-                LucideSvgFileDto dto = new(Path.GetFileNameWithoutExtension(path), svg);
-                dtos[i] = dto;
-            }
-            catch (Exception e) {
-                logger.Error(e, "Could not read file: {path}", Path.GetFullPath(path));
-                return [];
-            }
+    public async Task<LucideSvgFileDto[]> GetFileDtosAsync() {
+        string iconNodesJsonFilePath = parameters.AppendRoot("node_modules/lucide-static/icon-nodes.json");
+        if (!File.Exists(iconNodesJsonFilePath)) {
+            logger.Warning("Could not find lucide-static icons nodes data at the following path: {path}", Path.GetFullPath(iconNodesJsonFilePath));
+            return [];
         }
 
-        return dtos;
+        string jsonContent = await File.ReadAllTextAsync(iconNodesJsonFilePath);
+
+        // Deserialize JSON into a dictionary
+        var iconData = JsonSerializer.Deserialize<Dictionary<string, List<List<object>>>>(
+            jsonContent,
+            options: new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+        );
+
+        if (iconData is null) {
+            logger.Error("Invalid JSON structure for file: {path}", Path.GetFullPath(iconNodesJsonFilePath));
+            return [];
+        }
+
+        var dtos = new List<LucideSvgFileDto>(iconData.Count);
+        foreach ((string iconName, List<List<object>> elements) in iconData) {
+            var svgBuilder = new StringBuilder();
+
+            foreach (List<object> element in elements) {
+                if (element is not [_, JsonElement attributes]) continue;
+                string elementType = element.ElementAt(0).ToString() ?? string.Empty;
+
+                if (string.IsNullOrEmpty(elementType)) continue;
+
+                svgBuilder.Append($"<{elementType}");
+
+                if (attributes.ValueKind == JsonValueKind.Object) {
+                    foreach (JsonProperty attribute in attributes.EnumerateObject()) {
+                        svgBuilder.Append($" {attribute.Name}=\"{attribute.Value}\"");
+                    }
+                }
+
+                svgBuilder.Append(" />");
+            }
+
+            // Close the SVG tag
+
+            // Add the generated SVG to results
+            dtos.Add(new LucideSvgFileDto(iconName.ToPascalCase(), svgBuilder.ToString()));
+        }
+        return dtos.ToArray();
     }
 
     public async ValueTask CreateRazorFileAsync(LucideSvgFileDto dto, CancellationToken ct) {
@@ -76,6 +95,7 @@ public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<Ge
 
         builder
             .ForEachAppendLine(_lucideLicence, itemFormatter: line => $"@* {line} *@")
+            .AppendLine("@* ReSharper disable once CheckNamespace *@")
             .AppendLine("@namespace InfiniLore.Lucide")
             .AppendLine("@inherits LucideComponentBase")
             .AppendBody("""

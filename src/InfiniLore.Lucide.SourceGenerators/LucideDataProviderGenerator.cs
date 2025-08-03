@@ -6,6 +6,7 @@ using CodeOfChaos.GeneratorTools;
 using InfiniLore.Lucide.SourceGenerators.Helpers;
 using InfiniLore.Lucide.SourceGenerators.Dtos;
 using Microsoft.CodeAnalysis;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 
 namespace InfiniLore.Lucide.SourceGenerators;
@@ -22,6 +23,8 @@ public class LucideDataProviderGenerator : IIncrementalGenerator {
     private static void CreateIconFiles(SourceProductionContext context, ImmutableArray<LucideSvgFileDto> data) {
         var builder = new GeneratorStringBuilder();
 
+        var mem = new HashSet<string>();
+        
         builder
             .AppendUsings(
                 "System",
@@ -39,8 +42,10 @@ public class LucideDataProviderGenerator : IIncrementalGenerator {
                     .AppendLine("string data = iconName switch {")
                     .ForEachAppendLineIndented(
                         data,
-                        dto => $"\"{dto.NormalizedName}\" => \"\"\"{dto.SvgContentFlat}\"\"\","
-                    )
+                        dto => {
+                            if (!mem.Add(dto.NormalizedName)) return string.Empty;
+                            return $"\"{dto.NormalizedName}\" => \"\"\"{dto.SvgContent}\"\"\",";
+                        })
                     .AppendLineIndented("_ => string.Empty")
                     .AppendLine("};")
                     .AppendLine("if (!string.IsNullOrEmpty(data)) _cache.AddOrUpdate(iconName, data, (_, __) => data);")

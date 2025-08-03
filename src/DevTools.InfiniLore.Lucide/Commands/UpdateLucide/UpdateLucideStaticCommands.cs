@@ -58,19 +58,14 @@ public partial class UpdateLucideStaticCommands : ICliCommand<UpdateLucideStatic
                 if (args.Strict) return;
             }
             
-            string[] filePaths = generateRazor.GetFiles();
-            if (filePaths.Length == 0) {
-                logger.Error("No files found");
-                if (args.Strict) return;
-            }
-            
-            LucideSvgFileDto[] fileDtos = await generateRazor.GetFileDtosAsync(filePaths);
+           
+            LucideSvgFileDto[] fileDtos = await generateRazor.GetFileDtosAsync();
             if (fileDtos.Length == 0) {
                 logger.Error("No svg files found");
                 if (args.Strict) return;
             }
             logger.Information("Found {count} svg files", fileDtos.Length);
-            await Parallel.ForEachAsync(fileDtos, generateRazor.CreateRazorFileAsync);
+            await Parallel.ForEachAsync(fileDtos, ct, generateRazor.CreateRazorFileAsync);
             #endregion
             
             #region Stage 3 : Update TestConfig.json
