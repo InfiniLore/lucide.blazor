@@ -40,7 +40,7 @@ public partial class GatherTestDataLibrary(IUpdateLucideParameters parameters, I
     }
 
     public async Task<int> GatherIconAmountAsync() {
-        using IPlaywright? playwright = await Playwright.CreateAsync();
+        using IPlaywright playwright = await Playwright.CreateAsync();
         var options = new BrowserTypeLaunchOptions {
             Headless = true,
             SlowMo = 50,

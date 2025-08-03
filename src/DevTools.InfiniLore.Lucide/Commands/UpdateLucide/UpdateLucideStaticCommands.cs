@@ -2,7 +2,6 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.CliArgsParser;
-using CodeOfChaos.GeneratorTools;
 using DevTools.InfiniLore.Lucide.Library;
 using DevTools.InfiniLore.Lucide.Library.Contracts;
 using DevTools.InfiniLore.Lucide.Setup;
@@ -16,12 +15,12 @@ namespace DevTools.InfiniLore.Lucide.Commands.UpdateLucide;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 [UsedImplicitly]
-[CliArgsCommand("update-lucide-static")]
-public partial class UpdateLucideStaticCommands : ICommand<UpdateLucideStaticParameters> {
+[CliData("update-lucide-static")]
+public partial class UpdateLucideStaticCommands : ICliCommand<UpdateLucideStaticParameters> {
     // -----------------------------------------------------------------------------------------------------------------
     // Methods
     // -----------------------------------------------------------------------------------------------------------------
-    public async Task ExecuteAsync(UpdateLucideStaticParameters args) {
+    public async ValueTask ExecuteAsync(UpdateLucideStaticParameters args, CancellationToken ct = default) {
         IServiceProvider provider = ServiceProviderFactory.CreateProvider(args);
         var autoVersionUpdate = provider.GetRequiredService<AutoVersionUpdateLibrary>();
         var gatherTestData = provider.GetRequiredService<GatherTestDataLibrary>();
