@@ -80,17 +80,27 @@ public partial class GatherTestDataLibrary(IUpdateLucideParameters parameters, I
         return int.Parse(match.Groups[1].Value);
     }
     
-    public string[] GetIconNames() {
-        string expectedIconsFolder = parameters.AppendRoot("node_modules/lucide-static/icons");
-        if (!Directory.Exists(expectedIconsFolder)) {
-            logger.Warning("Could not find lucide-static icons folder at the following path: {path}", Path.GetFullPath(expectedIconsFolder));
+    public async Task<string[]> GetIconNamesAsync(CancellationToken ct = default) {
+        string iconNodesJsonFilePath = parameters.AppendRoot("node_modules/lucide-static/icon-nodes.json");
+        if (!File.Exists(iconNodesJsonFilePath)) {
+            logger.Warning("Could not find lucide-static icons nodes data at the following path: {path}", Path.GetFullPath(iconNodesJsonFilePath));
             return [];
         }
 
-        string[] files = Directory.GetFiles(expectedIconsFolder, "*.svg")
-            .Select<string, string>(Path.GetFileNameWithoutExtension)
-            .ToArray();
+        string jsonContent = await File.ReadAllTextAsync(iconNodesJsonFilePath, ct);
+
+        // Deserialize JSON into a dictionary
+        var iconData = JsonSerializer.Deserialize<Dictionary<string, List<List<object>>>>(
+            jsonContent,
+            options: new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+        );
+
+        if (iconData is null) {
+            logger.Error("Invalid JSON structure for file: {path}", Path.GetFullPath(iconNodesJsonFilePath));
+            return [];
+        }
         
+        var files = iconData.Select(pair => pair.Key).ToArray();
         logger.Information("Found {count} icon names", files.Length);
         return files;
     }

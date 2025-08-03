@@ -11,6 +11,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lucide", "lucide", "{1AF99BA9-93C9-44AF-A10E-A8D6293C38F9}"
 	ProjectSection(SolutionItems) = preProject
 		package.json = package.json
+		node_modules\lucide-static\icon-nodes.json = node_modules\lucide-static\icon-nodes.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "icons", "icons", "{6BCC66C4-2CBB-4BAB-83C9-F89937EE9A69}"

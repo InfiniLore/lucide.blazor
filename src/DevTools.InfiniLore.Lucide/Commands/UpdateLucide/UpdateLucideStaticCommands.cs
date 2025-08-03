@@ -69,29 +69,11 @@ public partial class UpdateLucideStaticCommands : ICliCommand<UpdateLucideStatic
             #endregion
             
             #region Stage 3 : Update TestConfig.json
-            // int iconAmount = await gatherTestData.GatherIconAmountAsync();
-            // if (iconAmount == -1) {
-            //     logger.Error("Could not retrieve icon amount");
-            //     if (args.Strict) return;
-            // }
-    
-            // logger.Information("Found {count} icons on Lucide.Dev website", iconAmount);
-            
-            string[] iconsNames = gatherTestData.GetIconNames();
+            string[] iconsNames = await gatherTestData.GetIconNamesAsync(ct);
             if (iconsNames.Length == 0) {
                 logger.Error("No icons found");
                 if (args.Strict) return;
             }
-
-            // if (iconsNames.Length < iconAmount) {
-            //     logger.Error("Icon amount does not match icon names");
-            //     if (args.Strict) return;
-            // }
-
-            // if (iconsNames.Length > iconAmount) {
-            //     logger.Warning("Icon amount does not match icon names, this is most likely due to the website being outdated");
-            //     iconAmount = iconsNames.Length;
-            // }
         
             var data = new TestData {
                 IconAmount = iconsNames.Length,

@@ -78,10 +78,6 @@ public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<Ge
 
                 svgBuilder.Append(" />");
             }
-
-            // Close the SVG tag
-
-            // Add the generated SVG to results
             dtos.Add(new LucideSvgFileDto(iconName.ToPascalCase(), svgBuilder.ToString()));
         }
         return dtos.ToArray();
