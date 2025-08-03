@@ -69,6 +69,9 @@ public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<Ge
     }
 
     public async ValueTask CreateRazorFileAsync(LucideSvgFileDto dto, CancellationToken ct) {
+        const int maxRetries = 3;
+        const int delayMilliseconds = 500;
+
         var builder = new GeneratorStringBuilder();
 
         builder
@@ -90,9 +93,45 @@ public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<Ge
             .AppendBodyIndented(dto.SvgContent)
             .AppendLine("</svg>");
 
-        // Output data to the actual file
-        string filePath = Path.Combine(parameters.RazorOutputFolder, $"Li{dto.PascalCaseName}.razor");
-        await File.WriteAllTextAsync(filePath, builder.ToString(), ct);
-        logger.Information("Created razor file: {path}", Path.GetFullPath(filePath));
+        // Ensure the directory exists
+        string outputFolder = parameters.RazorOutputFolder;
+        if (!Directory.Exists(outputFolder)) {
+            Directory.CreateDirectory(outputFolder);
+            logger.Information("Created missing output folder: {path}", Path.GetFullPath(outputFolder));
+        }
+
+        string filePath = Path.Combine(outputFolder, $"Li{dto.PascalCaseName}.razor");
+
+        for (int attempt = 0; attempt < maxRetries; attempt++) {
+            try {
+                await File.WriteAllTextAsync(filePath, builder.ToString(), ct);
+                logger.Information("Created razor file: {path}", Path.GetFullPath(filePath));
+                return; // Exit the function on success
+            }
+            
+            catch (IOException ex) when (++attempt <= maxRetries) {
+                // Handle other IO-related issues and retry if allowed
+                logger.Warning(ex, "Attempt {attempt}/{maxRetries} failed while writing the razor file: {dtoName}. Retrying...", attempt, maxRetries, dto.PascalCaseName);
+                await Task.Delay(delayMilliseconds, ct); // Wait before retrying
+            }
+            
+            catch (OperationCanceledException) {
+                // Handle cancellation
+                logger.Warning("File creation was canceled for DTO: {dtoName}", dto.PascalCaseName);
+                throw;
+            }
+            
+            catch (UnauthorizedAccessException ex) {
+                // Handle file permission issues
+                logger.Error(ex, "Insufficient permissions to write the razor file: {dtoName}", dto.PascalCaseName);
+                throw; // No point in retrying
+            }
+            
+            catch (Exception ex) {
+                // General exception logging
+                logger.Error(ex, "Failed to create the razor file: {dtoName}", dto.PascalCaseName);
+                throw;
+            }
+        }
     }
 }
