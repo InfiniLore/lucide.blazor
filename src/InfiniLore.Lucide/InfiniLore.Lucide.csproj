@@ -22,9 +22,6 @@
         <PackageIcon>icon.png</PackageIcon>
         
         <!-- Define a fallback if NODE_PATH isn't set -->
-<!--        <LucideIconsPath Condition=" '$(NODE_PATH)' != '' ">$(NODE_PATH)/lucide-static/icons/**/*.svg</LucideIconsPath>-->
-<!--        <LucideIconsPath Condition=" '$(NODE_PATH)' == '' ">$(MSBuildProjectDirectory)/../../node_modules/lucide-static/icons/**/*.svg</LucideIconsPath>-->
-
         <LucideIconNodes Condition=" '$(NODE_PATH)' != '' ">$(NODE_PATH)/lucide-static/icon-nodes.json</LucideIconNodes>
         <LucideIconNodes Condition=" '$(NODE_PATH)' == '' ">$(MSBuildProjectDirectory)/../../node_modules/lucide-static/icon-nodes.json</LucideIconNodes>
     </PropertyGroup>
