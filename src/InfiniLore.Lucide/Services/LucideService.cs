@@ -13,17 +13,22 @@ public class LucideService(ILucideDataProvider lookupDictionary) : ILucideServic
     // -----------------------------------------------------------------------------------------------------------------
     // Methods
     // -----------------------------------------------------------------------------------------------------------------
-    private static string NormalizeIconName(ReadOnlySpan<char> iconName) {
+    public static string NormalizeIconName(ReadOnlySpan<char> iconName) {
+        Span<char> buffer = stackalloc char[iconName.Length];
+        return NormalizeIconNameValue(iconName, buffer).ToString();
+    }
+    
+    public static ReadOnlySpan<char> NormalizeIconNameValue(in ReadOnlySpan<char> iconName, in Span<char> buffer) {
         int length = iconName.Length;
         int writeIndex = 0;
-        Span<char> buffer = stackalloc char[iconName.Length];
         for (int i = 0; i < length; i++) {
             char c = iconName[i];
             if (c is '-') continue;
             if (char.IsUpper(c)) buffer[writeIndex++] = char.ToLowerInvariant(c);
             else buffer[writeIndex++] = c;
         }
-        return buffer[..writeIndex].ToString();
+
+        return buffer[..writeIndex];
     }
 
     public MarkupString GetIconAsMarkupString(string iconName) {

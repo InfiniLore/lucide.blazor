@@ -15,12 +15,12 @@ public static class IncrementalGeneratorInitializationContextExtensions {
         => context.AdditionalTextsProvider
             .Where(file => Path.GetFileName(file.Path) == "icon-nodes.json");
     
-    public static IncrementalValueProvider<ImmutableArray<LucideSvgFileDto>> CollectLucideSvgFiles(this IncrementalGeneratorInitializationContext context) 
+    public static IncrementalValueProvider<ImmutableArray<LucideSvgFileDto>> CollectLucideIcons(this IncrementalGeneratorInitializationContext context) 
         => context.FilterLucideIconNodes()
             .SelectMany(LucideSvgFileDto.FromIconNodes)
             .Collect();
     
-    public static IncrementalValueProvider<ImmutableArray<LucideNameDto>> CollectLucideNames(this IncrementalGeneratorInitializationContext context)
+    public static IncrementalValueProvider<ImmutableArray<LucideNameDto>> CollectManyLucideIcons(this IncrementalGeneratorInitializationContext context)
         => context.FilterLucideIconNodes()
             .SelectMany(LucideNameDto.FromIconNodes)
             .Collect();

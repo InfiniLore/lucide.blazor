@@ -12,7 +12,7 @@
 @* ------------------------------------------------------------------------------------------------------------------ *@
 <h3>Lucide Icons Example</h3>
 
-<LucideIcon Name="@IconName"/>
+<LucideDynamicIcon Name="@IconName" Class="red"/>
 <br>
 <LiSignature/>
 <br>
@@ -24,10 +24,9 @@
 @code {
     private string IconName { get; set; } = "signature";
     private string[] AllIcons { get; } = LucideNames.GetAsArray();
-    
-    private async Task ChangeIcon() {
-        int randomIndex = new Random().Next(AllIcons.Length);
 
+    private async Task ChangeIcon() {
+        int randomIndex = Random.Shared.Next(AllIcons.Length);
         IconName = AllIcons[randomIndex];
         await InvokeAsync(StateHasChanged);
     }

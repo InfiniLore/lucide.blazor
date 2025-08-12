@@ -17,7 +17,7 @@ namespace InfiniLore.Lucide.SourceGenerators;
 [Generator(LanguageNames.CSharp)]
 public class LucideNamesGenerator : IIncrementalGenerator {
     public void Initialize(IncrementalGeneratorInitializationContext context) {
-        context.RegisterSourceOutput(context.CollectLucideNames(), CreateLucideNamesStore);
+        context.RegisterSourceOutput(context.CollectManyLucideIcons(), CreateLucideNamesStore);
     }
 
     private static void CreateLucideNamesStore(SourceProductionContext context, ImmutableArray<LucideNameDto> data) {

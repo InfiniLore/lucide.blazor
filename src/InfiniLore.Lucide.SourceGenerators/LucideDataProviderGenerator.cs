@@ -17,7 +17,7 @@ namespace InfiniLore.Lucide.SourceGenerators;
 public class LucideDataProviderGenerator : IIncrementalGenerator {
 
     public void Initialize(IncrementalGeneratorInitializationContext context) {
-        context.RegisterSourceOutput(context.CollectLucideSvgFiles(), CreateIconFiles);
+        context.RegisterSourceOutput(context.CollectLucideIcons(), CreateIconFiles);
     }
 
     private static void CreateIconFiles(SourceProductionContext context, ImmutableArray<LucideSvgFileDto> data) {
