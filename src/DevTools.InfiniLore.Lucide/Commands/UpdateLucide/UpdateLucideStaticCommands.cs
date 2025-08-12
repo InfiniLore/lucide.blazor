@@ -98,7 +98,7 @@ public partial class UpdateLucideStaticCommands : ICliCommand<UpdateLucideStatic
             string newLucideVersion = latestVersionNumber.Split('.')[1];
             string newVersion = $"{newVersionPrefix}.{newLucideVersion}";
             
-            await git.AutomateVersionBumpAsync(newVersion);
+            await GitLibrary.AutomateVersionBumpAsync(newVersion);
             #endregion
             
             logger.Information("Do not forget to run {scriptName} to version the commit and automagically create a nuget package", "`Version: Manual`");

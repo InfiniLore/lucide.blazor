@@ -1,5 +1,5 @@
 {
-  "IconAmount": 1626,
+  "IconAmount": 1630,
   "IconNames": [
     "a-arrow-down",
     "a-arrow-up",
@@ -230,6 +230,7 @@
     "brain-cog",
     "brain",
     "brick-wall-fire",
+    "brick-wall-shield",
     "brick-wall",
     "briefcase-business",
     "briefcase-conveyor-belt",
@@ -380,6 +381,7 @@
     "circle-slash-2",
     "circle-slash",
     "circle-small",
+    "circle-star",
     "circle-stop",
     "circle-user-round",
     "circle-user",
@@ -826,6 +828,7 @@
     "japanese-yen",
     "joystick",
     "kanban",
+    "kayak",
     "key-round",
     "key-square",
     "key",
@@ -1391,6 +1394,7 @@
     "square-split-vertical",
     "square-square",
     "square-stack",
+    "square-star",
     "square-stop",
     "square-terminal",
     "square-user-round",
