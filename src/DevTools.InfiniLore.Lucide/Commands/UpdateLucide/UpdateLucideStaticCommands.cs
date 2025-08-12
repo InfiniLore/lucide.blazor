@@ -22,7 +22,7 @@ public partial class UpdateLucideStaticCommands : ICliCommand<UpdateLucideStatic
     // -----------------------------------------------------------------------------------------------------------------
     public async ValueTask ExecuteAsync(UpdateLucideStaticParameters args, CancellationToken ct = default) {
         IServiceProvider provider = ServiceProviderFactory.CreateProvider(args);
-        var autoVersionUpdate = provider.GetRequiredService<AutoVersionUpdateLibrary>();
+        // var autoVersionUpdate = provider.GetRequiredService<AutoVersionUpdateLibrary>();
         var gatherTestData = provider.GetRequiredService<GatherTestDataLibrary>();
         var generateRazor = provider.GetRequiredService<GenerateRazorLibrary>();
         var updateLucideStatic = provider.GetRequiredService<UpdateLucideStaticLibrary>();
@@ -92,14 +92,14 @@ public partial class UpdateLucideStaticCommands : ICliCommand<UpdateLucideStatic
             logger.Information("Committed changes to git");
             #endregion
             
-            #region Stage 5 : Update Version
-            string currentVersion = await autoVersionUpdate.GetCurrentVersionAsync();
-            string newVersionPrefix = string.Join('.', currentVersion.Split('.')[..2]);
-            string newLucideVersion = latestVersionNumber.Split('.')[1];
-            string newVersion = $"{newVersionPrefix}.{newLucideVersion}";
-            
-            await GitLibrary.AutomateVersionBumpAsync(newVersion);
-            #endregion
+            // #region Stage 5 : Update Version
+            // string currentVersion = await autoVersionUpdate.GetCurrentVersionAsync();
+            // string newVersionPrefix = string.Join('.', currentVersion.Split('.')[..2]);
+            // string newLucideVersion = latestVersionNumber.Split('.')[1];
+            // string newVersion = $"{newVersionPrefix}.{newLucideVersion}";
+            //
+            // await GitLibrary.AutomateVersionBumpAsync(newVersion);
+            // #endregion
             
             logger.Information("Do not forget to run {scriptName} to version the commit and automagically create a nuget package", "`Version: Manual`");
             logger.Information("All Done!");

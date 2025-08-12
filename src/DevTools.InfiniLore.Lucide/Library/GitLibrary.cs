@@ -60,12 +60,4 @@ public class GitLibrary(ILogger<GitLibrary> logger, IUpdateLucideParameters para
             return false;
         }
     }
-    public static async Task AutomateVersionBumpAsync(string newVersion) {
-        if (!SemanticVersionDto.TryParse(newVersion, out SemanticVersionDto? dto)) throw new Exception("Invalid version");
-
-        await GitHelpers.TryCreateGitCommit(dto);
-        await GitHelpers.TryCreateGitTag(dto);
-        await GitHelpers.TryPushToOrigin();
-        await GitHelpers.TryPushTagsToOrigin();
-    }
 }
