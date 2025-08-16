@@ -8,7 +8,7 @@
         
         <!-- Package metadata -->
         <PackageId>InfiniLore.Lucide</PackageId>
-        <Version>0.32.539</Version>
+        <Version>0.33.539</Version>
         <Authors>Anna Sas</Authors>
         <Description>Use Lucide in your Blazor apps</Description>
         <PackageProjectUrl>https://github.com/InfiniLore/lucide.blazor</PackageProjectUrl>
