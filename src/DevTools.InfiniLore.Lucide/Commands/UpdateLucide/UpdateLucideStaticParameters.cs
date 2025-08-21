@@ -11,7 +11,7 @@ namespace DevTools.InfiniLore.Lucide.Commands.UpdateLucide;
 public record UpdateLucideStaticParameters : ICliParameters, IUpdateLucideParameters {
     [CliData("root", "r")]
     // [CliArgsDescription("The root directory of the project to update")]
-    public string Root { get; init; } = "../../../../../";
+    public string Root { get; init; } = "../../";
 
     [CliData("npm", "n")]
     // [CliArgsDescription("Install location of npm")]
@@ -19,7 +19,7 @@ public record UpdateLucideStaticParameters : ICliParameters, IUpdateLucideParame
     
     [CliData("razor-output-folder", "of")]
     // [CliArgsDescription("The root directory of the project to update")]
-    public string RazorOutputFolder { get; init; } = "../../../../../src/InfiniLore.Lucide/Components/Icons/";
+    public string RazorOutputFolder { get; init; } = "../../src/InfiniLore.Lucide/Components/Icons/";
     
     [CliData("strict", "s")]
     // [CliArgsDescription("Fail on errors")]

@@ -1,6 +1,7 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using CodeOfChaos.Extensions;
 using CodeOfChaos.GeneratorTools;
 using DevTools.InfiniLore.Lucide.Library.Contracts;
 using InfiniLore.Lucide.SourceGenerators.Dtos;
@@ -78,7 +79,7 @@ public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<Ge
 
                 svgBuilder.Append(" />");
             }
-            dtos.Add(new LucideSvgFileDto(iconName.ToPascalCase(), svgBuilder.ToString()));
+            dtos.Add(new LucideSvgFileDto(StringCaseExtensions.ToPascalCase(iconName), svgBuilder.ToString()));
         }
         return dtos.ToArray();
     }
