@@ -64,8 +64,4 @@
       <_ContentIncludedByDefault Remove="Properties\launchSettings.json" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Components\Icons\" />
-    </ItemGroup>
-
 </Project>
