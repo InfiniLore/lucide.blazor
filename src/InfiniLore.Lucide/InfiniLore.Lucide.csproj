@@ -34,7 +34,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CodeOfChaos.Extensions.DependencyInjection" Version="0.77.3" />
+        <PackageReference Include="CodeOfChaos.Extensions.DependencyInjection" Version="0.79.1" />
         <PackageReference Include="JetBrains.Annotations" Version="2025.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.8" />
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.8" />
