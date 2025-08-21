@@ -24,6 +24,7 @@ public class LucideDynamicIconGenerator : IIncrementalGenerator {
         builder
             .AppendUsings("System.Diagnostics.CodeAnalysis")
             .AppendNamespace("InfiniLore.Lucide")
+            .AppendLine("#nullable")
             .AppendLine("public partial class LucideDynamicIcon {")
             .AppendLineIndented("public static bool TryGetComponentType(ReadOnlySpan<char> name, [NotNullWhen(true)] out Type? type) {")
             .Indent(b => b
