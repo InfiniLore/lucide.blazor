@@ -117,7 +117,7 @@ public class GenerateRazorLibrary(IUpdateLucideParameters parameters, ILogger<Ge
             logger.Information("Created missing output folder: {path}", Path.GetFullPath(outputFolder));
         }
 
-        string filePath = Path.Combine(outputFolder, $"Li{dto.PascalCaseName}.razor");
+        string filePath = Path.Combine(outputFolder, $"Li{StringCaseExtensions.ToPascalCase(dto.Name)}.razor");
 
         for (int attempt = 0; attempt < maxRetries; attempt++) {
             try {
