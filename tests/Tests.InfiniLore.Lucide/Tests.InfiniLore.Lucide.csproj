@@ -12,7 +12,7 @@
     <ItemGroup>
         <PackageReference Include="CodeOfChaos.Extensions" Version="0.80.0" />
         <PackageReference Include="JetBrains.Annotations" Version="2025.2.0" />
-        <PackageReference Include="TUnit" Version="0.57.1" />
+        <PackageReference Include="TUnit" Version="0.57.24" />
     </ItemGroup>
 
     <ItemGroup>
