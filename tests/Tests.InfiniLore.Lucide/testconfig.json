@@ -1,5 +1,5 @@
 {
-  "IconAmount": 1633,
+  "IconAmount": 1634,
   "IconNames": [
     "a-arrow-down",
     "a-arrow-up",
@@ -875,6 +875,7 @@
     "linkedin",
     "list-check",
     "list-checks",
+    "list-chevrons-down-up",
     "list-collapse",
     "list-end",
     "list-filter-plus",
