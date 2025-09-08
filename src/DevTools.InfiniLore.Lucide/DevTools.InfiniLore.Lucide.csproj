@@ -10,7 +10,7 @@
     <ItemGroup>
         <PackageReference Include="AterraEngine.Unions" Version="6.0.1" />
         <PackageReference Include="CodeOfChaos.Extensions.MicrosoftLogging" Version="0.81.1" />
-        <PackageReference Include="CodeOfChaos.Extensions.Serilog" Version="0.80.0" />
+        <PackageReference Include="CodeOfChaos.Extensions.Serilog" Version="0.81.1" />
         <PackageReference Include="JetBrains.Annotations" Version="2025.2.2" />
         <PackageReference Include="CodeOfChaos.CliArgsParser.Library" Version="5.1.0" />
         <PackageReference Include="CodeOfChaos.CliArgsParser.Generators" Version="5.1.0">
