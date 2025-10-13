@@ -23,7 +23,7 @@
     "Version Bump : Manual": {
       "_readme": "useful for setting a preview for an upcoming version. Will ask for a prompt of the new version string",
       "commandName": "Project",
-      "commandLineArgs": "git-version-bump --section=\"manual\" --projects=\"%PROJECTS%\" --push  --root=\"..\\..\\\""
+      "commandLineArgs": "git-version-bump --section=\"manual\" --projects=\"%PROJECTS%\" --push  --root=\"..\\..\\..\\..\\..\\\""
     },
     "Download Icon": {
       "_readme": "downloads a png to a specific location to then be used by nuget packages as a built in icon",
