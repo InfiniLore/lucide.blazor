@@ -1,5 +1,5 @@
 {
-  "IconAmount": 1637,
+  "IconAmount": 1638,
   "IconNames": [
     "a-arrow-down",
     "a-arrow-up",
@@ -985,6 +985,7 @@
     "minimize",
     "minus",
     "monitor-check",
+    "monitor-cloud",
     "monitor-cog",
     "monitor-dot",
     "monitor-down",
