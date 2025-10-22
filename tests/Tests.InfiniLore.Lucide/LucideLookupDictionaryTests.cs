@@ -19,7 +19,7 @@ public class LucideLookupDictionaryTests(TestConfigData testConfig) {
         int count = lucideLookupDictionary.Count;
 
         // Assert
-        await Assert.That(count).IsNotZero()
+        await Assert.That(count).IsNotEqualTo(0)
             .And.IsEqualTo(testConfig.IconAmount)
             .And.IsEqualTo(testConfig.Icons.Value.Length); 
     }
@@ -34,7 +34,7 @@ public class LucideLookupDictionaryTests(TestConfigData testConfig) {
         int allNamesCount = allNames.Length;
         
         // Act
-        await Assert.That(lucideLookupDictionary.Count).IsNotZero()
+        await Assert.That(lucideLookupDictionary.Count).IsNotEqualTo(0)
             .And.IsEqualTo(allNamesCount);
         
         await Assert.That(testConfig.Icons.Value).IsNotEmpty();
@@ -45,7 +45,7 @@ public class LucideLookupDictionaryTests(TestConfigData testConfig) {
             
             await Assert.That(allNamesSet).Contains(iconNameNormalized);
             string svgContent = lucideLookupDictionary.GetIconSvgData(iconNameNormalized);
-            await Assert.That(svgContent).IsNotNullOrWhitespace();
+            await Assert.That(svgContent).IsNotNullOrWhiteSpace();
         } );
     }
 }

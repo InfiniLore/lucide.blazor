@@ -15,7 +15,7 @@ public class TestConfigTests(TestConfigData testConfig) {
         var iconNames = testConfig.Icons.Value;
 
         // Assert
-        await Assert.That(iconAmount).IsNotZero();
+        await Assert.That(iconAmount).IsNotEqualTo(0);
         await Assert.That(iconNames).IsNotEmpty();
         await Assert.That(iconNames).IsEqualTo(testConfig.Icons.Value);
     }

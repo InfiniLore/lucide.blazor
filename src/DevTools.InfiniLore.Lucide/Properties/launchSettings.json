@@ -25,11 +25,6 @@
       "commandName": "Project",
       "commandLineArgs": "git-version-bump --section=\"manual\" --projects=\"%PROJECTS%\" --push  --root=\"..\\..\\..\\..\\..\\\""
     },
-    "Download Icon": {
-      "_readme": "downloads a png to a specific location to then be used by nuget packages as a built in icon",
-      "commandName": "Project",
-      "commandLineArgs": "nuget-download-icon --origin=\"https://avatars.githubusercontent.com/u/102103683\" --projects=\"%PROJECTS%\"  --root=\"..\\..\\\""
-    },
     "Update Lucide Static": {
       "commandName": "Project",
       "commandLineArgs": "update-lucide-static"

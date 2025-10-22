@@ -40,7 +40,7 @@ public class LucideServiceTests(TestConfigData testConfig) {
         string data = markup.Value;
         
         // Assert
-        await Assert.That(data).IsNotNullOrWhitespace();
+        await Assert.That(data).IsNotNullOrWhiteSpace();
     }
     
     [Test]
@@ -60,7 +60,7 @@ public class LucideServiceTests(TestConfigData testConfig) {
             MarkupString markup = lucideService.GetIconAsMarkupString(iconNameNormalized);
             string data = markup.Value;
             
-            await Assert.That(data).IsNotNullOrWhitespace();
+            await Assert.That(data).IsNotNullOrWhiteSpace();
         } );
     }
 }

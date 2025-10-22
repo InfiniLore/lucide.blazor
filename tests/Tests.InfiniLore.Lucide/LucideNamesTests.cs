@@ -36,7 +36,7 @@ public class LucideNamesTests(TestConfigData testConfig) {
         int count = constStringFields.Count;
 
         // Assert
-        await Assert.That(count).IsNotZero()
+        await Assert.That(count).IsNotEqualTo(0)
             .And.IsEqualTo(testConfig.IconAmount);
     }
     
@@ -55,12 +55,12 @@ public class LucideNamesTests(TestConfigData testConfig) {
         // Act
         await Assert.That(data).HasCount().EqualTo(testConfig.IconAmount);
         await Parallel.ForEachAsync(data, async (tuple, _) => {
-            await Assert.That(tuple.lucideName).IsNotNullOrWhitespace();
+            await Assert.That(tuple.lucideName).IsNotNullOrWhiteSpace();
             
             // Needed because we use this lookup in a normalized way, so we can have a broader input
             string iconNameField = tuple.lucideName!.ToPascalCase();
             
-            await Assert.That(iconNames).Contains(tuple.lucideName);
+            await Assert.That(iconNames).Contains(tuple.lucideName!);
             await Assert.That(tuple.FieldName.ToLowerInvariant()).IsEqualTo(iconNameField.ToLowerInvariant()); // fixes a small issue where the 
         });
     }
