@@ -1,5 +1,5 @@
 {
-  "IconAmount": 1638,
+  "IconAmount": 1640,
   "IconNames": [
     "a-arrow-down",
     "a-arrow-up",
@@ -170,6 +170,7 @@
     "binoculars",
     "biohazard",
     "bird",
+    "birdhouse",
     "bitcoin",
     "blend",
     "blinds",
@@ -703,6 +704,7 @@
     "gallery-vertical-end",
     "gallery-vertical",
     "gamepad-2",
+    "gamepad-directional",
     "gamepad",
     "gauge",
     "gavel",
