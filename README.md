@@ -6,7 +6,7 @@ This library provides an easy-to-use component and tools to render SVG icons dyn
 **This package is developed as an independent project and is not affiliated, associated, or endorsed by the creators or maintainers of the Lucide library.**
 **It is built to enhance the experience of using Lucide's open-source icon set within Blazor applications.**
 
-This package uses the Patch section of semantic versions (`0.0.x`) to denote which Lucide version is to build the current package.
+This package uses the Minor section of semantic versions (`0.x.0`) to denote which Lucide version is to build the current package.
 
 ---
 
