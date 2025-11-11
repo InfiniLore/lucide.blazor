@@ -1,5 +1,5 @@
 {
-  "IconAmount": 1640,
+  "IconAmount": 1647,
   "IconNames": [
     "a-arrow-down",
     "a-arrow-up",
@@ -320,6 +320,12 @@
     "check",
     "chef-hat",
     "cherry",
+    "chess-bishop",
+    "chess-king",
+    "chess-knight",
+    "chess-pawn",
+    "chess-queen",
+    "chess-rook",
     "chevron-down",
     "chevron-first",
     "chevron-last",
@@ -1005,6 +1011,7 @@
     "mountain-snow",
     "mountain",
     "mouse-off",
+    "mouse-pointer-2-off",
     "mouse-pointer-2",
     "mouse-pointer-ban",
     "mouse-pointer-click",
