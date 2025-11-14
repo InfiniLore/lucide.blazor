@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20
           cache: 'npm'
@@ -25,9 +25,11 @@ jobs:
         working-directory: ${{ github.workspace }}
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: '9.x'
+          dotnet-version: |
+              9.x
+              10.x
 
       - name: Export node_modules path
         run: |
@@ -35,13 +37,13 @@ jobs:
           export NODE_PATH=${{ github.workspace }}/node_modules
   
       - name: Restore NuGet packages
-        run: dotnet restore InfiniLore.Lucide.sln
+        run: dotnet restore InfiniLore.IconLibs.slnx
 
       - name: Build projects
         run: dotnet build --configuration Release --no-restore
 
       - name: Run tests
-        run: dotnet test InfiniLore.Lucide.sln --configuration Release --no-restore --no-build
+        run: dotnet test --solution InfiniLore.IconLibs.slnx --configuration Release --no-restore --no-build
             
       - name: Publish to NuGet
         env:
