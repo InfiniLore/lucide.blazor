@@ -1,5 +1,5 @@
 {
-  "IconAmount": 1647,
+  "IconAmount": 1648,
   "IconNames": [
     "a-arrow-down",
     "a-arrow-up",
@@ -270,6 +270,7 @@
     "calendar-x-2",
     "calendar-x",
     "calendar",
+    "calendars",
     "camera-off",
     "camera",
     "candy-cane",
@@ -634,7 +635,7 @@
     "file",
     "files",
     "film",
-    "fingerprint",
+    "fingerprint-pattern",
     "fire-extinguisher",
     "fish-off",
     "fish-symbol",
