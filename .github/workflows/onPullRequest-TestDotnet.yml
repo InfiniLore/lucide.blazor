@@ -20,10 +20,10 @@ jobs:
                   dotnet-version: '9.x'
 
             - name: Restore dependencies
-              run: dotnet restore InfiniLore.Lucide.sln
+              run: dotnet restore InfiniLore.IconLibs.slnx
 
             - name: Build
-              run: dotnet build InfiniLore.Lucide.sln --configuration Release --no-restore -p:GeneratePackageOnBuild=false -p:IsPackable=false
+              run: dotnet build InfiniLore.IconLibs.slnx --configuration Release --no-restore -p:GeneratePackageOnBuild=false -p:IsPackable=false
 
             - name: Run tests
-              run: dotnet test InfiniLore.Lucide.sln --configuration Release --no-restore --no-build
+              run: dotnet test InfiniLore.IconLibs.slnx --configuration Release --no-restore --no-build

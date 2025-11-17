@@ -5,6 +5,7 @@
     <Project Path="src/DevTools.InfiniLore.Lucide/DevTools.InfiniLore.Lucide.csproj" />
   </Folder>
   <Folder Name="/.dev-tools/github/">
+    <File Path=".github/workflows/onPullRequest-TestDotnet.yml" />
     <File Path=".github/workflows/release.yml" />
   </Folder>
   <Folder Name="/.dev-tools/lucide/">
