@@ -21,10 +21,10 @@
     <PackageVersion Include="CodeOfChaos.Extensions" Version="0.87.0" />
     <PackageVersion Include="CodeOfChaos.Extensions.DependencyInjection" Version="0.87.0" />
     <PackageVersion Include="CodeOfChaos.Extensions.MicrosoftLogging" Version="0.87.2" />
-    <PackageVersion Include="CodeOfChaos.Extensions.Serilog" Version="0.87.0" />
+    <PackageVersion Include="CodeOfChaos.Extensions.Serilog" Version="0.87.2" />
     <PackageVersion Include="CodeOfChaos.GeneratorTools" Version="2.2.1" />
     <PackageVersion Include="IsExternalInit" Version="1.0.3" />
-    <PackageVersion Include="JetBrains.Annotations" Version="2025.2.2" />
+    <PackageVersion Include="JetBrains.Annotations" Version="2025.2.4" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Common" Version="5.0.0" />
