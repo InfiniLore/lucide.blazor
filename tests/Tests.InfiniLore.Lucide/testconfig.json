@@ -1,5 +1,5 @@
 {
-  "IconAmount": 1648,
+  "IconAmount": 1651,
   "IconNames": [
     "a-arrow-down",
     "a-arrow-up",
@@ -693,6 +693,7 @@
     "folders",
     "footprints",
     "forklift",
+    "form",
     "forward",
     "frame",
     "framer",
@@ -1618,6 +1619,8 @@
     "warehouse",
     "washing-machine",
     "watch",
+    "waves-arrow-down",
+    "waves-arrow-up",
     "waves-ladder",
     "waves",
     "waypoints",
