@@ -1,5 +1,5 @@
 {
-  "IconAmount": 1651,
+  "IconAmount": 1655,
   "IconNames": [
     "a-arrow-down",
     "a-arrow-up",
@@ -201,6 +201,7 @@
     "book-open-text",
     "book-open",
     "book-plus",
+    "book-search",
     "book-text",
     "book-type",
     "book-up-2",
@@ -1256,6 +1257,7 @@
     "school",
     "scissors-line-dashed",
     "scissors",
+    "scooter",
     "screen-share-off",
     "screen-share",
     "scroll-text",
@@ -1589,6 +1591,7 @@
     "utensils-crossed",
     "utensils",
     "utility-pole",
+    "van",
     "variable",
     "vault",
     "vector-square",
@@ -1627,6 +1630,7 @@
     "webcam",
     "webhook-off",
     "webhook",
+    "weight-tilde",
     "weight",
     "wheat-off",
     "wheat",
