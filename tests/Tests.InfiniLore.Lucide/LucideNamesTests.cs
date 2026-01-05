@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.Extensions;
 using InfiniLore.Lucide;
-using System.Collections.Frozen;
 using System.Reflection;
 
 namespace Tests.InfiniLore.Lucide;
@@ -50,10 +49,10 @@ public class LucideNamesTests(TestConfigData testConfig) {
             .Select(f => (f.Name, f.GetRawConstantValue() as string))
             .ToList();
         
-        FrozenSet<string> iconNames = testConfig.Icons.Value.ToFrozenSet();
+        string[] iconNames = testConfig.Icons.Value.ToArray();
         
         // Act
-        await Assert.That(data).HasCount().EqualTo(testConfig.IconAmount);
+        await Assert.That(data).Count().IsEqualTo(testConfig.IconAmount);
         await Parallel.ForEachAsync(data, async (tuple, _) => {
             await Assert.That(tuple.lucideName).IsNotNullOrWhiteSpace();
             
