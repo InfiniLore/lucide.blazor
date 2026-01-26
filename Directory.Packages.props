@@ -31,7 +31,7 @@
     <PackageVersion Include="Serilog.Extensions.Logging" Version="10.0.0" />
     <PackageVersion Include="Serilog.Sinks.Console" Version="6.1.1" />
     <PackageVersion Include="System.Text.Json" Version="10.0.2" />
-    <PackageVersion Include="TUnit" Version="1.12.3" />
+    <PackageVersion Include="TUnit" Version="1.12.53" />
     <!-- DO NOT UPDATE: Microsoft.CodeAnalysis packages locked at 4.14.0 due to compatibility requirements -->
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="[4.14.0,4.15.0)"/>
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="[4.14.0,4.15.0)" />
