@@ -2,6 +2,7 @@
   <Folder Name="/.dev-tools/">
     <File Path="Directory.Packages.props" />
     <File Path="global.json" />
+    <File Path="README.md" />
     <Project Path="src/DevTools.InfiniLore.Lucide/DevTools.InfiniLore.Lucide.csproj" />
   </Folder>
   <Folder Name="/.dev-tools/github/">
