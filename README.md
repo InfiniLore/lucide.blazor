@@ -1,43 +1,39 @@
 # InfiniLore.Lucide
 
-**InfiniLore.Lucide** is a package that allows you to seamlessly integrate [Lucide Icons](https://lucide.dev/) into your Blazor applications. 
-This library provides an easy-to-use component and tools to render SVG icons dynamically with customizable properties.
+**InfiniLore.Lucide** lets you integrate [Lucide Icons](https://lucide.dev/) into Blazor apps with a simple Razor component that renders SVG markup with configurable styling.
 
 **This package is developed as an independent project and is not affiliated, associated, or endorsed by the creators or maintainers of the Lucide library.**
 **It is built to enhance the experience of using Lucide's open-source icon set within Blazor applications.**
 
-This package uses the Minor section of semantic versions (`0.x.0`) to denote which Lucide version is to build the current package.
+This package uses the Minor section of semantic versions (`0.x.0`) to denote which Lucide version is used to build the current package.
 
 ---
 
 ## Features
-- **Reusable Components**: Incorporate Lucide's rich collection of SVG icons using Razor components.
-- **Icon Customization**: Adjust properties like `fill`, `stroke`, `width`, `height`, and more.
-- **Dynamic Icons**: Change the icon name on the fly when using `<LucideIcon name="..."/>`
-- **Static Icons**: Dont need to dynamically change icons? Use  `<Li.../>` components to load their data directly.
-- **WASM Support**: Use the same components and services on the server and client.
+- **Reusable Components**: Add icons via Razor components.
+- **Icon Customization**: Configure `size`, `fill`, `stroke`, and related SVG styling.
+- **Dynamic Icons**: Change the icon name on the fly using `<LucideIcon Name="..."/>`.
+- **Static Icons**: Prefer static markup? Use `<Li.../>` components with baked-in SVG data.
+- **WASM Support**: Use the same components and services on server and client.
 
 ---
 
 ## Getting Started
 
-To get started with **InfiniLore.Lucide**, follow the steps below:
+### Install the Package
+Make sure you have [.NET 9.0](https://dotnet.microsoft.com/) installed. Then install **InfiniLore.Lucide**:
 
-### 1. **Install the Package**
-
-Make sure you have [.NET 9.0](https://dotnet.microsoft.com/) installed. Then, install **InfiniLore.Lucide** into your Blazor project:
-
-```shell script
+```shell
 dotnet add package InfiniLore.Lucide
 ```
 
 ---
 
-### 2. **Usage**
+## Usage
 
-### Add `AddLucideIcons()` to services.
-If you want to use the `<LucideIcon name="...">` razor component you will need to add `AddLucideIcons()` to your service provider.
-The razor components starting with `Li` like `<LiSignature/>` do not depend on these services, and have their svg data built in.
+### Register Services (for `LucideIcon`)
+`LucideIcon` uses `ILucideService` to resolve SVG data. Register the service once at startup.
+`Li...` components do not depend on this service.
 
 `Program.cs`
 ```csharp
@@ -49,57 +45,53 @@ builder.Services.AddLucideIcons();
 @using InfiniLore.Lucide
 ```
 
-#### Add the Lucide Component
-To include an icon in your Blazor application, use either the `LucideIcon` or `Li...` components .
-The `LucideIcon` component automatically updates its state when you change the `Name` property,
-whilst the `Li...` components have their svg data as static and require the entire component to be changed if you want a different icon on the fly.
+### Add the Component
+`LucideIcon` refreshes its SVG when `Name` changes. `Li...` components are static and must be swapped to change icons at runtime.
 
-The naming convention of the `Li...` components is `Li{lucideName.ToPascalCase()}` (pseudo) without the dashes that Lucide has.
-The string value for the `LucideIcon.Name` parameter can be anything closely related to the actual Lucide name.
-For example: `arrow-big-down-dash`, `arrowbigdowndash`, `ArrowBigDownDash` will all point to the same icon.
+The naming convention for `Li...` components is `Li{LucideName.ToPascalCase()}` with dashes removed.
+The `LucideIcon.Name` parameter accepts common variations like `arrow-big-down-dash`, `arrowbigdowndash`, or `ArrowBigDownDash`.
 
-Usage of the `class` parameter is also supported on both `LucideIcon` and `Li...` components.
+`class` is supported on both `LucideIcon` and `Li...` components.
 
-```html
-<!-- Minimal requirement -->
-<LucideIcon Name="signature"/>
+```razor
+<!-- Minimal -->
+<LucideIcon Name="signature" />
 
 <!-- Full options -->
 <LucideIcon Name="arrow-right"
-           Width="48"
-           Height="48"
+           Size="48"
            Fill="none"
            Stroke="black"
            StrokeWidth="2"
            StrokeLineCap="round"
            StrokeLineJoin="round" />
 
-<!-- Li short handle -->
-<LiSignature/>
-<LiDam class="some-red-class">
+<!-- Static icon -->
+<LiSignature />
+<LiDam class="some-red-class" />
 ```
 
-#### Parameters
-Below are the parameters you can configure for the `LucideIcon` component:
+### Parameters (`LucideIcon`)
 
-| Parameter        | Type   | Default          | Description                                   |
-|------------------|--------|------------------|-----------------------------------------------|
-| `IconName`       | string | **Required**     | Name of the icon (case insensitive).          |
-| `Width`          | int    | `24`             | Width of the icon.                            |
-| `Height`         | int    | `24`             | Height of the icon.                           |
-| `Fill`           | string | `"none"`         | Fill color of the icon.                       |
-| `Stroke`         | string | `"currentColor"` | Stroke color of the icon.                     |
-| `StrokeWidth`    | int    | `2`              | Stroke width of the icon.                     |
-| `StrokeLineCap`  | string | `"round"`        | Shape of the ends of lines (`butt`, `round`). |
-| `StrokeLineJoin` | string | `"round"`        | Style of corners (`miter`, `round`, `bevel`). |
+| Parameter        | Type                 | Default          | Description                                   |
+|------------------|----------------------|------------------|-----------------------------------------------|
+| `Name`           | string               | **Required**     | Icon name (case insensitive, flexible input). |
+| `Class`          | string?              | `null`           | CSS class for the `<svg>`.                    |
+| `Size`           | int                  | `24`             | Width and height of the icon.                 |
+| `Fill`           | string               | `"none"`         | Fill color of the icon.                       |
+| `Stroke`         | string               | `"currentColor"` | Stroke color of the icon.                     |
+| `StrokeWidth`    | int                  | `2`              | Stroke width of the icon.                     |
+| `StrokeLineCap`  | string               | `"round"`        | Line cap style (`butt`, `round`).             |
+| `StrokeLineJoin` | string               | `"round"`        | Line join style (`miter`, `round`, `bevel`).   |
+| `ChildContent`   | RenderFragment?      | `null`           | Extra SVG children appended to the icon.      |
 
 ---
 
 ## Integration Details
 
 This library:
-- Internally utilizes the `lucide-static` package for icon definitions and is parsed during development of the package, not when a developer uses this package.
-- Includes `ILucideIconData` for icon data encapsulation, providing structured interfaces for SVG manipulation.
+- Uses `lucide-static` for icon definitions during package development.
+- Exposes `ILucideIconData` for SVG data encapsulation.
 
 ### Dependencies
 - [Lucide-Static](https://www.npmjs.com/package/lucide-static) for icon SVG content.
@@ -107,6 +99,7 @@ This library:
 
 ### Supported Platforms
 - **.NET 9.0** Blazor Server and WebAssembly.
+- **.NET 10.0** Blazor Server and WebAssembly.
 
 ---
 
@@ -116,7 +109,7 @@ This project follows a modular structure for maintainability:
 - `InfiniLore.Lucide`: Blazor components and service logic.
 - `InfiniLore.Lucide.Data`: Handles icon definitions and metadata, data provided by `InfiniLore.Lucide.Generators.Raw`.
 - `InfiniLore.Lucide.Generators.Raw`: Implements tooling via Roslyn to read data from lucide-static package.
-- `Tools.InfiniLore.Lucide`: A set of development tools, like the razor file generator.
+- `Tools.InfiniLore.Lucide`: A set of development tools, like the Razor file generator.
 
 ---
 
@@ -124,7 +117,7 @@ This project follows a modular structure for maintainability:
 
 InfiniLore.Lucide is built on **Lucide**, which is distributed under the ICS license:
 
-```plain text
+```text
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
 copyright notice and this permission notice appear in all copies.
@@ -151,4 +144,4 @@ Contributions are welcome! To get started:
 
 For further development or issues, feel free to raise a GitHub issue or suggest improvements.
 
-Enjoy using **InfiniLore.Lucide** in your Blazor projects! 🚀
+Enjoy using **InfiniLore.Lucide** in your Blazor projects.
