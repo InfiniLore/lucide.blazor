@@ -10,8 +10,8 @@
   </ItemGroup>
   <!-- .NET 10 -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
-    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="10.0.2" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="10.0.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components" Version="10.0.3" />
   </ItemGroup>
   <!-- Common packages for all frameworks -->
   <ItemGroup>
