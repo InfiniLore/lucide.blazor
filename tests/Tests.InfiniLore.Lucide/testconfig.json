@@ -1,5 +1,5 @@
 {
-  "IconAmount": 1688,
+  "IconAmount": 1702,
   "IconNames": [
     "a-arrow-down",
     "a-arrow-up",
@@ -648,6 +648,7 @@
     "fish-symbol",
     "fish",
     "fishing-hook",
+    "fishing-rod",
     "flag-off",
     "flag-triangle-left",
     "flag-triangle-right",
@@ -1687,6 +1688,19 @@
     "youtube",
     "zap-off",
     "zap",
+    "zodiac-aquarius",
+    "zodiac-aries",
+    "zodiac-cancer",
+    "zodiac-capricorn",
+    "zodiac-gemini",
+    "zodiac-leo",
+    "zodiac-libra",
+    "zodiac-ophiuchus",
+    "zodiac-pisces",
+    "zodiac-sagittarius",
+    "zodiac-scorpio",
+    "zodiac-taurus",
+    "zodiac-virgo",
     "zoom-in",
     "zoom-out"
   ]
