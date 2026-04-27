@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AterraEngine.Unions" />
+        <PackageReference Include="CodeOfChaos.Unions" />
         <PackageReference Include="CodeOfChaos.Extensions.MicrosoftLogging" />
         <PackageReference Include="CodeOfChaos.Extensions.Serilog" />
         <PackageReference Include="JetBrains.Annotations" />
@@ -17,6 +17,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Microsoft.Bcl.Memory" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
         <PackageReference Include="Microsoft.Playwright" />
         <PackageReference Include="Serilog" />
