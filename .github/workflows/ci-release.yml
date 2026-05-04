@@ -6,8 +6,10 @@ on:
             part:
                 description: "Version part to bump"
                 required: false
+                default: none
                 type: choice
                 options:
+                    - none
                     - major
                     - minor
                     - patch
@@ -19,7 +21,7 @@ on:
             publish_to_nuget:
                 description: "Publish packages to NuGet.org and GitHub Packages"
                 required: false
-                default: false
+                default: true
                 type: boolean
 
 permissions:
@@ -62,7 +64,7 @@ jobs:
 
                     if [ -n "${{ inputs.custom_version }}" ]; then
                       CMD+=(--custom-version "${{ inputs.custom_version }}")
-                    elif [ -n "${{ inputs.part }}" ]; then
+                    elif [ -n "${{ inputs.part }}" ] && [ "${{ inputs.part }}" != "none" ]; then
                       CMD+=(--part "${{ inputs.part }}")
                     else
                       LUCIDE_VERSION="$(python - <<'PY'
