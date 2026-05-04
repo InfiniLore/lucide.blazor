@@ -1,17 +1,31 @@
-﻿name: "CI: Release"
+name: "CI: Release"
 
 on:
     workflow_dispatch:
-    push:
-        tags:
-            - 'v*.*.*' # Match version tags like v1.0.0
+        inputs:
+            part:
+                description: "Version part to bump"
+                required: false
+                type: choice
+                options:
+                    - major
+                    - minor
+                    - patch
+                    - preview
+            custom_version:
+                description: "Explicit version override (example: 1.14.1 or 1.14.1-preview.1)"
+                required: false
+                type: string
+
+permissions:
+    contents: write
 
 jobs:
     testing:
         # noinspection UndefinedAction
         uses: ./.github/workflows/shared-testing.yml
         secrets: inherit
-        
+
     publish:
         runs-on: ubuntu-latest
         needs: testing
@@ -21,11 +35,13 @@ jobs:
 
             -   name: Setup Python
                 uses: actions/setup-python@v6
-
-            -   name: Setup Python
-                uses: actions/setup-python@v6
                 with:
                     python-version: "3.12"
+
+            -   name: Configure Git
+                run: |
+                    git config user.name "github-actions[bot]"
+                    git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
             -   name: Validate inputs
                 run: |
@@ -34,22 +50,35 @@ jobs:
                       exit 1
                     fi
 
-            -   name: Run version bump script
+            -   name: Run version bump script (commit directly)
                 run: |
                     CMD=(python scripts/bump_version.py
                       --repo-root .
                       --csproj src/CodeOfChaos.BlazorIcons.Lucide/CodeOfChaos.BlazorIcons.Lucide.csproj
                       --csproj src/CodeOfChaos.BlazorIcons.Lucide.SourceGenerators/CodeOfChaos.BlazorIcons.Lucide.SourceGenerators.csproj
                       --update-package-json
+                      --commit
+                      --push
                     )
-                    
+
                     if [ -n "${{ inputs.custom_version }}" ]; then
                       CMD+=(--custom-version "${{ inputs.custom_version }}")
                     else
                       CMD+=(--part "${{ inputs.part }}")
                     fi
-                    
+
                     "${CMD[@]}"
+
+            -   name: Setup Node.js
+                uses: actions/setup-node@v6
+                with:
+                    node-version: 24
+                    cache: npm
+                    cache-dependency-path: src/CodeOfChaos.BlazorIcons.Lucide/package-lock.json
+
+            -   name: Install dependencies
+                run: npm install
+                working-directory: ${{ github.workspace }}/src/CodeOfChaos.BlazorIcons.Lucide
 
             -   name: Setup .NET
                 uses: actions/setup-dotnet@v5
@@ -68,35 +97,10 @@ jobs:
                 run: dotnet restore CodeOfChaos.BlazorIcons.slnx
 
             -   name: Build projects
-                run: dotnet build --configuration Release --no-restore
+                run: dotnet build --solution CodeOfChaos.BlazorIcons.slnx --configuration Release --no-restore
 
             -   name: Run tests
                 run: dotnet test --solution CodeOfChaos.BlazorIcons.slnx --configuration Release --no-restore --no-build
-        
-            -   name: Install Dependencies
-                run: npm install
-                working-directory: ${{ github.workspace }}
-
-            -   name: Setup .NET
-                uses: actions/setup-dotnet@v5
-                with:
-                    dotnet-version: |
-                        9.x
-                        10.x
-
-            -   name: Export node_modules path
-                run: |
-                    echo "NODE_PATH=${{ github.workspace }}/node_modules" >> $GITHUB_ENV
-                    export NODE_PATH=${{ github.workspace }}/node_modules
-
-            -   name: Restore NuGet packages
-                run: dotnet restore InfiniLore.IconLibs.slnx
-
-            -   name: Build projects
-                run: dotnet build --configuration Release --no-restore
-
-            -   name: Run tests
-                run: dotnet test --solution InfiniLore.IconLibs.slnx --configuration Release --no-restore --no-build
 
             -   name: Publish to NuGet
                 env:
