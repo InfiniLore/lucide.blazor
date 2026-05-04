@@ -36,7 +36,7 @@ jobs:
                 run: dotnet restore CodeOfChaos.BlazorIcons.GitHubActions.Testing.slnf
 
             -   name: Build projects
-                run: dotnet build --configuration Release --no-restore
+                run: dotnet build CodeOfChaos.BlazorIcons.GitHubActions.Testing.slnf --configuration Release --no-restore
 
             -   name: Run tests
-                run: dotnet test --solution CodeOfChaos.BlazorIcons.GitHubActions.Testing.slnf --configuration Release --no-restore --no-build
+                run: dotnet test CodeOfChaos.BlazorIcons.GitHubActions.Testing.slnf --configuration Release --no-restore --no-build
