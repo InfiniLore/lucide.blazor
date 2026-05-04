@@ -43,13 +43,6 @@ jobs:
                     git config user.name "github-actions[bot]"
                     git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-            -   name: Validate inputs
-                run: |
-                    if [ -z "${{ inputs.custom_version }}" ] && [ -z "${{ inputs.part }}" ]; then
-                      echo "Provide either custom_version or part."
-                      exit 1
-                    fi
-
             -   name: Run version bump script (commit directly)
                 run: |
                     CMD=(python scripts/bump_version.py
@@ -57,17 +50,39 @@ jobs:
                       --csproj src/CodeOfChaos.BlazorIcons.Lucide/CodeOfChaos.BlazorIcons.Lucide.csproj
                       --csproj src/CodeOfChaos.BlazorIcons.Lucide.SourceGenerators/CodeOfChaos.BlazorIcons.Lucide.SourceGenerators.csproj
                       --update-package-json
-                      --commit
-                      --push
                     )
 
                     if [ -n "${{ inputs.custom_version }}" ]; then
                       CMD+=(--custom-version "${{ inputs.custom_version }}")
-                    else
+                    elif [ -n "${{ inputs.part }}" ]; then
                       CMD+=(--part "${{ inputs.part }}")
+                    else
+                      LUCIDE_VERSION="$(python - <<'PY'
+                      import json
+                      from pathlib import Path
+                      pkg = json.loads(Path("src/CodeOfChaos.BlazorIcons.Lucide/package.json").read_text(encoding="utf-8"))
+                      print(pkg["dependencies"]["lucide-static"])
+                      PY
+                      )"
+                      echo "No inputs provided. Using lucide-static version: $LUCIDE_VERSION"
+                      CMD+=(--custom-version "$LUCIDE_VERSION")
                     fi
 
                     "${CMD[@]}"
+
+                    if [ -n "$(git status --porcelain)" ]; then
+                      NEW_VERSION="$(python - <<'PY'
+                      import xml.etree.ElementTree as ET
+                      tree = ET.parse("src/CodeOfChaos.BlazorIcons.Lucide/CodeOfChaos.BlazorIcons.Lucide.csproj")
+                      print(tree.getroot().find(".//Version").text.strip())
+                      PY
+                      )"
+                      git add .
+                      git commit -m "chore: bump release version to ${NEW_VERSION}"
+                      git push
+                    else
+                      echo "No version changes to commit."
+                    fi
 
             -   name: Setup Node.js
                 uses: actions/setup-node@v6
