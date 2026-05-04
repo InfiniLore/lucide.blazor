@@ -1,11 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<?xml version='1.0' encoding='utf-8'?>
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <!--suppress MsbuildTargetFrameworkTagInspection -->
+        
         <TargetFrameworks>netstandard2.0</TargetFrameworks>
         <LangVersion>latest</LangVersion>
         
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild> <!-- Generates a package at build -->
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild> 
         <IncludeBuildOutput>false</IncludeBuildOutput> 
         <IsDeveloperDependency>true</IsDeveloperDependency>
         <DevelopmentDependency>true</DevelopmentDependency>
@@ -14,14 +15,14 @@
         <IncludeBuildOutput>false</IncludeBuildOutput> 
         <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
 
-        <!-- Package metadata -->
+        
         <PackageId>CodeOfChaos.BlazorIcons.Lucide.SourceGenerators</PackageId>
         <Version>1.14.0</Version>
         <Description>Use Lucide in your Blazor apps</Description>
         <Authors>CodeOfChaos, Lucide</Authors>
     </PropertyGroup>
 
-    <!-- Package dependencies -->
+    
     <ItemGroup>
         <PackageReference Include="IsExternalInit">
             <PrivateAssets>all</PrivateAssets>
