@@ -94,13 +94,10 @@ jobs:
                     export NODE_PATH=${{ github.workspace }}/src/CodeOfChaos.BlazorIcons.Lucide/node_modules
 
             -   name: Restore NuGet packages
-                run: dotnet restore CodeOfChaos.BlazorIcons.slnx
+                run: dotnet restore CodeOfChaos.BlazorIcons.GitHubActions.Release.slnf
 
             -   name: Build projects
-                run: dotnet build --solution CodeOfChaos.BlazorIcons.slnx --configuration Release --no-restore
-
-            -   name: Run tests
-                run: dotnet test --solution CodeOfChaos.BlazorIcons.slnx --configuration Release --no-restore --no-build
+                run: dotnet build CodeOfChaos.BlazorIcons.GitHubActions.Release.slnf --configuration Release --no-restore
 
             -   name: Publish to NuGet
                 env:

@@ -1,0 +1,10 @@
+﻿{
+  "solution": {
+    "path": "CodeOfChaos.BlazorIcons.slnx",
+    "projects": [
+      "src\\CodeOfChaos.BlazorIcons.Lucide.SourceGenerators\\CodeOfChaos.BlazorIcons.Lucide.SourceGenerators.csproj",
+      "src\\CodeOfChaos.BlazorIcons.Lucide\\CodeOfChaos.BlazorIcons.Lucide.csproj",
+      "tests\\CodeOfChaosTests.BlazorIcons.Lucide\\CodeOfChaosTests.BlazorIcons.Lucide.csproj"
+    ]
+  }
+}
