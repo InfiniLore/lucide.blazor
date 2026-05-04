@@ -1,41 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-<!--        <TargetFrameworks>netstandard2.0;net9.0</TargetFrameworks>-->
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <IsPackable>true</IsPackable>
-        <Nullable>enable</Nullable>
+        <!--suppress MsbuildTargetFrameworkTagInspection -->
+        <TargetFrameworks>netstandard2.0</TargetFrameworks>
         <LangVersion>latest</LangVersion>
-
+        
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild> <!-- Generates a package at build -->
-        <IncludeBuildOutput>false</IncludeBuildOutput> <!-- Do not include the generator as a lib dependency -->
+        <IncludeBuildOutput>false</IncludeBuildOutput> 
         <IsDeveloperDependency>true</IsDeveloperDependency>
         <DevelopmentDependency>true</DevelopmentDependency>
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-        <IsRoslynComponent>true</IsRoslynComponent><!-- Do not include the generator as a lib dependency -->
-        
+        <IsRoslynComponent>true</IsRoslynComponent>
+        <IncludeBuildOutput>false</IncludeBuildOutput> 
+
         <!-- Package metadata -->
         <PackageId>CodeOfChaos.BlazorIcons.Lucide.SourceGenerators</PackageId>
         <Version>1.14.0</Version>
-        <Authors>Anna Sas</Authors>
         <Description>Use Lucide in your Blazor apps</Description>
-        <PackageProjectUrl>https://github.com/InfiniLore/lucide.blazor</PackageProjectUrl>
-        <PackageTags>lucide;blazor;icon</PackageTags>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PublishRepositoryUrl>true</PublishRepositoryUrl>
-        <IncludeSymbols>true</IncludeSymbols>
-        <DebugType>embedded</DebugType>
-        <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageIcon>icon.png</PackageIcon>
+        <Authors>CodeOfChaos, Lucide</Authors>
     </PropertyGroup>
-
-    <!-- Include external files -->
-    <ItemGroup>
-        <None Include="../../LICENSE" Pack="true" PackagePath="" Visible="false" />
-        <None Include="../../README.md" Pack="true" PackagePath="" Visible="false" />
-        <None Include="../../assets/icon.png" Pack="true" PackagePath="" Visible="false" />
-    </ItemGroup>
 
     <!-- Package dependencies -->
     <ItemGroup>

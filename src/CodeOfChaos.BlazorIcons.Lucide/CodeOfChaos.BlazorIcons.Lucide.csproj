@@ -1,37 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
-        <IsPackable>true</IsPackable>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
-        
         <!-- Package metadata -->
         <PackageId>CodeOfChaos.BlazorIcons.Lucide</PackageId>
         <Version>1.14.0</Version>
-        <Authors>Anna Sas</Authors>
         <Description>Use Lucide in your Blazor apps</Description>
-        <PackageProjectUrl>https://github.com/InfiniLore/lucide.blazor</PackageProjectUrl>
-        <PackageTags>lucide;blazor;icon</PackageTags>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PublishRepositoryUrl>true</PublishRepositoryUrl>
-        <IncludeSymbols>true</IncludeSymbols>
-        <DebugType>embedded</DebugType>
-        <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageIcon>icon.png</PackageIcon>
+        <Authors>CodeOfChaos, Lucide</Authors>
         
         <!-- Define a fallback if NODE_PATH isn't set -->
         <LucideIconNodes Condition=" '$(NODE_PATH)' != '' ">$(NODE_PATH)/lucide-static/icon-nodes.json</LucideIconNodes>
         <LucideIconNodes Condition=" '$(NODE_PATH)' == '' ">$(MSBuildProjectDirectory)/node_modules/lucide-static/icon-nodes.json</LucideIconNodes>
     </PropertyGroup>
-
-    <!-- Include external files -->
-    <ItemGroup>
-        <None Include="../../LICENSE" Pack="true" PackagePath="" Visible="false" />
-        <None Include="../../README.md" Pack="true" PackagePath="" Visible="false" />
-        <None Include="../../assets/icon.png" Pack="true" PackagePath="" Visible="false" />
-    </ItemGroup>
 
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />

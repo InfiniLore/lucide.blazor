@@ -8,11 +8,16 @@
     <File Path=".github/workflows/onPullRequest-TestDotnet.yml" />
     <File Path=".github/workflows/release.yml" />
   </Folder>
+  <Folder Name="/.dev-tools/scripts/">
+    <File Path="scripts/update_lucide_static.py" />
+  </Folder>
   <Folder Name="/examples/">
     <Project Path="examples/CodeOfChaosExample.BlazorIcons.Lucide/CodeOfChaosExample.BlazorIcons.Lucide.csproj" />
   </Folder>
   <Folder Name="/src/">
     <File Path="Directory.Packages.props" />
+    <File Path="src/AnalyzerBaseline.props" />
+    <File Path="src/Directory.Build.props" />
     <Project Path="src/CodeOfChaos.BlazorIcons.Lucide.SourceGenerators/CodeOfChaos.BlazorIcons.Lucide.SourceGenerators.csproj" />
     <Project Path="src/CodeOfChaos.BlazorIcons.Lucide/CodeOfChaos.BlazorIcons.Lucide.csproj" />
   </Folder>
