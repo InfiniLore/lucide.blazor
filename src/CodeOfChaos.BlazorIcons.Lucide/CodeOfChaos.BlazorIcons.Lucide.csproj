@@ -23,7 +23,7 @@
         
         <!-- Define a fallback if NODE_PATH isn't set -->
         <LucideIconNodes Condition=" '$(NODE_PATH)' != '' ">$(NODE_PATH)/lucide-static/icon-nodes.json</LucideIconNodes>
-        <LucideIconNodes Condition=" '$(NODE_PATH)' == '' ">$(MSBuildProjectDirectory)/../../node_modules/lucide-static/icon-nodes.json</LucideIconNodes>
+        <LucideIconNodes Condition=" '$(NODE_PATH)' == '' ">$(MSBuildProjectDirectory)/node_modules/lucide-static/icon-nodes.json</LucideIconNodes>
     </PropertyGroup>
 
     <!-- Include external files -->
@@ -56,7 +56,7 @@
 
     <ItemGroup Label="Packing">
         <!-- Exclude additional files from NuGet package -->
-        <None Include="..\..\..\node_modules/lucide-static/icons/**/*.svg" Pack="false" />
+        <None Include="node_modules/lucide-static/icons/**/*.svg" Pack="false" />
     </ItemGroup>
 
     <ItemGroup>

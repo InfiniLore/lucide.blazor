@@ -7,13 +7,6 @@ updates:
     commit-message:
       prefix: "Chore(deps): "
       include: "scope"
-    ignore:
-        - dependency-name: "Microsoft.CodeAnalysis.Analyzers"
-          update-types: ["version-update:semver-major", "version-update:semver-minor"]
-        - dependency-name: "Microsoft.CodeAnalysis.CSharp"
-          update-types: ["version-update:semver-major", "version-update:semver-minor"]
-        - dependency-name: "Microsoft.CodeAnalysis.Common"
-          update-types: ["version-update:semver-major", "version-update:semver-minor"]
 
   - package-ecosystem: "npm"
     directory: "/"
