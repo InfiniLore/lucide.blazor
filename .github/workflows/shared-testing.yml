@@ -27,6 +27,11 @@ jobs:
                         9.x
                         10.x
 
+            -   name: Setup Python
+                uses: actions/setup-python@v6
+                with:
+                    python-version: 3.14
+
             -   name: Export node_modules path
                 run: |
                     echo "NODE_PATH=${{ github.workspace }}/src/CodeOfChaos.BlazorIcons.Lucide/node_modules" >> $GITHUB_ENV
