@@ -1,0 +1,53 @@
+﻿name: Publish Packages
+
+on:
+    workflow_dispatch:
+    push:
+        tags:
+            - 'v*.*.*' # Match version tags like v1.0.0
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout repository
+                uses: actions/checkout@v5
+
+            -   name: Setup Node.js
+                uses: actions/setup-node@v6
+                with:
+                    node-version: 20
+                    cache: 'npm'
+                    cache-dependency-path: 'package-lock.json'
+
+            -   name: Install Dependencies
+                run: npm install
+                working-directory: ${{ github.workspace }}
+
+            -   name: Setup .NET
+                uses: actions/setup-dotnet@v5
+                with:
+                    dotnet-version: |
+                        9.x
+                        10.x
+
+            -   name: Export node_modules path
+                run: |
+                    echo "NODE_PATH=${{ github.workspace }}/node_modules" >> $GITHUB_ENV
+                    export NODE_PATH=${{ github.workspace }}/node_modules
+
+            -   name: Restore NuGet packages
+                run: dotnet restore InfiniLore.IconLibs.slnx
+
+            -   name: Build projects
+                run: dotnet build --configuration Release --no-restore
+
+            -   name: Run tests
+                run: dotnet test --solution InfiniLore.IconLibs.slnx --configuration Release --no-restore --no-build
+
+            -   name: Publish to NuGet
+                env:
+                    NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+                run: |
+                    dotnet nuget push src/CodeOfChaos.BlazorIcons.Lucide/bin/Release/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json --skip-duplicate
+                    dotnet nuget push src/CodeOfChaos.BlazorIcons.Lucide.SourceGenerators/bin/Release/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json --skip-duplicate

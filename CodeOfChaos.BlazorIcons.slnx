@@ -5,10 +5,15 @@
   </Folder>
   <Folder Name="/.dev-tools/github/">
     <File Path=".github/dependabot.yml" />
-    <File Path=".github/workflows/onPullRequest-TestDotnet.yml" />
-    <File Path=".github/workflows/release.yml" />
+  </Folder>
+  <Folder Name="/.dev-tools/github/workflows/">
+    <File Path=".github/workflows/bump-version.yml" />
+    <File Path=".github/workflows/ci-release.yml" />
+    <File Path=".github/workflows/ci-testing.yml" />
+    <File Path=".github/workflows/ci-update-lucide.yml" />
   </Folder>
   <Folder Name="/.dev-tools/scripts/">
+    <File Path="scripts/bump_version.py" />
     <File Path="scripts/update_lucide_static.py" />
   </Folder>
   <Folder Name="/examples/">

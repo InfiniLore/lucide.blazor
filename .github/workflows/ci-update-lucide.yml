@@ -1,0 +1,104 @@
+name: Update Lucide Static
+
+on:
+    workflow_dispatch:
+        inputs:
+            lucide_version:
+                description: lucide-static version (for example 1.14.0)
+                required: false
+                type: string
+            lucide_branch:
+                description: lucide git branch
+                required: false
+                default: main
+                type: string
+    schedule:
+        # Every Monday at 08:00 UTC.
+        -   cron: "0 8 * * 1"
+
+permissions:
+    contents: write
+    pull-requests: write
+
+jobs:
+    update:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout repository
+                uses: actions/checkout@v5
+
+            -   name: Setup Python
+                uses: actions/setup-python@v6
+
+            -   name: Setup Node.js
+                uses: actions/setup-node@v6
+                with:
+                    node-version: 24
+                    cache: npm
+                    cache-dependency-path: src/CodeOfChaos.BlazorIcons.Lucide/package-lock.json
+
+            -   name: Resolve version and branch
+                id: resolve
+                run: |
+                    INPUT_VERSION="${{ github.event.inputs.lucide_version }}"
+                    INPUT_BRANCH="${{ github.event.inputs.lucide_branch }}"
+                    
+                    if [ -n "$INPUT_VERSION" ]; then
+                      VERSION="$INPUT_VERSION"
+                    else
+                      VERSION="$(npm view lucide-static version)"
+                    fi
+                    
+                    if [ -n "$INPUT_BRANCH" ]; then
+                      BRANCH="$INPUT_BRANCH"
+                    else
+                      BRANCH="main"
+                    fi
+                    
+                    echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+                    echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+            -   name: Run Lucide static updater
+                run: |
+                    python scripts/update_lucide_static.py \
+                      --lucide-repo https://github.com/lucide-icons/lucide.git \
+                      --lucide-branch "${{ steps.resolve.outputs.branch }}" \
+                      --lucide-local-path "${{ runner.temp }}/lucide-repo" \
+                      --icon-source-subdir icons \
+                      --icon-output-dir "${{ runner.temp }}/lucide-icons" \
+                      --razor-output-dir src/CodeOfChaos.BlazorIcons.Lucide/Components/Icons \
+                      --namespace CodeOfChaos.BlazorIcons.Lucide \
+                      --version-file src/CodeOfChaos.BlazorIcons.Lucide/package.json \
+                      --version "${{ steps.resolve.outputs.version }}"
+
+            -   name: Refresh npm lock + node_modules
+                run: npm install
+                working-directory: src/CodeOfChaos.BlazorIcons.Lucide
+
+            -   name: Detect changes
+                id: changes
+                run: |
+                    if [ -n "$(git status --porcelain)" ]; then
+                      echo "has_changes=true" >> "$GITHUB_OUTPUT"
+                    else
+                      echo "has_changes=false" >> "$GITHUB_OUTPUT"
+                    fi
+
+            -   name: Create pull request
+                if: steps.changes.outputs.has_changes == 'true'
+                uses: peter-evans/create-pull-request@v7
+                with:
+                    commit-message: "chore: update lucide-static to ${{ steps.resolve.outputs.version }}"
+                    branch: "chore/update-lucide-static-${{ steps.resolve.outputs.version }}-${{ github.run_id }}"
+                    delete-branch: true
+                    title: "chore: update lucide-static to ${{ steps.resolve.outputs.version }}"
+                    body: |
+                        Automated Lucide refresh.
+                        
+                        - Updates `src/CodeOfChaos.BlazorIcons.Lucide/package.json` dependency version.
+                        - Regenerates static `Li*.razor` components.
+                        - Refreshes `package-lock.json`.
+
+            -   name: No changes
+                if: steps.changes.outputs.has_changes == 'false'
+                run: echo "No file changes detected."
