@@ -67,13 +67,7 @@ jobs:
                     elif [ -n "${{ inputs.part }}" ] && [ "${{ inputs.part }}" != "none" ]; then
                       CMD+=(--part "${{ inputs.part }}")
                     else
-                      LUCIDE_VERSION="$(python - <<'PY'
-                      import json
-                      from pathlib import Path
-                      pkg = json.loads(Path("src/CodeOfChaos.BlazorIcons.Lucide/package.json").read_text(encoding="utf-8"))
-                      print(pkg["dependencies"]["lucide-static"])
-                      PY
-                      )"
+                      LUCIDE_VERSION="$(python -c 'import json, pathlib; pkg=json.loads(pathlib.Path("src/CodeOfChaos.BlazorIcons.Lucide/package.json").read_text(encoding="utf-8")); print(pkg["dependencies"]["lucide-static"])')"
                       echo "No inputs provided. Using lucide-static version: $LUCIDE_VERSION"
                       CMD+=(--custom-version "$LUCIDE_VERSION")
                     fi
@@ -81,12 +75,7 @@ jobs:
                     "${CMD[@]}"
 
                     if [ -n "$(git status --porcelain)" ]; then
-                      NEW_VERSION="$(python - <<'PY'
-                      import xml.etree.ElementTree as ET
-                      tree = ET.parse("src/CodeOfChaos.BlazorIcons.Lucide/CodeOfChaos.BlazorIcons.Lucide.csproj")
-                      print(tree.getroot().find(".//Version").text.strip())
-                      PY
-                      )"
+                      NEW_VERSION="$(python -c 'import xml.etree.ElementTree as ET; tree=ET.parse("src/CodeOfChaos.BlazorIcons.Lucide/CodeOfChaos.BlazorIcons.Lucide.csproj"); print(tree.getroot().find(".//Version").text.strip())')"
                       git add .
                       git commit -m "chore: bump release version to ${NEW_VERSION}"
                       git push
@@ -96,12 +85,7 @@ jobs:
 
             -   name: Resolve release version and tag
                 run: |
-                    VERSION="$(python - <<'PY'
-                    import xml.etree.ElementTree as ET
-                    tree = ET.parse("src/CodeOfChaos.BlazorIcons.Lucide/CodeOfChaos.BlazorIcons.Lucide.csproj")
-                    print(tree.getroot().find(".//Version").text.strip())
-                    PY
-                    )"
+                    VERSION="$(python -c 'import xml.etree.ElementTree as ET; tree=ET.parse("src/CodeOfChaos.BlazorIcons.Lucide/CodeOfChaos.BlazorIcons.Lucide.csproj"); print(tree.getroot().find(".//Version").text.strip())')"
                     echo "VERSION=$VERSION" >> "$GITHUB_ENV"
                     echo "TAG=v$VERSION" >> "$GITHUB_ENV"
 
