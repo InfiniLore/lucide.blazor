@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
+        <IsPackable>true</IsPackable>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        
+        <!-- Package metadata -->
+        <PackageId>CodeOfChaos.BlazorIcons.Lucide</PackageId>
+        <Version>1.14.0</Version>
+        <Authors>Anna Sas</Authors>
+        <Description>Use Lucide in your Blazor apps</Description>
+        <PackageProjectUrl>https://github.com/InfiniLore/lucide.blazor</PackageProjectUrl>
+        <PackageTags>lucide;blazor;icon</PackageTags>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <DebugType>embedded</DebugType>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageIcon>icon.png</PackageIcon>
+        
+        <!-- Define a fallback if NODE_PATH isn't set -->
+        <LucideIconNodes Condition=" '$(NODE_PATH)' != '' ">$(NODE_PATH)/lucide-static/icon-nodes.json</LucideIconNodes>
+        <LucideIconNodes Condition=" '$(NODE_PATH)' == '' ">$(MSBuildProjectDirectory)/../../node_modules/lucide-static/icon-nodes.json</LucideIconNodes>
+    </PropertyGroup>
+
+    <!-- Include external files -->
+    <ItemGroup>
+        <None Include="../../LICENSE" Pack="true" PackagePath="" Visible="false" />
+        <None Include="../../README.md" Pack="true" PackagePath="" Visible="false" />
+        <None Include="../../assets/icon.png" Pack="true" PackagePath="" Visible="false" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CodeOfChaos.Extensions.DependencyInjection" />
+        <PackageReference Include="JetBrains.Annotations" />
+        <PackageReference Include="Microsoft.AspNetCore.Components" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Common" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
+        <PackageReference Include="CodeOfChaos.GeneratorTools" Pack="false" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CodeOfChaos.BlazorIcons.Lucide.SourceGenerators\CodeOfChaos.BlazorIcons.Lucide.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    </ItemGroup>
+
+    <ItemGroup Label="Lucide Files">
+        <!-- Adjusted to ensure paths resolve dynamically -->
+<!--        <AdditionalFiles Include="$(LucideIconsPath)" Link="Icons\%(RecursiveDir)%(FileName)%(Extension)" Pack="false" />-->
+        <AdditionalFiles Include="$(LucideIconNodes)" Link="%(FileName)%(Extension)" Pack="false" />
+    </ItemGroup>
+
+    <ItemGroup Label="Packing">
+        <!-- Exclude additional files from NuGet package -->
+        <None Include="..\..\..\node_modules/lucide-static/icons/**/*.svg" Pack="false" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Properties\launchSettings.json" />
+    </ItemGroup>
+
+</Project>

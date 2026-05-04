@@ -1,6 +1,6 @@
-# InfiniLore.Lucide
+# CodeOfChaos.BlazorIcons.Lucide
 
-**InfiniLore.Lucide** lets you integrate [Lucide Icons](https://lucide.dev/) into Blazor apps with a simple Razor component that renders SVG markup with configurable styling.
+**CodeOfChaos.BlazorIcons.Lucide** lets you integrate [Lucide Icons](https://lucide.dev/) into Blazor apps with a simple Razor component that renders SVG markup with configurable styling.
 
 **This package is developed as an independent project and is not affiliated, associated, or endorsed by the creators or maintainers of the Lucide library.**
 **It is built to enhance the experience of using Lucide's open-source icon set within Blazor applications.**
@@ -21,10 +21,10 @@ This package uses the Minor section of semantic versions (`0.x.0`) to denote whi
 ## Getting Started
 
 ### Install the Package
-Make sure you have [.NET 9.0](https://dotnet.microsoft.com/) installed. Then install **InfiniLore.Lucide**:
+Make sure you have [.NET 9.0](https://dotnet.microsoft.com/) installed. Then install **CodeOfChaos.BlazorIcons.Lucide**:
 
 ```shell
-dotnet add package InfiniLore.Lucide
+dotnet add package CodeOfChaos.BlazorIcons.Lucide
 ```
 
 ---
@@ -42,7 +42,7 @@ builder.Services.AddLucideIcons();
 
 `_Imports.razor`
 ```csharp
-@using InfiniLore.Lucide
+@using CodeOfChaos.BlazorIcons.Lucide
 ```
 
 ### Add the Component
@@ -106,16 +106,16 @@ This library:
 ## Development Notes
 
 This project follows a modular structure for maintainability:
-- `InfiniLore.Lucide`: Blazor components and service logic.
-- `InfiniLore.Lucide.Data`: Handles icon definitions and metadata, data provided by `InfiniLore.Lucide.Generators.Raw`.
-- `InfiniLore.Lucide.Generators.Raw`: Implements tooling via Roslyn to read data from lucide-static package.
-- `Tools.InfiniLore.Lucide`: A set of development tools, like the Razor file generator.
+- `CodeOfChaos.BlazorIcons.Lucide`: Blazor components and service logic.
+- `CodeOfChaos.BlazorIcons.Lucide.Data`: Handles icon definitions and metadata, data provided by `CodeOfChaos.BlazorIcons.Lucide.Generators.Raw`.
+- `CodeOfChaos.BlazorIcons.Lucide.Generators.Raw`: Implements tooling via Roslyn to read data from lucide-static package.
+- `Tools.CodeOfChaos.BlazorIcons.Lucide`: A set of development tools, like the Razor file generator.
 
 ---
 
 ## License
 
-InfiniLore.Lucide is built on **Lucide**, which is distributed under the ICS license:
+CodeOfChaos.BlazorIcons.Lucide is built on **Lucide**, which is distributed under the ICS license:
 
 ```text
 Permission to use, copy, modify, and/or distribute this software for any
@@ -144,4 +144,4 @@ Contributions are welcome! To get started:
 
 For further development or issues, feel free to raise a GitHub issue or suggest improvements.
 
-Enjoy using **InfiniLore.Lucide** in your Blazor projects.
+Enjoy using **CodeOfChaos.BlazorIcons.Lucide** in your Blazor projects.

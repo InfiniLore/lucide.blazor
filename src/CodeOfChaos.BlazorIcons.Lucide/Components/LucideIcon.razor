@@ -1,0 +1,43 @@
+﻿@* ------------------------------------------------------------------------------------------------------------------ *@
+@* Imports
+@* ------------------------------------------------------------------------------------------------------------------ *@
+@namespace CodeOfChaos.BlazorIcons.Lucide
+@* ------------------------------------------------------------------------------------------------------------------ *@
+@* Descriptors
+@* ------------------------------------------------------------------------------------------------------------------ *@
+@inherits LucideComponentBase
+@inject ILucideService LucideService
+@* ------------------------------------------------------------------------------------------------------------------ *@
+@* Html
+@* ------------------------------------------------------------------------------------------------------------------ *@
+<svg class="@Class"
+     xmlns="http://www.w3.org/2000/svg"
+     width="@Size"
+     height="@Size"
+     viewBox="0 0 24 24"
+     fill="@Fill"
+     stroke="@Stroke"
+     stroke-width="@StrokeWidth"
+     stroke-linecap="@StrokeLineCap"
+     stroke-linejoin="@StrokeLineJoin">
+    @SvgContent
+    @ChildContent
+</svg>
+@* ------------------------------------------------------------------------------------------------------------------ *@
+@* Code
+@* ------------------------------------------------------------------------------------------------------------------ *@
+@code {
+    [Parameter, EditorRequired] public string Name { get; set; } = string.Empty;
+    private MarkupString SvgContent { get; set; }
+    
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    
+    // -----------------------------------------------------------------------------------------------------------------
+    // Methods
+    // -----------------------------------------------------------------------------------------------------------------
+    protected override void OnParametersSet() {
+        base.OnParametersSet();
+        SvgContent = LucideService.GetIconAsMarkupString(Name); // Update SvgContent when Name changes
+    }
+
+}
