@@ -12,6 +12,8 @@ updates:
         directory: "/"
         schedule:
             interval: "weekly"
+        ignore:
+            -   dependency-name: "lucide-static"
         commit-message:
             prefix: "Chore(deps): "
             include: "scope"
