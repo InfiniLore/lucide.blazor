@@ -150,10 +150,8 @@ jobs:
 
             -   name: Push GitHub Packages
                 if: ${{ inputs.publish_to_nuget }}
-                env:
-                    GITHUB_TOKEN: ${{ secrets.CI_RELEASE_TOKEN }}
                 run: |
                     dotnet nuget push "./release/*.nupkg" \
-                      --api-key "$GITHUB_TOKEN" \
+                      --api-key "${{ secrets.GITHUB_TOKEN }}" \
                       --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
                       --skip-duplicate
