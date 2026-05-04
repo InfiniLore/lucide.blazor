@@ -7,10 +7,12 @@
     <File Path=".github/dependabot.yml" />
   </Folder>
   <Folder Name="/.dev-tools/github/workflows/">
-    <File Path=".github/workflows/bump-version.yml" />
     <File Path=".github/workflows/ci-release.yml" />
     <File Path=".github/workflows/ci-testing.yml" />
     <File Path=".github/workflows/ci-update-lucide.yml" />
+  </Folder>
+  <Folder Name="/.dev-tools/github/workflows/shared/">
+    <File Path=".github/workflows/shared-testing.yml" />
   </Folder>
   <Folder Name="/.dev-tools/scripts/">
     <File Path="scripts/bump_version.py" />
