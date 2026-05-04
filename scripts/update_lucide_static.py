@@ -3,6 +3,9 @@ import subprocess
 import shutil
 import json
 from pathlib import Path
+import re
+import xml.etree.ElementTree as ET
+from copy import deepcopy
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -43,28 +46,98 @@ def copy_icons(src: Path, dst: Path):
 
 
 def load_icon_files(icon_dir: Path):
-    return list(icon_dir.glob("*.svg"))
+    return sorted(icon_dir.glob("*.svg"), key=lambda p: p.stem)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-# Razor generation (simplified)
+# Razor generation
 # ----------------------------------------------------------------------------------------------------------------------
+
+LUCIDE_RAZOR_LICENSE_HEADER = """@* --- *@
+@* ISC License *@
+@* Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2022 as part of Feather (MIT). All other copyright (c) for Lucide are held by Lucid Contributors 2022. *@
+@*  *@
+@* Permission to use, copy, modify, and/or distribute this software for any *@
+@* purpose with or without fee is hereby granted, provided that the above *@
+@* copyright notice and this permission notice appear in all copies. *@
+@*  *@
+@* THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES *@
+@* WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF *@
+@* MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR *@
+@* ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES *@
+@* WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN *@
+@* ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF *@
+@* OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. *@
+@*  *@
+@* --- *@
+@* ReSharper disable once CheckNamespace *@"""
+
+
+def to_pascal_case(name: str) -> str:
+    parts = [part for part in re.split(r"[^a-zA-Z0-9]+", name) if part]
+    return "".join(part[0].upper() + part[1:] for part in parts)
+
+
+def extract_svg_children(svg_file: Path) -> str:
+    xml_content = svg_file.read_text(encoding="utf-8")
+    try:
+        root = ET.fromstring(xml_content)
+    except ET.ParseError as exc:
+        raise RuntimeError(f"Failed to parse SVG file: {svg_file}") from exc
+
+    def strip_namespaces(node: ET.Element):
+        if node.tag.startswith("{"):
+            node.tag = node.tag.split("}", 1)[1]
+        namespaced_attrs = [key for key in node.attrib if key.startswith("{")]
+        for key in namespaced_attrs:
+            local_key = key.split("}", 1)[1]
+            node.attrib[local_key] = node.attrib.pop(key)
+        for sub in node:
+            strip_namespaces(sub)
+
+    child_nodes = []
+    for child in root:
+        child_copy = deepcopy(child)
+        strip_namespaces(child_copy)
+        rendered = ET.tostring(child_copy, encoding="unicode", short_empty_elements=True).strip()
+        if rendered:
+            child_nodes.append(f"    {rendered}")
+    return "\n".join(child_nodes)
+
+
+def clear_existing_razor_files(output_dir: Path):
+    if not output_dir.exists():
+        return
+    for file in output_dir.glob("*.razor"):
+        file.unlink()
+
 
 def generate_razor(icon_files: list[Path], output_dir: Path, namespace: str):
     output_dir.mkdir(parents=True, exist_ok=True)
+    clear_existing_razor_files(output_dir)
 
     for icon in icon_files:
-        name = icon.stem.replace("-", "_").title().replace("_", "")
-        content = icon.read_text()
+        name = f"Li{to_pascal_case(icon.stem)}"
+        inner_svg = extract_svg_children(icon)
 
-        component = f"""@namespace {namespace}
-
-<svg>
-{content}
+        component = f"""{LUCIDE_RAZOR_LICENSE_HEADER}
+@namespace {namespace}
+@inherits LucideComponentBase
+<svg class="@Class"
+     xmlns="http://www.w3.org/2000/svg"
+     width="@Size"
+     height="@Size"
+     viewBox="0 0 24 24"
+     fill="@Fill"
+     stroke="@Stroke"
+     stroke-width="@StrokeWidth"
+     stroke-linecap="@StrokeLineCap"
+     stroke-linejoin="@StrokeLineJoin">
+{inner_svg}
 </svg>
 """
 
-        (output_dir / f"{name}.razor").write_text(component)
+        (output_dir / f"{name}.razor").write_text(component, encoding="utf-8")
 
     print(f"Generated {len(icon_files)} Razor components")
 
@@ -74,9 +147,35 @@ def generate_razor(icon_files: list[Path], output_dir: Path, namespace: str):
 # ----------------------------------------------------------------------------------------------------------------------
 
 def update_version(version_file: Path, new_version: str):
-    data = {"version": new_version}
-    version_file.write_text(json.dumps(data, indent=2))
-    print(f"Updated version to {new_version}")
+    if version_file.suffix.lower() != ".json":
+        raise RuntimeError(f"Version file must be JSON: {version_file}")
+
+    existing = {}
+    if version_file.exists():
+        content = version_file.read_text(encoding="utf-8").strip()
+        if content:
+            existing = json.loads(content)
+
+    if not isinstance(existing, dict):
+        raise RuntimeError(f"Expected root JSON object in version file: {version_file}")
+
+    dependencies = existing.get("dependencies")
+    updated = False
+
+    if "version" in existing:
+        existing["version"] = new_version
+        updated = True
+
+    if isinstance(dependencies, dict) and "lucide-static" in dependencies:
+        dependencies["lucide-static"] = new_version
+        updated = True
+
+    # Fallback for plain {"version": "..."} style files.
+    if not updated:
+        existing["version"] = new_version
+
+    version_file.write_text(json.dumps(existing, indent=2) + "\n", encoding="utf-8")
+    print(f"Updated version fields in {version_file} to {new_version}")
 
 
 # ----------------------------------------------------------------------------------------------------------------------
