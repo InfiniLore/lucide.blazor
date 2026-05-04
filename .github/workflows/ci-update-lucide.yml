@@ -1,4 +1,4 @@
-name: Update Lucide Static
+name: "CI: Update Lucide Static"
 
 on:
     workflow_dispatch:

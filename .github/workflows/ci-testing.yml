@@ -1,4 +1,4 @@
-﻿name: Dotnet Testing
+﻿name: "CI: .NET Testing"
 
 on:
     workflow_dispatch:
@@ -7,7 +7,7 @@ on:
         branches: [ core ]
 
 jobs:
-    build:
+    test:
         runs-on: ubuntu-latest
         steps:
             -   name: Checkout repository
@@ -38,10 +38,10 @@ jobs:
                     export NODE_PATH=${{ github.workspace }}/node_modules
 
             -   name: Restore NuGet packages
-                run: dotnet restore InfiniLore.IconLibs.slnx
+                run: dotnet restore CodeOfChaos.BlazorIcons.slnx
 
             -   name: Build projects
                 run: dotnet build --configuration Release --no-restore
 
             -   name: Run tests
-                run: dotnet test --solution InfiniLore.IconLibs.slnx --configuration Release --no-restore --no-build
+                run: dotnet test --solution CodeOfChaos.BlazorIcons.slnx --configuration Release --no-restore --no-build
