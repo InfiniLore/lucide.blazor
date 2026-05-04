@@ -34,14 +34,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="CodeOfChaos.Extensions.DependencyInjection" />
         <PackageReference Include="JetBrains.Annotations" />
-        <PackageReference Include="Microsoft.AspNetCore.Components" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="all" />
-        <PackageReference Include="Microsoft.CodeAnalysis.Common" PrivateAssets="all" />
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
-        <PackageReference Include="CodeOfChaos.GeneratorTools" Pack="false" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>

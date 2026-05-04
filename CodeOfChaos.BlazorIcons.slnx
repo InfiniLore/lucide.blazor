@@ -1,9 +1,7 @@
 <Solution>
   <Folder Name="/.dev-tools/">
-    <File Path="Directory.Packages.props" />
     <File Path="global.json" />
     <File Path="README.md" />
-    <Project Path="src/CodeOfChaosTools.BlazorIcons.Lucide/CodeOfChaosTools.BlazorIcons.Lucide.csproj" />
   </Folder>
   <Folder Name="/.dev-tools/github/">
     <File Path=".github/dependabot.yml" />
@@ -14,6 +12,7 @@
     <Project Path="examples/CodeOfChaosExample.BlazorIcons.Lucide/CodeOfChaosExample.BlazorIcons.Lucide.csproj" />
   </Folder>
   <Folder Name="/src/">
+    <File Path="Directory.Packages.props" />
     <Project Path="src/CodeOfChaos.BlazorIcons.Lucide.SourceGenerators/CodeOfChaos.BlazorIcons.Lucide.SourceGenerators.csproj" />
     <Project Path="src/CodeOfChaos.BlazorIcons.Lucide/CodeOfChaos.BlazorIcons.Lucide.csproj" />
   </Folder>
