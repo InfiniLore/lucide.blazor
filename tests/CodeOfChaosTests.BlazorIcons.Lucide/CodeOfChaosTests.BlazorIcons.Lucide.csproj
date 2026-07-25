@@ -12,6 +12,7 @@
     <ItemGroup>
         <PackageReference Include="CodeOfChaos.Extensions" />
         <PackageReference Include="JetBrains.Annotations" />
+        <PackageReference Include="System.Text.Json" />
         <PackageReference Include="TUnit" />
     </ItemGroup>
 
