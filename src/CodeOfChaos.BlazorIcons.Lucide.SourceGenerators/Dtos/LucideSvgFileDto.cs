@@ -3,12 +3,9 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.BlazorIcons.Lucide.SourceGenerators.Helpers;
 using Microsoft.CodeAnalysis;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Text;
 using System.Text.Json;
-using System.Threading;
 
 namespace CodeOfChaos.BlazorIcons.Lucide.SourceGenerators.Dtos;
 // ---------------------------------------------------------------------------------------------------------------------

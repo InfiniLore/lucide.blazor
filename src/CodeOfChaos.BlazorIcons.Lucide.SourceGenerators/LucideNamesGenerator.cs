@@ -6,7 +6,6 @@ using CodeOfChaos.BlazorIcons.Lucide.SourceGenerators.Dtos;
 using CodeOfChaos.GeneratorTools;
 using CodeOfChaos.BlazorIcons.Lucide.SourceGenerators.Helpers;
 using Microsoft.CodeAnalysis;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 
 namespace CodeOfChaos.BlazorIcons.Lucide.SourceGenerators;
