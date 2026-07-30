@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
       <PackageVersion Include="CodeOfChaos.Extensions" Version="0.90.0" />
-      <PackageVersion Include="CodeOfChaos.Extensions.DependencyInjection" Version="0.90.0" />
+      <PackageVersion Include="CodeOfChaos.Extensions.DependencyInjection" Version="0.93.0" />
       <PackageVersion Include="CodeOfChaos.GeneratorTools" Version="2.2.1" />
       <PackageVersion Include="IsExternalInit" Version="1.0.3" />
       <PackageVersion Include="JetBrains.Annotations" Version="2026.2.0" />
