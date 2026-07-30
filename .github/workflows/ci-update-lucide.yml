@@ -77,6 +77,12 @@ jobs:
                 run: npm install
                 working-directory: src/CodeOfChaos.BlazorIcons.Lucide
 
+            -   name: Refresh Lucide test configuration
+                run: |
+                    python scripts/update_lucide_static.py \
+                      --icon-nodes-file src/CodeOfChaos.BlazorIcons.Lucide/node_modules/lucide-static/icon-nodes.json \
+                      --test-config-file tests/CodeOfChaosTests.BlazorIcons.Lucide/testconfig.json
+
             -   name: Detect changes
                 id: changes
                 run: |

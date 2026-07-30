@@ -1,12 +1,10 @@
-﻿#if NETSTANDARD2_0
-// ---------------------------------------------------------------------------------------------------------------------
+﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.BlazorIcons.Lucide.SourceGenerators.Dtos;
 using CodeOfChaos.GeneratorTools;
 using CodeOfChaos.BlazorIcons.Lucide.SourceGenerators.Helpers;
 using Microsoft.CodeAnalysis;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 
 namespace CodeOfChaos.BlazorIcons.Lucide.SourceGenerators;
@@ -61,4 +59,3 @@ public class LucideDataProviderGenerator : IIncrementalGenerator {
         context.AddSource("LucideDataProvider.g.cs", builder.ToString());
     }
 }
-#endif

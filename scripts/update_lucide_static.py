@@ -179,6 +179,32 @@ def update_version(version_file: Path, new_version: str):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
+# Test configuration
+# ----------------------------------------------------------------------------------------------------------------------
+
+def update_test_config(icon_nodes_file: Path, test_config_file: Path):
+    if not icon_nodes_file.is_file():
+        raise RuntimeError(f"Lucide icon-nodes file was not found: {icon_nodes_file}")
+
+    icon_nodes = json.loads(icon_nodes_file.read_text(encoding="utf-8"))
+    if not isinstance(icon_nodes, dict) or not all(isinstance(name, str) for name in icon_nodes):
+        raise RuntimeError(f"Expected an object of icon names in: {icon_nodes_file}")
+
+    icon_names = sorted(icon_nodes)
+    test_config = {
+        "IconAmount": len(icon_names),
+        "IconNames": icon_names,
+    }
+
+    test_config_file.parent.mkdir(parents=True, exist_ok=True)
+    test_config_file.write_text(
+        json.dumps(test_config, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    print(f"Updated {test_config_file} with {len(icon_names)} icon names")
+
+
+# ----------------------------------------------------------------------------------------------------------------------
 # Git commit/push
 # ----------------------------------------------------------------------------------------------------------------------
 
@@ -233,23 +259,43 @@ def update_lucide_static(
 def main():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--lucide-repo", required=True)
+    parser.add_argument("--lucide-repo")
     parser.add_argument("--lucide-branch", default="main")
-    parser.add_argument("--lucide-local-path", required=True)
+    parser.add_argument("--lucide-local-path")
 
     parser.add_argument("--icon-source-subdir", default="icons")
-    parser.add_argument("--icon-output-dir", required=True)
+    parser.add_argument("--icon-output-dir")
 
-    parser.add_argument("--razor-output-dir", required=True)
-    parser.add_argument("--namespace", required=True)
+    parser.add_argument("--razor-output-dir")
+    parser.add_argument("--namespace")
 
     parser.add_argument("--version-file")
     parser.add_argument("--version")
+
+    parser.add_argument("--icon-nodes-file")
+    parser.add_argument("--test-config-file")
 
     parser.add_argument("--commit", action="store_true")
     parser.add_argument("--push", action="store_true")
 
     args = parser.parse_args()
+
+    if args.icon_nodes_file or args.test_config_file:
+        if not (args.icon_nodes_file and args.test_config_file):
+            parser.error("--icon-nodes-file and --test-config-file must be supplied together")
+        update_test_config(Path(args.icon_nodes_file), Path(args.test_config_file))
+        return
+
+    required_args = {
+        "--lucide-repo": args.lucide_repo,
+        "--lucide-local-path": args.lucide_local_path,
+        "--icon-output-dir": args.icon_output_dir,
+        "--razor-output-dir": args.razor_output_dir,
+        "--namespace": args.namespace,
+    }
+    missing_args = [name for name, value in required_args.items() if not value]
+    if missing_args:
+        parser.error(f"the following arguments are required: {', '.join(missing_args)}")
 
     update_lucide_static(
         lucide_repo=args.lucide_repo,
